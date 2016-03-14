@@ -1,4 +1,4 @@
-import numpy as np
+import numpy
 import cv2
 
 # trzeba odpalic strumieniowanie w VLC na 127.0.0.1:5004
