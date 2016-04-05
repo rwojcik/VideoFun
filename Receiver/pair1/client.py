@@ -32,7 +32,7 @@ while 1:
     print "read frame"
     print len(frame_data)
 
-    frame = cv2.imdecode(np.fromstring(str(frame_data), dtype=np.uint8), 0)
+    frame = cv2.imdecode(np.fromstring(str(frame_data), dtype=np.uint8), 1)
     cv2.imshow('frame',frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

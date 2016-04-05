@@ -12,10 +12,12 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((TCP_IP, TCP_PORT))
 s.listen(1)
 
+print "please connect"
 conn, addr = s.accept()
 print 'Connection address:', addr
 
 camera = cv2.VideoCapture(0)
+print camera.get(cv2.CAP_PROP_CONVERT_RGB)
 
 while 1:
     if not conn.recv(1):
