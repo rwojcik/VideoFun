@@ -21,6 +21,7 @@ while 1:
     if not conn.recv(1):
         break
     f,img = camera.read()
+    cv2.circle(img,(447,63), 63, (0,0,255), -1)
     retval, buf = cv2.imencode(".jpg", img)
     if not retval:
         print "retval false"
