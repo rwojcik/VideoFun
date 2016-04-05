@@ -15,6 +15,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((TCP_IP, TCP_PORT))
 #s.send(MESSAGE)
 while 1:
+    s.send('o')
     ch = s.recv(1)
     print "first ch = %s" % ch
     number = ""

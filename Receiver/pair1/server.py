@@ -18,6 +18,8 @@ print 'Connection address:', addr
 camera = cv2.VideoCapture(0)
 
 while 1:
+    if not conn.recv(1):
+        break
     f,img = camera.read()
     retval, buf = cv2.imencode(".jpg", img)
     if not retval:
