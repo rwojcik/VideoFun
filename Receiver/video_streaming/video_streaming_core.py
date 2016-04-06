@@ -52,25 +52,6 @@ class FrameSinkServer:
         self.conn.send(buf)
         return True
 
-def recive_and_sink_video(ip, port, frameEditor, frameSink):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((ip, port))
-    frameSink.sink_init()
-    while 1:
-        s.send('o')
-        number = readNumber(s)
-        frame_data = recv_data(number, s)
-        print "read frame"
-        print len(frame_data)
-
-        frame = cv2.imdecode(np.fromstring(str(frame_data), dtype=np.uint8), 1)
-        frame = frameEditor.frame_edit(frame)
-        if not frameSink.frame_sink(frame):
-            break
-    frameSink.sink_finish()
-    s.close()
-
-
 def recv_data(number, s):
     frame_data = MutableString()
     while number > 0:
@@ -88,3 +69,37 @@ def readNumber(s):
         ch = s.recv(1)
     number = int(number)
     return number
+
+class FrameGenearator:
+
+    def __init__(self, ip, port):
+        self.ip = ip
+        self.port = port
+
+    def generator_init(self):
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.connect((self.ip, self.port))
+
+    def gen_frame(self):
+        self.s.send('o')
+        number = readNumber(self.s)
+        frame_data = recv_data(number, self.s)
+        print "read frame in generator"
+        print len(frame_data)
+        frame = cv2.imdecode(np.fromstring(str(frame_data), dtype=np.uint8), 1)
+        return frame
+
+    def generator_finish(self):
+        self.s.close()
+
+
+def recive_and_sink_video(frameEditor, frameSink, frameGen):
+    frameGen.generator_init()
+    frameSink.sink_init()
+    while 1:
+        frame = frameGen.gen_frame()
+        frame = frameEditor.frame_edit(frame)
+        if not frameSink.frame_sink(frame):
+            break
+    frameSink.sink_finish()
+    frameGen.generator_finish()
