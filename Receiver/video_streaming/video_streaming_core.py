@@ -93,13 +93,13 @@ class FrameGenearator:
         self.s.close()
 
 
-def recive_and_sink_video(frameEditor, frameSink, frameGen):
-    frameGen.generator_init()
-    frameSink.sink_init()
+def recive_and_sink_video(frameEditor, framesDst, framesSrc):
+    framesSrc.generator_init()
+    framesDst.sink_init()
     while 1:
-        frame = frameGen.gen_frame()
+        frame = framesSrc.gen_frame()
         frame = frameEditor.frame_edit(frame)
-        if not frameSink.frame_sink(frame):
+        if not framesDst.frame_sink(frame):
             break
-    frameSink.sink_finish()
-    frameGen.generator_finish()
+    framesDst.sink_finish()
+    framesSrc.generator_finish()
