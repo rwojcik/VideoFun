@@ -58,19 +58,8 @@ def recive_and_sink_video(ip, port, frameEditor, frameSink):
     frameSink.sink_init()
     while 1:
         s.send('o')
-        ch = s.recv(1)
-        print "first ch = %s" % ch
-        number = ""
-        while ch.isdigit():
-            number += ch
-            ch = s.recv(1)
-            print "now number is %s" % number
-        number = int(number)
-        frame_data = MutableString()
-        while number > 0:
-            read = s.recv(number)
-            frame_data += read
-            number -= len(read)
+        number = readNumber(s)
+        frame_data = recv_data(number, s)
         print "read frame"
         print len(frame_data)
 
@@ -80,3 +69,22 @@ def recive_and_sink_video(ip, port, frameEditor, frameSink):
             break
     frameSink.sink_finish()
     s.close()
+
+
+def recv_data(number, s):
+    frame_data = MutableString()
+    while number > 0:
+        read = s.recv(number)
+        frame_data += read
+        number -= len(read)
+    return frame_data
+
+
+def readNumber(s):
+    ch = s.recv(1)
+    number = ""
+    while ch.isdigit():
+        number += ch
+        ch = s.recv(1)
+    number = int(number)
+    return number
