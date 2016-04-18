@@ -1,6 +1,8 @@
 import sys
 from video_streaming_core import *
 
+print "block"
+
 fromhost = '127.0.0.1'
 tohost = '127.0.0.1'
 editor = 'Empty'

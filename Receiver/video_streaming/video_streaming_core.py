@@ -92,6 +92,17 @@ class FrameGenearator:
     def generator_finish(self):
         self.s.close()
 
+class CameraFrameGenearator:
+
+    def generator_init(self):
+        self.camera = cv2.VideoCapture(0)
+
+    def gen_frame(self):
+        f,frame = self.camera.read()
+        return frame
+
+    def generator_finish(self):
+        return
 
 def recive_and_sink_video(frameEditor, framesDst, framesSrc):
     framesSrc.generator_init()
