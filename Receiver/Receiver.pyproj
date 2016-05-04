@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>fec777ec-b022-4c06-9404-ceab6fbead27</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test_receive.py</StartupFile>
+    <StartupFile>video_streaming\runner.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
