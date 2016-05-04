@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>fec777ec-b022-4c06-9404-ceab6fbead27</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test_camera.py</StartupFile>
+    <StartupFile>test_receive.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,14 +24,40 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="cam_to_file.py" />
+    <Compile Include="color_test.py" />
+    <Compile Include="pair1\client.py" />
+    <Compile Include="pair1\server.py" />
+    <Compile Include="pair2\block_test_1.py" />
     <Compile Include="test_camera.py" />
     <Compile Include="test_receive.py" />
     <Compile Include="test_server.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="test_server2.py" />
+    <Compile Include="video_streaming\block.py" />
+    <Compile Include="video_streaming\block1.py" />
+    <Compile Include="video_streaming\runner.py" />
+    <Compile Include="video_streaming\ts_server.py" />
+    <Compile Include="video_streaming\ts_shower.py" />
+    <Compile Include="video_streaming\video_streaming_core.py" />
+    <Compile Include="video_streaming\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="pair1\" />
+    <Folder Include="pair2\" />
+    <Folder Include="video_streaming\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="output.avi" />
+    <Content Include="pair1\run_client.bat" />
+    <Content Include="pair2\run_client.bat" />
+    <Content Include="run_blocks.bat" />
+    <Content Include="run_blocks1.bat" />
+    <Content Include="video_streaming\test.bat" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
