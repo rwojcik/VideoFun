@@ -37,6 +37,12 @@
     <Compile Include="test_server2.py" />
     <Compile Include="video_streaming\block.py" />
     <Compile Include="video_streaming\block1.py" />
+    <Compile Include="video_streaming\frame_editor.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="video_streaming\frame_merge.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="video_streaming\runner.py" />
     <Compile Include="video_streaming\ts_server.py" />
     <Compile Include="video_streaming\ts_shower.py" />

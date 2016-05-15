@@ -1,4 +1,6 @@
 from video_streaming_core import *
+from frame_editor import *
+from frame_merge import *
 
 import sys
 
@@ -12,6 +14,6 @@ try:
     if '-to' in sys.argv: _to = sys.argv[sys.argv.index('-to') + 1]
     _to = int(_to)
     print "To %s:%s" % (tohost, _to)
-    recive_and_sink_video(frameEditor= FrameEditorEmpty(), framesDst= FrameSinkServer(tohost, _to), framesSrc= CameraFrameGenearator())
+    recive_and_sink_video(frameEditor=FrameEditorEmpty(), framesDst=FrameSinkServer(tohost, _to), framesSrc=CameraFrameGenearator(), frameMerger=FrameMergerFirst)
 except ValueError, e:
     print "You have to input -from and -to args"

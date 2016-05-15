@@ -1,4 +1,6 @@
 from video_streaming_core import *
+from frame_editor import *
+from frame_merge import *
 
 import sys
 
@@ -14,8 +16,10 @@ try:
     if '-from' in sys.argv:
         _from = sys.argv[sys.argv.index('-from') + 1]
         print "found -from"
+    if '-merge' in sys.argv: merge = sys.argv[sys.argv.index('-merge') + 1]
     _from = int(_from)
     print "From %s:%s" % (fromhost, _from)
-    recive_and_sink_video(frameEditor= FrameEditorEmpty(), framesDst= FrameSinkShower(), framesSrc= FrameGenearator(fromhost, _from))
+    frameMerger=eval(merge) ()
+    recive_and_sink_video(frameEditor= FrameEditorEmpty(), framesDst= FrameSinkShower(), framesSrc= FrameGenerator(fromhost, _from), frameMerger=frameMerger)
 except ValueError, e:
     print "You have to input -from and -to args"
