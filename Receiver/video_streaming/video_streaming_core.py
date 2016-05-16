@@ -35,10 +35,10 @@ class FrameSinkServer:
     def sink_init(self):
         for port in self.ports:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.bind((self.ip, port))
+            s.bind((self.ip, int(port)))
             s.listen(1)
             conn, addr = s.accept()
-            self.sockets_connections.extend(conn)
+            self.sockets_connections.append(conn)
 
     def sink_finish(self):
         for conn in self.sockets_connections:
@@ -85,15 +85,15 @@ class FrameGenerator:
     def generator_init(self):
         for port in self.ports:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((self.ip, self.port))
-            self.sockets.extend(s)
+            s.connect((self.ip, int(port)))
+            self.sockets.append(s)
 
     def gen_frame(self):
         frames = list()
         for s in self.sockets:
             s.send('o')
-            number = readNumber(self.s)
-            frame_data = recv_data(number, self.s)
+            number = readNumber(s)
+            frame_data = recv_data(number, s)
             print "read frame in generator"
             print len(frame_data)
             frames.extend(cv2.imdecode(np.fromstring(str(frame_data), dtype=np.uint8), 1))
