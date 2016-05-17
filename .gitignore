@@ -307,3 +307,4 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/VideoFunDesigner/nbproject/private/
