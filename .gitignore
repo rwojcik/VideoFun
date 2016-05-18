@@ -308,3 +308,4 @@ paket-files/
 .idea/
 *.sln.iml
 /VideoFunDesigner/nbproject/private/
+/.idea/workspace.xml
