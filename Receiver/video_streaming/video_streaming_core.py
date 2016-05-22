@@ -5,44 +5,11 @@ from UserString import MutableString
 import cv2
 import numpy as np
 import threading, time
+from frame_editor import *
+from frame_merge import *
 from msvcrt import getch
 
 key = ''
-
-class FrameEditorEmpty:
-    def frame_edit(self, frame):
-        return frame
-
-class FrameEditorEllipse:
-    def frame_edit(self, frame):
-        cv2.ellipse(frame,(256,256),(100,50),0,0,180,255,-1)
-        return frame
-
-class FrameEditorGreyscale:
-    def frame_edit(self, frame):
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        return frame
-
-class FrameEditorSmoothing:
-    def frame_edit(self, frame):
-        frame = cv2.GaussianBlur(frame, (11, 11), 0)
-        return frame
-
-class FrameEditorDerivative:
-    def frame_edit(self, frame):
-        frame = cv2.Laplacian(frame, cv2.CV_64F)
-        return frame
-
-class FrameEditorCircles:
-    def frame_edit(self, frame):
-        gsFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        circles = cv2.HoughCircles(gsFrame, cv2.HOUGH_GRADIENT, dp=2, minDist=50, param1=100, param2=60, minRadius=50, maxRadius=0)
-        circles = np.uint16(np.around(circles))
-        for i in circles[0,:]:
-            cv2.circle(img=frame,center=(i[0],i[1]),radius=i[2],color=(128,128,128,128),thickness=1)
-            cv2.circle(img=frame,center=(i[0],i[1]),radius=2,color=(64,64,64,128),thickness=1)
-        return frame
-
 
 class FrameSinkShower:
     def frame_sink(self, frame):
@@ -62,24 +29,29 @@ class FrameSinkServer:
 
     def __init__(self, ip, port):
         self.ip = ip
-        self.port = port
+        self.ports = port.split(",")
+        self.sockets_connections = list()
 
     def sink_init(self):
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((self.ip, self.port))
-        s.listen(1)
-        self.conn, self.addr = s.accept()
+        for port in self.ports:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.bind((self.ip, int(port)))
+            s.listen(1)
+            conn, addr = s.accept()
+            self.sockets_connections.append(conn)
 
     def sink_finish(self):
-        self.conn.close()
+        for conn in self.sockets_connections:
+            conn.close()
 
     def frame_sink(self, frame):
         try:
             retval, buf = cv2.imencode(".jpg", frame)
             if not retval:
                 return False
-            self.conn.send("%d*" % (buf.size))
-            self.conn.send(buf)
+            for conn in self.sockets_connections:
+                conn.send("%d*" % (buf.size))
+                conn.send(buf)
         except (socket.error, cv2.error) as e:
             print str(e)
             return False
@@ -103,27 +75,33 @@ def readNumber(s):
     number = int(number)
     return number
 
-class FrameGenearator:
+class FrameGenerator:
 
     def __init__(self, ip, port):
         self.ip = ip
-        self.port = port
+        self.ports = port.split(",")
+        self.sockets = list()
 
     def generator_init(self):
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s.connect((self.ip, self.port))
+        for port in self.ports:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((self.ip, int(port)))
+            self.sockets.append(s)
 
     def gen_frame(self):
-        self.s.send('o')
-        number = readNumber(self.s)
-        frame_data = recv_data(number, self.s)
-        print "read frame in generator"
-        print len(frame_data)
-        frame = cv2.imdecode(np.fromstring(str(frame_data), dtype=np.uint8), 1)
-        return frame
+        frames = list()
+        for s in self.sockets:
+            s.send('o')
+            number = readNumber(s)
+            frame_data = recv_data(number, s)
+            print "read frame in generator"
+            print len(frame_data)
+            frames.append(cv2.imdecode(np.fromstring(str(frame_data), dtype=np.uint8), 1))
+        return frames
 
     def generator_finish(self):
-        self.s.close()
+        for s in self.sockets:
+            s.close()
 
 class CameraFrameGenearator:
 
@@ -132,25 +110,10 @@ class CameraFrameGenearator:
 
     def gen_frame(self):
         f,frame = self.camera.read()
-        return frame
+        return [frame]
 
     def generator_finish(self):
         return
-
-def recive_and_sink_video(frameEditor, framesDst, framesSrc):
-    threading.Thread(target = key_reader).start()
-    while 1:
-        framesSrc.generator_init()
-        framesDst.sink_init()
-        while 1:
-            frame = framesSrc.gen_frame()
-            frame = frameEditor.frame_edit(frame)
-            if not framesDst.frame_sink(frame) or key == 'q':
-                break
-        framesDst.sink_finish()
-        framesSrc.generator_finish()
-        if key == 'q':
-            break
 
 def key_reader():
     global key
@@ -160,3 +123,20 @@ def key_reader():
             key = getch()
         if key == 'q':
             break
+
+def recive_and_sink_video(frameEditor, framesDst, framesSrc, frameMerger):
+    threading.Thread(target = key_reader).start()
+    while 1:
+        framesSrc.generator_init()
+        framesDst.sink_init()
+        while 1:
+            frames = framesSrc.gen_frame()
+            frame = frameMerger.frame_merge(frames)
+            frame = frameEditor.frame_edit(frame)
+            if not framesDst.frame_sink(frame) or key == 'q':
+                break
+        framesDst.sink_finish()
+        framesSrc.generator_finish()
+        if key == 'q':
+            break
+
