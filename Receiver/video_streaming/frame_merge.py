@@ -1,7 +1,12 @@
+# coding=utf-8
 import numpy as np, cv2
 
 
 class FrameMergerFirst:
+    # params nie są używane
+    def __init__(self, params):
+        pass
+
     def frame_merge(self, frames):
         if len(frames) == 0:
             img = np.zeros((512, 512, 3), np.uint8)
@@ -12,6 +17,10 @@ class FrameMergerFirst:
 
 
 class FrameMergerStack:
+    # params nie są używane
+    def __init__(self, params):
+        pass
+
     def frame_merge(self, frames):
         if len(frames) < 2:
             return FrameMergerFirst.frame_merge(frames[0])
@@ -19,8 +28,17 @@ class FrameMergerStack:
 
 
 class FrameMergerBlending:
+    #params[0] - waga złączenia (0 <= x <= 1)
+    def __init__(self, params):
+        paramsSplit = params.split(',')
+        if len(paramsSplit) >= 1 and all(x.isdigit() for x in paramsSplit) and 0 <= paramsSplit[0] <= 1:
+            self.params = int(paramsSplit)
+        else:
+            self.params = [0.5]
+        pass
+
     def frame_merge(self, frames):
         if len(frames) < 2:
             return FrameMergerFirst.frame_merge(frames[0])
-        return cv2.addWeighted(frames[0], 0.5, frames[1], 0.5, 0)
+        return cv2.addWeighted(frames[0], self.params[0], frames[1], 1 - self.params[0], 0)
 

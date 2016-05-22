@@ -94,8 +94,8 @@ class FrameGenerator:
             s.send('o')
             number = readNumber(s)
             frame_data = recv_data(number, s)
-            print "read frame in generator"
-            print len(frame_data)
+            # print "read frame in generator"
+            # print len(frame_data)
             frames.append(cv2.imdecode(np.fromstring(str(frame_data), dtype=np.uint8), 1))
         return frames
 
