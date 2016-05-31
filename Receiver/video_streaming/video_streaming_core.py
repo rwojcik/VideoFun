@@ -1,14 +1,8 @@
 #!/usr/bin/env python
 
 import socket
-from UserString import MutableString
-import cv2
-import numpy as np
-import threading, time
 from frame_editor import *
 from frame_merge import *
-from msvcrt import getch
-from itertools import *
 import sys
 
 DATAGRAM_MAX_SIZE = 65507
@@ -61,12 +55,10 @@ class FrameSinkServer:
         retval, buf = cv2.imencode('.jpg', frame)
         if not retval:
             return False
-        buf_str = buf.tostring()
+        buf_str = '{}{}'.format('%08d' % len(buf), buf.tostring())
         for si in self.socketInfos:
             try:
-                # send info about length
-                si.s.sendto('{}'.format(len(buf_str)), (si.ip, si.port))
-                print 'sent {}* string length'.format(len(buf_str))
+                print 'sending {} bytes'.format(buf_str[:8])
                 self.split_and_sink(buf_str, si)
             except socket.error as e:
                 print >> sys.stderr, '{}, buffer size: {}'.format(str(e), len(buf_str))
@@ -91,45 +83,36 @@ class FrameSinkServer:
 
 def recv_data(si):
     img = []
+    frame_str = ''
     read = False
     while not read:
         try:
             frame_str = ''
-            data_len = read_number(si)
-            number = data_len
-            print 'trying to read data, size: {}'.format(number)
-            while number > 0:
+            last = False
+            while not last:
+                if len(frame_str) > 0 and not frame_str[:5].isdigit():
+                    # if frame_str doesn't start with digits then we have lost frame
+                    print >> sys.stderr, 'frame_str doesn\'t begin with digits, frame(s) lost'
+                    frame_str = ''
                 # read as much as UDP allows
-                to_read = min(DATAGRAM_MAX_SIZE, number)
-                print '\treading part, size: {}'.format(to_read)
-                frame_part, _ = si.s.recvfrom(to_read)
-                if len(frame_part) != to_read:
-                    # ignore message if length is incorrect, it's already lost
-                    print >> sys.stderr, '\tlost frame...'
-                    break
+                frame_part, _ = si.s.recvfrom(DATAGRAM_MAX_SIZE)
                 frame_str += frame_part
-                number -= len(frame_part)
-            if len(frame_str) == data_len:
-                nparr = np.fromstring(frame_str, np.uint8)
+                last = len(frame_part) != DATAGRAM_MAX_SIZE
+            if not frame_str[:8].isdigit():
+                print >> sys.stderr, 'incorrect data, frame lost'
+                continue
+            data_len = int(frame_str[:8])
+            frame = frame_str[8:]
+            if len(frame) == data_len:
+                nparr = np.fromstring(frame, np.uint8)
                 img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
                 read = True
-        except socket.error as e:
+            else:
+                print >> sys.stderr, 'length data do not match, expected: {}, got: {}, diff: {}'.format(data_len, len(frame), len(frame) - data_len)
+        except Exception as e:
             print >> sys.stderr, '{}error reading frames, retry'.format(str(e))
+    print 'read image, size: {}'.format(len(frame_str))
     return img
-
-
-def read_number(si):
-    # ch = ''.join(takewhile(lambda x: x.isdigit(), ch))
-    read = False
-    while not read:
-        try:
-            ch, _ = si.s.recvfrom(1024)
-            number = int(ch)
-            read = True
-        except:
-            # retry on failed read or failed cast
-            pass
-    return number
 
 
 class FrameGenerator:
