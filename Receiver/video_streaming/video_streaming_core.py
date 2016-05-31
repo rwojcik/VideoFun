@@ -8,8 +8,10 @@ import threading, time
 from frame_editor import *
 from frame_merge import *
 from msvcrt import getch
+from itertools import *
 
 key = ''
+
 
 class FrameSinkShower:
     def frame_sink(self, frame):
@@ -25,83 +27,105 @@ class FrameSinkShower:
     def sink_finish(self):
         return
 
+
+class SocketInfo:
+
+    def __init__(self, ip, port, socket):
+        self.ip = ip
+        self.port = port
+        self.socket = socket
+
+
 class FrameSinkServer:
 
-    def __init__(self, ip, port):
+    def __init__(self, ip, ports):
         self.ip = ip
-        self.ports = port.split(",")
-        self.sockets_connections = list()
+        self.ports = ports.split(",")
+        self.socketInfos = list()
+        # self.sockets_connections = list()
 
     def sink_init(self):
-        for port in self.ports:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.bind((self.ip, int(port)))
-            s.listen(1)
-            conn, addr = s.accept()
-            self.sockets_connections.append(conn)
+        for port in map(lambda x: int(x), self.ports):
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            # s.bind((self.ip, port))
+            # s.listen(1)
+            # conn, addr = s.accept()
+            # self.sockets_connections.append(conn)
+            si = SocketInfo(self.ip, port, s)
+            self.socketInfos.append(si)
 
     def sink_finish(self):
-        for conn in self.sockets_connections:
-            conn.close()
+        for s in self.socketInfos:
+            s.socket.close()
 
     def frame_sink(self, frame):
-        try:
-            retval, buf = cv2.imencode(".jpg", frame)
-            if not retval:
-                return False
-            for conn in self.sockets_connections:
-                conn.send("%d*" % (buf.size))
-                conn.send(buf)
-        except (socket.error, cv2.error) as e:
-            print str(e)
+        # try:
+        retval, buf = cv2.imencode(".jpg", frame)
+        if not retval:
             return False
+        for s in self.socketInfos:
+            try:
+                s.socket.sendto("%d*" % (buf.size), (s.ip, s.port))
+                s.socket.sendto(buf, (s.ip, s.port))
+                print('sent %d*' % (buf.size))
+            except (socket.error) as e:
+                print e
+        # except (socket.error, cv2.error) as e:
+        #     print str(e)
+        #     return False
         return True
 
-def recv_data(number, s):
+
+def recv_data(number, si):
     frame_data = MutableString()
     while number > 0:
-        read = s.recv(number)
+        read, _ = si.socket.recvfrom(number)
         frame_data += read
         number -= len(read)
     return frame_data
 
 
-def readNumber(s):
-    ch = s.recv(1)
-    number = ""
-    while ch.isdigit():
-        number += ch
-        ch = s.recv(1)
-    number = int(number)
+def read_number(si):
+    ch, _ = si.socket.recvfrom(1024)
+    chars = ''.join(takewhile(lambda x: x.isdigit(), ch))
+    # while ch.isdigit():
+    #     number += ch
+    #     ch, _ = si.socket.recvfrom(1)
+    number = int(chars)
     return number
+
 
 class FrameGenerator:
 
     def __init__(self, ip, port):
         self.ip = ip
         self.ports = port.split(",")
-        self.sockets = list()
+        self.socketInfos = list()
 
     def generator_init(self):
-        for port in self.ports:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((self.ip, int(port)))
-            self.sockets.append(s)
+        for port in map(lambda x: int(x), self.ports):
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.bind((self.ip, port))
+            si = SocketInfo(self.ip, port, s)
+            self.socketInfos.append(si)
 
     def gen_frame(self):
         frames = list()
-        for s in self.sockets:
-            s.send('o')
-            number = readNumber(s)
-            frame_data = recv_data(number, s)
+        for si in self.socketInfos:
+            number = read_number(si)
+            frame_data = recv_data(number, si)
             # print "read frame in generator"
             # print len(frame_data)
             frames.append(cv2.imdecode(np.fromstring(str(frame_data), dtype=np.uint8), 1))
         return frames
 
+    # def reconnect(self, socket):
+    #     socket.getpeername()
+
     def generator_finish(self):
         for s in self.sockets:
             s.close()
+
 
 class CameraFrameGenearator:
 
@@ -109,7 +133,9 @@ class CameraFrameGenearator:
         self.camera = cv2.VideoCapture(0)
 
     def gen_frame(self):
-        f,frame = self.camera.read()
+        f, frame = self.camera.read()
+        # TODO: temp solution, split UDP data properly - 65,507 bytes each packet
+        frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
         return [frame]
 
     def generator_finish(self):
