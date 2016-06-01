@@ -22,7 +22,7 @@ public class MergeConfigPanel extends javax.swing.JPanel {
         this.memo = memo;
         initComponents();
         
-        jComboBox1.setSelectedItem(memo.getMergeType());
+        //jComboBox1.setSelectedItem(memo.getMergeType());
     }
 
     /**
@@ -72,7 +72,7 @@ public class MergeConfigPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        memo.setMergeType(jComboBox1.getSelectedItem().toString());
+//        memo.setMergeType(jComboBox1.getSelectedItem().toString());
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
 

@@ -11,9 +11,9 @@ import sem8.tirt.AbstractVNodeConfigMemo;
  *
  * @author jskoczyl
  */
-public class MergeConfigMemo extends AbstractVNodeConfigMemo  {
+public class MergeConfigMemo   {
     
-    public static final String CONFIG_NAME = "Merge";
+    /*public static final String CONFIG_NAME = "Merge";
     public static final String CONFIG_DESCRIPTION = "Merges many inputs into one output viedo stream.";
     
     private String mergeType;
@@ -37,6 +37,6 @@ public class MergeConfigMemo extends AbstractVNodeConfigMemo  {
         this.mergeType = mergeType;
     }
     
-    
+    */
     
 }
