@@ -84,6 +84,8 @@ class FrameEditorCircles:
         circles = cv2.HoughCircles(gsFrame, cv2.HOUGH_GRADIENT, dp=self.params[0], minDist=self.params[1],
                                    param1=self.params[2], param2=self.params[3], minRadius=self.params[4],
                                    maxRadius=self.params[5])
+        if circles is None:
+            return frame
         circles = np.uint16(np.around(circles))
         for i in circles[0, :]:
             cv2.circle(img=frame, center=(i[0], i[1]), radius=i[2], color=(128, 128, 128, 128), thickness=1)

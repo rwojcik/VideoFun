@@ -84,9 +84,19 @@ class FrameGenerator:
 
     def generator_init(self):
         for port in self.ports:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((self.ip, int(port)))
-            self.sockets.append(s)
+            self._connect_and_append_port(port)
+
+    def _connect_and_append_port(self, port):
+        while True:
+             try:
+                  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                  s.connect((self.ip, int(port)))
+                  self.sockets.append(s)
+                  return
+             except socket.error:
+                 print "socket.error, sleep and retry"
+                 time.sleep(5)
+
 
     def gen_frame(self):
         frames = list()
