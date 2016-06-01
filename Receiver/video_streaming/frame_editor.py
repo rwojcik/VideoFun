@@ -39,6 +39,19 @@ class FrameEditorGreyscale:
         return frame
 
 
+class FrameEditorResize:
+    def __init__(self, params):
+        paramsSplit = params.split(',')
+        if len(paramsSplit) > 1 and all(x.isdigit() for x in paramsSplit):
+            self.params = map(lambda x: int(x), paramsSplit)
+        else:
+            self.params = [0.7, 0.7]
+        pass
+
+    def frame_edit(self, frame):
+        frame = cv2.resize(frame, (0, 0), fx=self.params[0], fy=self.params[1])
+        return frame
+
 class FrameEditorSmoothing:
     # params[0] i params [1] - zasięg rozmycia gaussowskiego
     def __init__(self, params):

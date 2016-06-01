@@ -20,6 +20,6 @@ try:
     if '-mergerparams' in sys.argv: mergerparams = sys.argv[sys.argv.index('-mergerparams') + 1]
     print "From %s:%s" % (fromhost, _from)
     frameMerger = eval(merge) (mergerparams)
-    recive_and_sink_video(frameEditor= FrameEditorEmpty(''), framesDst= FrameSinkShower(), framesSrc= FrameGenerator(fromhost, _from), frameMerger=frameMerger)
+    recive_and_sink_video(frameEditor = FrameEditorEmpty(''), framesDst= FrameSinkShower(), framesSrc= FrameGenerator(fromhost, _from), frameMerger=frameMerger)
 except ValueError, e:
     print e

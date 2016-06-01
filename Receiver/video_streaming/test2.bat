@@ -1,5 +1,4 @@
 start python ts_server.py -to 5005
-timeout 1
-start python block.py -from 5005 -to 5006 -editor FrameEditorFramesCounter
-timeout 1
-start python ts_shower.py -from 5006
+start python block.py -from 5005 -to 5007 -editor FrameEditorGreyscale
+start python block.py -from 5007 -to 5008 -editor FrameEditorFramesCounter
+start python ts_shower.py -from 5008
