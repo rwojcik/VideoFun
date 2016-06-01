@@ -13,11 +13,17 @@ import sem8.tirt.AbstractVNodeConfigMemo;
  */
 public class RevertColorsConfigMemo extends AbstractVNodeConfigMemo {
     
-    public static final String CONFIG_NAME = "Color Revert";
-    public static final String CONFIG_DESCRIPTION = "Reverts the colors on video in RGB space.";
+    public static final String CONFIG_NAME = "Gray Colors";
+    public static final String CONFIG_DESCRIPTION = "Changes colors of image to gray scale.";
 
     public RevertColorsConfigMemo() {
         super(RevertColorsConfigPanel.class, CONFIG_NAME);
+    }
+
+    @Override
+    protected String getRunCmdWithParams(StringBuilder builder) {
+        builder.append("  -editor FrameEditorGreyscale");
+        return builder.toString();
     }
     
 }
