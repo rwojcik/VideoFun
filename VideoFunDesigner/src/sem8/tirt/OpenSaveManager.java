@@ -136,6 +136,9 @@ public class OpenSaveManager {
 
     File exportCmd(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks) {
         File cmdFile = newCmdFile();
+        if(cmdFile == null) {
+            return null;
+        }
         findFreeTcpsPorts(videoLinks);
         try (PrintWriter out = new PrintWriter(cmdFile)) {
             for (VNodeFrame vnode : vNodeFrames) {
@@ -153,7 +156,12 @@ public class OpenSaveManager {
     }
 
     private File newCmdFile() {
-        return new File("../Receiver/video_streaming/gen_cmd.bat");
+        File dir = new File("../Receiver/video_streaming");
+        if(dir.exists()) {
+            File file = new File("../Receiver/video_streaming/gen_cmd.bat");
+            return file;
+        }
+        return askFile("Gen cmd");
     }
 
     private void findFreeTcpsPorts(ArrayList<VideoLink> videoLinks) {
@@ -197,6 +205,7 @@ public class OpenSaveManager {
 
     private int[] createIns(VNodeMemo memo, ArrayList<VideoLink> videoLinks) {
         int[] result = new int[memo.getInputsNum()];
+        for(int i=0; i<result.length; i++) result[i] = -1;
         int index = 0;
         for (VideoLink link : videoLinks) {
             if (link.getDstVNode() == memo.getVnodeNumber()) {
@@ -207,14 +216,19 @@ public class OpenSaveManager {
     }
 
     private int[] createOuts(VNodeMemo memo, ArrayList<VideoLink> videoLinks) {
-        int[] result = new int[memo.getOutputsNum()];
+        ArrayList<Integer> result = new ArrayList<Integer>();
         int index = 0;
         for (VideoLink link : videoLinks) {
             if (link.getSrcVNode() == memo.getVnodeNumber()) {
-                result[index++] = link.getTmpTcp();
+                result.add(link.getTmpTcp());
             }
         }
-        return result;
+        int[] r = new int[result.size()];
+        int i = 0;
+        for(Integer v : result) {
+            r[i++] = v;
+        }
+        return r;
     }
 
     void exportCmdAndRun(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks) {

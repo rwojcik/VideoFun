@@ -8,6 +8,7 @@ package sem8.tirt;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.PopupMenu;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -41,6 +42,7 @@ public class VNodeFrame extends javax.swing.JInternalFrame implements MouseListe
     private VNodeMemo memo;
     private JButton[] inputsButtons;
     private JButton[] outputsButtons;
+    private JButton mergeButton;
 
     /**
      * Creates new form AbstractVNodeFrame
@@ -114,6 +116,7 @@ public class VNodeFrame extends javax.swing.JInternalFrame implements MouseListe
             jPanelInputs.add(inputsButtons[i] = createInButton(i));
             inputsButtons[i].addMouseListener(this);
         }
+        jPanelInputs.add(mergeButton = createMergeButton());
         outputsButtons = new JButton[memo1.getOutputsNum()];
         for (int i = 0; i < memo1.getOutputsNum(); i++) {
             jPanelOutputs.add(outputsButtons[i] = createOutButton(i));
@@ -264,10 +267,10 @@ public class VNodeFrame extends javax.swing.JInternalFrame implements MouseListe
     // End of variables declaration//GEN-END:variables
 
     private void changeSizeAndDimensionsToMemo() {
-        if(memo.getLocation_orNull() != null) {
+        if (memo.getLocation_orNull() != null) {
             setLocation(memo.getLocation_orNull());
         }
-        if(memo.getSize_orNull() != null) {
+        if (memo.getSize_orNull() != null) {
             setSize(memo.getSize_orNull());
         } else {
             setSize(200, 150);
@@ -294,5 +297,22 @@ public class VNodeFrame extends javax.swing.JInternalFrame implements MouseListe
     @Override
     public void mouseExited(MouseEvent e) {
         parent.repaint();
+    }
+
+    private JButton createMergeButton() {
+        JButton button = new JButton("M");
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                mergeButtonClicked();
+            }
+
+        });
+        return button;
+    }
+
+    private void mergeButtonClicked() {
+        new MergeConfigDialog(parent, true, memo.getConfigMemo()).setVisible(true);
     }
 }

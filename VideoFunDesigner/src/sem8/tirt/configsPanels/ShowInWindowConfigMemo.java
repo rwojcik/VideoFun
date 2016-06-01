@@ -17,7 +17,7 @@ public class ShowInWindowConfigMemo extends AbstractVNodeConfigMemo  {
     public static final String CONFIG_DESCRIPTION = "Creates windows where video from input are showing.";
 
     public ShowInWindowConfigMemo() {
-        super(ShowInWindowConfigPanel.class, CONFIG_NAME, 1, 0);
+        super(ShowInWindowConfigPanel.class, CONFIG_NAME, 2, 0);
         cmdBlockName = "ts_shower.py";
     }
 
