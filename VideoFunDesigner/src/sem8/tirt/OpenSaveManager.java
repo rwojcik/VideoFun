@@ -164,6 +164,7 @@ public class OpenSaveManager {
             }
             link.setTmpTcp(port);
             System.out.println("got tcp: " + port);
+            port++;
         }
     }
 

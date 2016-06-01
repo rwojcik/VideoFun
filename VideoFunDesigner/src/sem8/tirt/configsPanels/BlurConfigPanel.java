@@ -20,8 +20,9 @@ public class BlurConfigPanel extends javax.swing.JPanel {
         this.memo = m;
         initComponents();
         
-        jSpinner1.setValue(memo.getBlurSize());
-        jComboBox1.setSelectedItem(memo.getBlurName());
+        jSpinner1.setValue(memo.getBlurSizeX());
+        jSpinner2.setValue(memo.getBlurSizeY());
+        jComboBox1.setSelectedIndex(memo.getBlurType());
     }
 
     /**
@@ -35,9 +36,10 @@ public class BlurConfigPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
+        jSpinner2 = new javax.swing.JSpinner();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -48,13 +50,14 @@ public class BlurConfigPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 0.5;
         add(jLabel1, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gaussian", "Pixeloza", "Jest jeszcze jakieś?" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gaussian", "Usuwanie szumu" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
@@ -69,7 +72,7 @@ public class BlurConfigPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 0.5;
         add(jLabel2, gridBagConstraints);
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(10, 0, 10000, 1));
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(11, 1, 10000, 2));
         jSpinner1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSpinner1StateChanged(evt);
@@ -82,15 +85,31 @@ public class BlurConfigPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
         add(jSpinner1, gridBagConstraints);
+
+        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(11, 1, 10000, 2));
+        jSpinner2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner2StateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.weightx = 0.5;
+        add(jSpinner2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        memo.setBlurName(jComboBox1.getSelectedItem().toString());
+        memo.setBlurType(jComboBox1.getSelectedIndex());
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
         updateBlurSize();
     }//GEN-LAST:event_jSpinner1StateChanged
+
+    private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner2StateChanged
+        updateBlurSize();
+    }//GEN-LAST:event_jSpinner2StateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -98,9 +117,11 @@ public class BlurConfigPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinner2;
     // End of variables declaration//GEN-END:variables
 
     private void updateBlurSize() {
-        memo.setBlurSize((Integer)jSpinner1.getValue());
+        memo.setBlurSizeX((Integer)jSpinner1.getValue());
+        memo.setBlurSizeY((Integer)jSpinner2.getValue());
     }
 }

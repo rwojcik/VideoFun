@@ -16,34 +16,54 @@ public class BlurConfigMemo extends AbstractVNodeConfigMemo  {
     public static final String CONFIG_NAME = "Blur";
     public static final String CONFIG_DESCRIPTION = "Blures the image.";
     
-    private String blurName;
-    private int blurSize;
+    private int blurType;
+    private int blurSizeX;
+    private int blurSizeY;
 
     public BlurConfigMemo() {
         super(BlurConfigPanel.class, CONFIG_NAME);
-        blurName = "Gaussian";
-        blurSize = 10;
+        blurType = 0;
+        blurSizeX = 11;
+        blurSizeY = 11;
+    }
+
+    @Override
+    protected String getRunCmdWithParams(StringBuilder builder) {
+        builder.append("  -editor FrameEditorSmoothing");
+        builder.append("  -editorparams ");
+        builder.append(getParameters());
+        return builder.toString();
     }
 
     @Override
     public String getParameters() {
-        return blurSize + "," + blurName;
+        return blurSizeX + "," + blurSizeY + "," +blurType;
     }
 
-    public String getBlurName() {
-        return blurName;
+    public int getBlurType() {
+        return blurType;
     }
 
-    public void setBlurName(String blurName) {
-        this.blurName = blurName;
+    public void setBlurType(int blurType) {
+        this.blurType = blurType;
     }
 
-    public int getBlurSize() {
-        return blurSize;
+    public int getBlurSizeX() {
+        return blurSizeX;
     }
 
-    public void setBlurSize(int blurSize) {
-        this.blurSize = blurSize;
-    }    
+    public void setBlurSizeX(int blurSizeX) {
+        this.blurSizeX = blurSizeX;
+    }
+
+    public int getBlurSizeY() {
+        return blurSizeY;
+    }
+
+    public void setBlurSizeY(int blurSizeY) {
+        this.blurSizeY = blurSizeY;
+    }
+    
+    
     
 }

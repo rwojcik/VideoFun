@@ -23,7 +23,7 @@ public class AbstractVNodeConfigMemo implements Serializable {
     private int inputsNum;
     private int outputsNum;
     private String nodeType;
-    protected String cmdBlockName;
+    protected String cmdBlockName = "block.py";
 
     public AbstractVNodeConfigMemo(Class panelClass, String configName) {
         this.panelClass = panelClass;

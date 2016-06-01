@@ -43,14 +43,20 @@ class FrameEditorSmoothing:
     # params[0] i params [1] - zasięg rozmycia gaussowskiego
     def __init__(self, params):
         paramsSplit = params.split(',')
-        if len(paramsSplit) >= 6 and all(x.isdigit() for x in paramsSplit):
-            self.params = map(lambda x: int(x) | 1, paramsSplit)  # x | 1 zapewnia liczbę nieparzystą
+        if len(paramsSplit) >= 3 and all(x.isdigit() for x in paramsSplit):
+            self.params = map(lambda x: int(x), paramsSplit)
+            self.params[0] |= 1   # x | 1 zapewnia liczbę nieparzystą
+            self.params[1] |= 1
         else:
-            self.params = [11, 11]
+            self.params = [11, 11, 0]
         pass
 
     def frame_edit(self, frame):
-        frame = cv2.GaussianBlur(frame, (self.params[0], self.params[1]), 0)
+        print self.params
+        if self.params[2] == 0:
+            frame = cv2.GaussianBlur(frame, (self.params[0], self.params[1]), 0)
+        elif self.params[2] == 1:
+            frame = cv2.bilateralFilter(frame, 9, self.params[0], self.params[1])
         return frame
 
 
