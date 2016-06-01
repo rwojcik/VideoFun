@@ -34,6 +34,7 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         BlurConfigMemo.class,
         CirclesConfigMemo.class,
         DerivativeConfigMemo.class,
+        ResizeConfigMemo.class,
         ShowInWindowConfigMemo.class
     };
 
