@@ -95,7 +95,7 @@ class FrameGenerator:
                   return
              except socket.error:
                  print "socket.error, sleep and retry"
-                 time.sleep(5)
+                 time.sleep(0.5)
 
 
     def gen_frame(self):

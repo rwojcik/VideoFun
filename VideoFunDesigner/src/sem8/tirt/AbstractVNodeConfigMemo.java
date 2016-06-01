@@ -23,6 +23,7 @@ public class AbstractVNodeConfigMemo implements Serializable {
     private int inputsNum;
     private int outputsNum;
     private String nodeType;
+    protected String cmdBlockName;
 
     public AbstractVNodeConfigMemo(Class panelClass, String configName) {
         this.panelClass = panelClass;
@@ -37,6 +38,15 @@ public class AbstractVNodeConfigMemo implements Serializable {
         this.configName = configName;
         this.inputsNum = inputsNum;
         this.outputsNum = outputsNum;
+    }
+    
+    public String getRunCmd(int[] ins, int[] outs) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("start python ");
+        builder.append(cmdBlockName);
+        listIntsOnCmd(" -from ", ins, builder);
+        listIntsOnCmd(" -to ", outs, builder);
+        return getRunCmdWithParams(builder);
     }
     
     public String getParameters() {
@@ -97,6 +107,23 @@ public class AbstractVNodeConfigMemo implements Serializable {
 
     public void setNodeType(String nodeType) {
         this.nodeType = nodeType;
+    }
+
+    private void listIntsOnCmd(String prefix, int[] ins, StringBuilder builder) {
+        boolean first = true;
+        for(Integer i : ins) {
+            if(first) {
+                builder.append(prefix);
+            } else {
+                builder.append(",");
+            }
+            builder.append(i);
+            first = false;
+        }
+    }
+
+    protected String getRunCmdWithParams(StringBuilder builder) {
+        throw new UnsupportedOperationException();
     }
     
 }

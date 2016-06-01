@@ -18,6 +18,12 @@ public class ShowInWindowConfigMemo extends AbstractVNodeConfigMemo  {
 
     public ShowInWindowConfigMemo() {
         super(ShowInWindowConfigPanel.class, CONFIG_NAME, 1, 0);
+        cmdBlockName = "ts_shower.py";
+    }
+
+    @Override
+    protected String getRunCmdWithParams(StringBuilder builder) {
+        return builder.toString();
     }
     
 }

@@ -33,6 +33,7 @@ public class VideoLink implements Serializable {
     private int srcOutput;
     private int dstVNode;
     private int dstInput;
+    private int tmpTcp;
 
     public VideoLink(int srcVNode, int srcOutput, int dstVNode, int dstInput) {
         this.srcVNode = srcVNode;
@@ -103,7 +104,13 @@ public class VideoLink implements Serializable {
             return srcVNode == vnode && srcOutput == put;
         }
     }
-    
-    
+
+    public int getTmpTcp() {
+        return tmpTcp;
+    }
+
+    public void setTmpTcp(int tmpTcp) {
+        this.tmpTcp = tmpTcp;
+    }
     
 }
