@@ -24,15 +24,16 @@ class FrameMergerStack:
     def frame_merge(self, frames):
         if len(frames) < 2:
             if len(self.frames) >= 2:
-                # pokaż historię, jeżeli jest za mało ramek
+                # show history in case there is frames shortage
                 return np.concatenate((self.frames[0], self.frames[1]), axis=0)
             else:
                 return FrameMergerFirst.frame_merge(frames[0])
+        self.frames = (frames[0], frames[1])
         return np.concatenate((frames[0], frames[1]), axis=0)
 
 
 class FrameMergerBlending:
-    #params[0] - waga złączenia (0 <= x <= 1)
+    # params[0] - waga złączenia (0 <= x <= 1)
     def __init__(self, params):
         paramsSplit = params.split(',')
         if len(paramsSplit) >= 1 and all(x.isdigit() for x in paramsSplit) and 0 <= paramsSplit[0] <= 1:
