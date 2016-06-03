@@ -1,3 +1,5 @@
+import struct
+
 from video_streaming_core import *
 import sys
 
@@ -15,10 +17,11 @@ class DatagramSinkServer:
         retval, buf = cv2.imencode('.jpg', frame)
         if not retval:
             return False
-        buf_str = '{}{}'.format('%08d' % len(buf), buf.tostring())  # TODO: encode int
+        len_encoded = struct.pack('!Q', len(buf))  # encode as ull in network (b.endian) byte order
+        buf_str = '{}*{}'.format(len_encoded, buf.tostring())
         for si in self.socketInfos:
             try:
-                print 'sending {} bytes'.format(buf_str[:8])
+                print 'sending {} bytes'.format(len(buf_str))
                 self.split_and_sink(buf_str, si)
             except socket.error as e:
                 print >> sys.stderr, '{}, buffer size: {}'.format(str(e), len(buf_str))

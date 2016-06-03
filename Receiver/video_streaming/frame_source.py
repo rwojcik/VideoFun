@@ -1,5 +1,8 @@
 from UserString import MutableString
 from itertools import takewhile
+
+import struct
+
 from video_streaming_core import *
 import sys
 
@@ -27,19 +30,19 @@ def recv_udp_data(si):
             frame_str = ''
             last = False
             while not last:
-                if len(frame_str) > 0 and not frame_str[:5].isdigit():
+                if len(frame_str) > 0 and not frame_str[8] == '*':
                     # if frame_str doesn't start with digits then we have lost frame
-                    print >> sys.stderr, 'frame_str doesn\'t begin with digits, frame(s) lost'
+                    print >> sys.stderr, 'frame_str doesn\'t begin with packet length, frame(s) lost'
                     frame_str = ''
                 # read as much as UDP allows
                 frame_part, _ = si.s.recvfrom(DATAGRAM_MAX_SIZE)
                 frame_str += frame_part
                 last = len(frame_part) != DATAGRAM_MAX_SIZE
-            if not frame_str[:8].isdigit():
-                print >> sys.stderr, 'incorrect data, frame lost'
+            if not frame_str[8] == '*':
+                print >> sys.stderr, 'frame_str doesn\'t begin with packet length, frame(s) lost'
                 continue
-            data_len = int(frame_str[:8])  # TODO: decode int
-            frame = frame_str[8:]
+            data_len = struct.unpack('!Q', frame_str[:8])[0]  # decode as ull in network (b.endian) byte order
+            frame = frame_str[9:]
             if len(frame) == data_len:
                 nparr = np.fromstring(frame, np.uint8)
                 img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
