@@ -7,37 +7,38 @@ import sys
 class DatagramSinkServer:
 
     def __init__(self, dst_host):
-        self.socketInfos = list()
+        self.socket_infos = list()
+        self.frame_no = 0
         for hostport in map(lambda x: (x.split(':')[0], int(x.split(':')[1])), dst_host.split(',')):
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             si = SocketInfo(hostport[0], hostport[1], s)
-            self.socketInfos.append(si)
+            self.socket_infos.append(si)
 
     def frame_sink(self, frame):
+        self.frame_no += 1
         retval, buf = cv2.imencode('.jpg', frame)
         if not retval:
             return False
-        len_encoded = struct.pack('!Q', len(buf))  # encode as ull in network (b.endian) byte order
-        buf_str = '{}*{}'.format(len_encoded, buf.tostring())
-        for si in self.socketInfos:
+        # len_encoded = struct.pack('!Q', len(buf))  # encode as ull in network (b.endian) byte order
+        buf_str = '{}*end'.format(buf.tostring())
+        for si in self.socket_infos:
             try:
                 print 'sending {} bytes'.format(len(buf_str))
-                self.split_and_sink(buf_str, si)
+                self.split_and_sink(buf_str, si, self.frame_no, 0)
             except socket.error as e:
                 print >> sys.stderr, '{}, buffer size: {}'.format(str(e), len(buf_str))
         return True
 
-    def split_and_sink(self, buf_str, si):  # TODO: add order info
+    def split_and_sink(self, buf_str, si, frame_no, message_no):
+        buf_str = '{}*{}'.format(struct.pack('!2Q', *[frame_no, message_no]), buf_str)
+        si.s.sendto(buf_str[:DATAGRAM_MAX_SIZE], (si.ip, si.port))
+        print '\tsent {} bytes'.format(len(buf_str[:DATAGRAM_MAX_SIZE]))
         if len(buf_str) > DATAGRAM_MAX_SIZE:
             # recursive string splitting and sending, first udp message carries length
-            self.split_and_sink(buf_str[:DATAGRAM_MAX_SIZE], si)
-            self.split_and_sink(buf_str[DATAGRAM_MAX_SIZE:], si)
-        else:
-            si.s.sendto(buf_str, (si.ip, si.port))
-            print '\tsent {} bytes'.format(len(buf_str))
+            self.split_and_sink(buf_str[DATAGRAM_MAX_SIZE:], si, frame_no, message_no + 1)
 
     def sink_finish(self):
-        for si in self.socketInfos:
+        for si in self.socket_infos:
             si.s.close()
 
     def __del__(self):
