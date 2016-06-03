@@ -1,4 +1,5 @@
-
+from UserString import MutableString
+from itertools import takewhile
 from video_streaming_core import *
 import sys
 
@@ -17,11 +18,11 @@ class CameraFrameGenerator:
     def __del__(self):
         self.generator_finish()
 
-def recv_data(si):
+def recv_udp_data(si):
     img = []
     frame_str = ''
     read = False
-    while not read:
+    while not read:  # TODO: buffer frames and reorder them by number
         try:
             frame_str = ''
             last = False
@@ -37,7 +38,7 @@ def recv_data(si):
             if not frame_str[:8].isdigit():
                 print >> sys.stderr, 'incorrect data, frame lost'
                 continue
-            data_len = int(frame_str[:8])
+            data_len = int(frame_str[:8])  # TODO: decode int
             frame = frame_str[8:]
             if len(frame) == data_len:
                 nparr = np.fromstring(frame, np.uint8)
@@ -51,38 +52,23 @@ def recv_data(si):
     return img
 
 
-class SocketFrameGenerator:
+class DatagramFrameGenerator:
 
     def __init__(self, src_host):
         self.socketInfos = list()
-        for hostport in map(lambda x: (x.split(':')[0], x.split(':')[1]), src_host.split(',')):
+        for hostport in map(lambda x: (x.split(':')[0], int(x.split(':')[1])), src_host.split(',')):
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             ip = hostport[0]
-            port = int(hostport[1])
+            port = hostport[1]
             s.bind((ip, port))
             si = SocketInfo(ip, port, s)
             self.socketInfos.append(si)
-
-    def generator_init(self):
-        for port in self.ports:
-            self._connect_and_append_port(port)
-
-    def _connect_and_append_port(self, port):
-        while True:
-             try:
-                  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                  s.connect((self.ip, int(port)))
-                  self.sockets.append(s)
-                  return
-             except socket.error:
-                 print "socket.error, sleep and retry"
-                 time.sleep(0.5)
 
     def gen_frame(self):
         frames = list()
         try:
             for si in self.socketInfos:
-                frame_data = recv_data(si)
+                frame_data = recv_udp_data(si)
                 frames.append(frame_data)
         except socket.error as e:
             print >> sys.stderr, "{}, frame(s) was lost".format(str(e))
@@ -94,3 +80,73 @@ class SocketFrameGenerator:
 
     def __del__(self):
         self.generator_finish()
+
+
+def recv_tcp_data(si):
+    frame_str = ''
+    last = False
+    while not last:
+        received = False
+        while not received:
+            try:
+                frame_part, _ = si.s.recvfrom(1024*100)
+                received = True
+            except socket.error as e:
+                print >> sys.stderr, '{}, retrying receive frame'.format(e)
+                frame_str = ''
+                time.sleep(1)
+                si.s.close()
+                connected = False
+                while not connected:
+                    try:
+                        si.s.close()
+                        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        s.connect((si.ip, si.port))
+                        si.s = s
+                        connected = True
+                        print 'successfully reconnected'
+                    except socket.error as e:
+                        print >> sys.stderr, '{}, retrying connection'.format(e)
+                        time.sleep(1)
+        frame_str += frame_part
+        last = frame_part[len(frame_part)-4:] == '*end'
+    data_length = int(frame_str[:8])
+    frame = frame_str[9:len(frame_str)-4]
+    nparr = np.fromstring(frame, np.uint8)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    return img
+
+
+def connect_tcp(ip, port):
+    while 1:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((ip, port))
+            return SocketInfo(ip, port, s)
+        except socket.error as e:
+            print >> sys.stderr, '{}, sleep and retry'.format(str(e))
+            time.sleep(0.5)
+
+
+class TransmissionControlFrameGenerator:
+
+    def __init__(self, src_host):
+        self.socketInfos = list()
+        for hostport in map(lambda x: (x.split(':')[0], int(x.split(':')[1])), src_host.split(',')):
+            ip = hostport[0]
+            port = hostport[1]
+            si = connect_tcp(ip, port)
+            # si = SocketInfo(ip, port, s)
+            self.socketInfos.append(si)
+
+    def gen_frame(self):
+        frames = list()
+        for si in self.socketInfos:
+            # si.s.send('o')
+            frame_data = recv_tcp_data(si)
+            frames.append(frame_data)
+        return frames
+
+    def generator_finish(self):
+        for s in self.socketInfos:
+            s.s.close()

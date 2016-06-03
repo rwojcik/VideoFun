@@ -14,7 +14,7 @@ class SocketInfo:
     def __init__(self, ip, port, s):
         self.ip = ip
         self.port = port
-        self.s = s
+        self.s = s  # for TCP - tuple (socket, connection), UDP - socket only
 
 
 def receive_and_sink_video(frameEditor, framesDst, framesSrc, frameMerger):
@@ -28,3 +28,4 @@ def receive_and_sink_video(frameEditor, framesDst, framesSrc, frameMerger):
     print 'closing program'
     framesDst.sink_finish()
     framesSrc.generator_finish()
+
