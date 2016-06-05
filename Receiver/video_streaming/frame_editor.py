@@ -1,5 +1,6 @@
 # coding=utf-8
 import calendar
+import colorsys
 import numpy as np, cv2
 import time
 
@@ -39,18 +40,26 @@ class FrameEditorGreyscale:
         return frame
 
 
+def isfloat(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
+
 class FrameEditorResize:
     def __init__(self, params):
         paramsSplit = params.split(',')
-        if len(paramsSplit) > 1 and all(x.isdigit() for x in paramsSplit):
-            self.params = map(lambda x: int(x), paramsSplit)
+        if len(paramsSplit) > 1 and all(isfloat(x) for x in paramsSplit):
+            self.params = map(lambda x: float(x), paramsSplit)
         else:
             self.params = [0.7, 0.7]
-        pass
 
     def frame_edit(self, frame):
         frame = cv2.resize(frame, (0, 0), fx=self.params[0], fy=self.params[1])
         return frame
+
 
 class FrameEditorSmoothing:
     # params[0] i params [1] - zasięg rozmycia gaussowskiego
@@ -58,7 +67,7 @@ class FrameEditorSmoothing:
         paramsSplit = params.split(',')
         if len(paramsSplit) >= 3 and all(x.isdigit() for x in paramsSplit):
             self.params = map(lambda x: int(x), paramsSplit)
-            self.params[0] |= 1   # x | 1 zapewnia liczbę nieparzystą
+            self.params[0] |= 1  # x | 1 zapewnia liczbę nieparzystą
             self.params[1] |= 1
         else:
             self.params = [11, 11, 0]
@@ -148,7 +157,7 @@ class FrameEditorMedianStack:
             height, width, depth = frame.shape
             img = np.zeros((height, width, depth), np.uint8)
             font = cv2.FONT_HERSHEY_SIMPLEX
-            cv2.putText(img=img, text='Initializing median stack...', org=(10, height-10), fontFace=font, fontScale=1, color=(255, 255, 255), thickness=2)
+            cv2.putText(img=img, text='Initializing median stack...', org=(10, height - 10), fontFace=font, fontScale=1, color=(255, 255, 255), thickness=2)
             return img
         background = np.median(self.frames_memory, axis=0).astype(np.int8)
         self.frames_memory[self.last_pos] = frame
@@ -160,6 +169,11 @@ def diff_img(t0, t1, t2):
     d1 = cv2.absdiff(t2, t1)
     d2 = cv2.absdiff(t1, t0)
     return cv2.bitwise_and(d1, d2)
+
+
+def num_to_rgb(value):
+    b, g, r = num_to_bgr(value)
+    return r, g, b
 
 
 def num_to_bgr(value):
@@ -179,7 +193,6 @@ class FrameEditorMovementDetection:
             self.color = num_to_bgr(params[0])
         else:
             self.color = num_to_bgr(16777215)
-        pass
 
     def frame_edit(self, frame):
         height, width, depth = frame.shape
@@ -189,9 +202,9 @@ class FrameEditorMovementDetection:
             font = cv2.FONT_HERSHEY_SIMPLEX
             cv2.putText(img=img, text='Initializing background image...', org=(10, height - 10), fontFace=font, fontScale=1, color=(255, 255, 255), thickness=2)
             return img
-        t_minus = cv2.cvtColor(self.frames_memory[(self.last_pos+3) % 3], cv2.COLOR_RGB2GRAY)
-        t = cv2.cvtColor(self.frames_memory[(self.last_pos+4) % 3], cv2.COLOR_RGB2GRAY)
-        t_plus = cv2.cvtColor(self.frames_memory[(self.last_pos+5) % 3], cv2.COLOR_RGB2GRAY)
+        t_minus = cv2.cvtColor(self.frames_memory[(self.last_pos + 3) % 3], cv2.COLOR_RGB2GRAY)
+        t = cv2.cvtColor(self.frames_memory[(self.last_pos + 4) % 3], cv2.COLOR_RGB2GRAY)
+        t_plus = cv2.cvtColor(self.frames_memory[(self.last_pos + 5) % 3], cv2.COLOR_RGB2GRAY)
         self.frames_memory[self.last_pos] = frame.copy()
         self.last_pos = (self.last_pos + 1) % 3
         movement_mask = diff_img(t_minus, t, t_plus)
@@ -202,5 +215,47 @@ class FrameEditorMovementDetection:
         return frame
 
 
+def num_to_hsv(value):
+    return cv2.cvtColor(np.uint8([[num_to_bgr(value)]]), cv2.COLOR_BGR2HSV)
 
 
+def upper_lower_bounds_hsv(value):
+    h = num_to_h(value)
+    return np.uint8([[[h - 48, 70, 70]]]), np.uint8([[[h + 48, 255, 255]]])
+
+
+def num_to_h(value):
+    return num_to_hsv(value)[0][0][0]
+
+
+def nothing(x):
+    pass
+
+
+class FrameEditorColorReplacement:
+    def __init__(self, params):
+        # params[0] - kolor (0xRRGGBB) do znalezienia
+        # params[1] - kolor (0xRRGGBB) do zastąpienia
+        if len(params.split(',')) >= 2 and all(x.isdigit() for x in params.split(',')):
+            params = map(lambda x: int(x), params.split(','))
+        else:
+            params = (65280, 16777215)
+            # color - rgb - h
+            # red - 16711680 - 0
+            # green - 65280 - 120
+            # blue - 255 - 240
+            # yellow - 16776960 - 42
+            # hue (w hsv) zeskalowany jest do 255
+        self.lower_color, self.upper_color = upper_lower_bounds_hsv(params[0])
+        self.out_color = num_to_hsv(params[1])
+        self.h_diff = num_to_h(params[0]) - num_to_h(params[1])
+
+    def frame_edit(self, frame):
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        mask = cv2.inRange(hsv, self.lower_color, self.upper_color)
+        # mask = cv2.inRange(hsv, np.array((30, 100, 100)), np.array((90, 255, 255)))
+        # cv2.imshow('mask', mask)
+        hsv[np.where(mask > 128)] = self.out_color
+        # hsv[:, : , 0] -= self.h_diff
+        # hsv[:, : , 0] -= self.h_diff
+        return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)

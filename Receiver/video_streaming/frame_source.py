@@ -16,6 +16,7 @@ class CameraFrameGenerator:
         return [frame]
 
     def generator_finish(self):
+        self.camera.release()
         pass
 
     def __del__(self):
