@@ -25,7 +25,7 @@ def recv_udp_data(si):
     img = []
     frame_str = ''
     read = False
-    while not read:  # TODO: buffer frames and reorder them by number
+    while not read:
         try:
             frame_str = ''
             last = False
