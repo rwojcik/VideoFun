@@ -221,7 +221,7 @@ def num_to_hsv(value):
 
 def upper_lower_bounds_hsv(value):
     h = num_to_h(value)
-    return np.uint8([[[h - 48, 70, 70]]]), np.uint8([[[h + 48, 255, 255]]])
+    return np.uint8([[[h - 48, 50, 50]]]), np.uint8([[[h + 48, 255, 255]]])
 
 
 def num_to_h(value):
@@ -239,23 +239,27 @@ class FrameEditorColorReplacement:
         if len(params.split(',')) >= 2 and all(x.isdigit() for x in params.split(',')):
             params = map(lambda x: int(x), params.split(','))
         else:
-            params = (65280, 16777215)
-            # color - rgb - h
-            # red - 16711680 - 0
-            # green - 65280 - 120
-            # blue - 255 - 240
-            # yellow - 16776960 - 42
-            # hue (w hsv) zeskalowany jest do 255
+            params = (65280, 255)
+            # color     rgb         h
+            # red       16711680    0
+            # green     65280       120
+            # blue      255         240
+            # yellow    16776960    42
+            # hue (in hsv) is scaled from 360 to 255
         self.lower_color, self.upper_color = upper_lower_bounds_hsv(params[0])
         self.out_color = num_to_hsv(params[1])
         self.h_diff = num_to_h(params[0]) - num_to_h(params[1])
 
     def frame_edit(self, frame):
+        height, width, depth = frame.shape
+        cv2.imshow('oryg', frame)
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, self.lower_color, self.upper_color)
-        # mask = cv2.inRange(hsv, np.array((30, 100, 100)), np.array((90, 255, 255)))
-        # cv2.imshow('mask', mask)
-        hsv[np.where(mask > 128)] = self.out_color
-        # hsv[:, : , 0] -= self.h_diff
-        # hsv[:, : , 0] -= self.h_diff
-        return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+        cv2.imshow('mask', mask)
+        flat_hsv = hsv.reshape(height * width, depth)
+        flat_mask = mask.reshape(height * width, 1)
+        stacked = np.concatenate((flat_hsv, flat_mask), axis=1)
+        reductor = lambda x: (x[0], x[1], x[2]) if x[3] < 128 else (x[0] - self.h_diff, x[1], x[2])
+        stacked = np.apply_along_axis(reductor, 1, stacked)  # incredibly slow
+        stacked = stacked.reshape(height, width, depth)
+        return cv2.cvtColor(stacked, cv2.COLOR_HSV2BGR)
