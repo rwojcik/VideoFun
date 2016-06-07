@@ -1,6 +1,5 @@
 # coding=utf-8
 import calendar
-import colorsys
 import numpy as np, cv2
 import time
 
@@ -221,11 +220,15 @@ def num_to_hsv(value):
 
 def upper_lower_bounds_hsv(value):
     h = num_to_h(value)
-    return np.uint8([[[h - 48, 50, 50]]]), np.uint8([[[h + 48, 255, 255]]])
+    return np.uint8([[[h - 30, 50, 50]]]), np.uint8([[[h + 30, 255, 255]]])
 
 
 def num_to_h(value):
     return num_to_hsv(value)[0][0][0]
+
+
+def h_to_hsv(value):
+    return np.array([[[value, 255, 255]]])
 
 
 def nothing(x):
@@ -283,6 +286,78 @@ def reductor(diff):
         return max(x[0], diff * x[3]) - min(x[0], diff * x[3]), x[1], x[2]
 
     return inner
+
+
+def applyCustomColorMap(im_gray):
+    invGamma = 1/1.5
+    table = np.array([((i / 255.0) ** invGamma) * 255 for i in np.arange(0, 256)]).astype("uint8")
+
+    return cv2.LUT(im_gray, table)
+
+
+class FrameEditorColorReplacement2:
+    def __init__(self, params):
+        # params[0] - kolor (0xRRGGBB) do znalezienia
+        # params[1] - kolor (0xRRGGBB) do zastąpienia
+        # params[2] - czy pokazać wskaźniki i maskę do regulacji rozpoznawania koloru (1 = pokazać)
+        if len(params.split(',')) >= 3 and all(x.isdigit() for x in params.split(',')):
+            params = map(lambda x: int(x), params.split(','))
+        else:
+            params = (65280, 255, 1)
+            # color     rgb         h
+            # red       16711680    0
+            # green     65280       120
+            # blue      255         240
+            # yellow    16776960    42
+            # hue (in hsv) is scaled from 360 to 255
+        self.lower_color, self.upper_color = upper_lower_bounds_hsv(params[0])
+        self.out_color = num_to_hsv(params[1])
+        self.show_controls = params[2]
+        # difference in hue between passed colors
+        # can't use abs in unsigned, difference operation on unsigned
+        self.h_diff = num_to_h(params[0]) - num_to_h(params[1]) if num_to_h(params[0]) > num_to_h(params[1]) else num_to_h(params[1]) - num_to_h(params[0])
+        self.morph_s = 5
+        if self.show_controls:
+            cv2.namedWindow('controls')
+            cv2.createTrackbar('hue_detect', 'controls', self.lower_color[0][0][0], 179, nothing)
+            cv2.createTrackbar('hue_replace', 'controls', self.lower_color[0][0][0], 179, nothing)
+            # cv2.createTrackbar('S_lo', 'controls', self.lower_color[0][0][1], 255, nothing)
+            # cv2.createTrackbar('V_lo', 'controls', self.lower_color[0][0][2], 255, nothing)
+            # cv2.createTrackbar('H_up', 'controls', self.upper_color[0][0][0], 179, nothing)
+            # cv2.createTrackbar('S_up', 'controls', self.upper_color[0][0][1], 255, nothing)
+            # cv2.createTrackbar('V_up', 'controls', self.upper_color[0][0][2], 255, nothing)
+            cv2.createTrackbar('morph_s', 'controls', 5, 20, nothing)
+
+    def frame_edit(self, frame):
+        if self.show_controls and cv2.getTrackbarPos('hue_detect', 'controls') != -1:
+            self.lower_color[0][0][0] = cv2.getTrackbarPos('hue_detect', 'controls') - 15
+            self.upper_color[0][0][0] = cv2.getTrackbarPos('hue_detect', 'controls') + 15
+            # self.lower_color[0][0][1] = cv2.getTrackbarPos('S_lo', 'controls')
+            # self.lower_color[0][0][2] = cv2.getTrackbarPos('V_lo', 'controls')
+            # self.upper_color[0][0][0] = cv2.getTrackbarPos('H_up', 'controls')
+            # self.upper_color[0][0][1] = cv2.getTrackbarPos('S_up', 'controls')
+            # self.upper_color[0][0][2] = cv2.getTrackbarPos('V_up', 'controls')
+            self.morph_s = max(cv2.getTrackbarPos('morph_s', 'controls'), 1)
+        # height, width, depth = frame.shape
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        mask = cv2.inRange(hsv, self.lower_color, self.upper_color)
+        # morphological opening (remove small objects from the foreground)
+        kernel5 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (self.morph_s, self.morph_s))
+        mask = cv2.erode(mask, kernel5)
+        mask = cv2.dilate(mask, kernel5)
+        # morphological closing (fill small holes in the foreground)
+        mask = cv2.dilate(mask, kernel5)
+        mask = cv2.erode(mask, kernel5)
+        if self.show_controls and cv2.getTrackbarPos('hue_detect', 'controls') != -1:
+            cv2.imshow('mask', mask)
+        res = cv2.bitwise_and(gray, gray, mask=mask)
+        # colormap = ColorMap()
+        res = cv2.cvtColor(res, cv2.COLOR_GRAY2BGR)
+        res = applyCustomColorMap(res)
+        frame_masked = cv2.bitwise_and(frame, frame, mask=cv2.bitwise_not(mask))
+        res = cv2.add(frame_masked, res)
+        return res
 
 
 class FrameEditorColorInversion:
