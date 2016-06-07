@@ -263,3 +263,23 @@ class FrameEditorColorReplacement:
         stacked = np.apply_along_axis(reductor, 1, stacked)  # incredibly slow
         stacked = stacked.reshape(height, width, depth)
         return cv2.cvtColor(stacked, cv2.COLOR_HSV2BGR)
+
+
+class FrameEditorColorInversion:
+    def __init__(self, params):
+        # params nie są używane
+        pass
+
+    def frame_edit(self, frame):
+        return 255 - frame
+
+
+class FrameEditorSepia:
+    def __init__(self, params):
+        self.kernel = np.asarray([[0.393, 0.769, 0.189],
+                                  [0.349, 0.686, 0.168],
+                                  [0.272, 0.534, 0.131]])
+
+    def frame_edit(self, frame):
+        sepia = cv2.transform(frame, self.kernel)
+        return cv2.cvtColor(sepia, cv2.COLOR_RGB2BGR)
