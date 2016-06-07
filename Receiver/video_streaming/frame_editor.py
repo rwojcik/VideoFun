@@ -248,21 +248,41 @@ class FrameEditorColorReplacement:
             # hue (in hsv) is scaled from 360 to 255
         self.lower_color, self.upper_color = upper_lower_bounds_hsv(params[0])
         self.out_color = num_to_hsv(params[1])
-        self.h_diff = num_to_h(params[0]) - num_to_h(params[1])
+        # difference in hue between passed colors
+        # can't use abs in unsigned, difference operation on unsigned
+        self.h_diff = num_to_h(params[0]) - num_to_h(params[1]) if num_to_h(params[0]) > num_to_h(params[1]) else num_to_h(params[1]) - num_to_h(params[0])
+        # closure which is necessary for np.apply_along_axis
+        self.reductor = reductor(self.h_diff)
 
     def frame_edit(self, frame):
         height, width, depth = frame.shape
-        cv2.imshow('oryg', frame)
+        # cv2.imshow('oryg', frame)
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, self.lower_color, self.upper_color)
-        cv2.imshow('mask', mask)
+        # cv2.imshow('mask', mask)
         flat_hsv = hsv.reshape(height * width, depth)
         flat_mask = mask.reshape(height * width, 1)
+        # limit mask to True / False array
+        flat_mask[np.where(flat_mask > 128)] = 1
         stacked = np.concatenate((flat_hsv, flat_mask), axis=1)
-        reductor = lambda x: (x[0], x[1], x[2]) if x[3] < 128 else (x[0] - self.h_diff, x[1], x[2])
-        stacked = np.apply_along_axis(reductor, 1, stacked)  # incredibly slow
+        stacked = np.apply_along_axis(self.reductor, 1, stacked)  # incredibly slow
         stacked = stacked.reshape(height, width, depth)
         return cv2.cvtColor(stacked, cv2.COLOR_HSV2BGR)
+
+
+def reductor(diff):
+    def inner(x):
+        # code below is equivalent to:
+        # if x[3]:
+        #     x[0]
+        # elif diff < x[0]:
+        #     max(x[0], diff) - min(x[0], diff) # difference operation on unsigned
+        # else:
+        #     diff - x[0], x[1], x[2]
+        # ...without jumping
+        return max(x[0], diff * x[3]) - min(x[0], diff * x[3]), x[1], x[2]
+
+    return inner
 
 
 class FrameEditorColorInversion:
