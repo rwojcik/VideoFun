@@ -11,13 +11,13 @@ import sem8.tirt.AbstractVNodeConfigMemo;
  *
  * @author jskoczyl
  */
-public class DerivativeConfigMemo extends SimpleFilterConfigMemo {
+public class SepiaConfigMemo extends SimpleFilterConfigMemo {
     
-    public static final String CONFIG_NAME = "Derivative";
-    public static final String CONFIG_DESCRIPTION = "Make Derivative on image.";
+    public static final String CONFIG_NAME = "Sepia";
+    public static final String CONFIG_DESCRIPTION = "Applies Sepia filter to image.";
 
-    public DerivativeConfigMemo() {
-        super(CONFIG_NAME, "FrameEditorDerivative");
+    public SepiaConfigMemo() {
+        super(CONFIG_NAME, "FrameEditorSepia");
     }
     
 }

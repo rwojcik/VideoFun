@@ -11,13 +11,13 @@ import sem8.tirt.AbstractVNodeConfigMemo;
  *
  * @author jskoczyl
  */
-public class DerivativeConfigMemo extends SimpleFilterConfigMemo {
+public class InvertColorsConfigMemo extends SimpleFilterConfigMemo {
     
-    public static final String CONFIG_NAME = "Derivative";
-    public static final String CONFIG_DESCRIPTION = "Make Derivative on image.";
+    public static final String CONFIG_NAME = "Invert Colors";
+    public static final String CONFIG_DESCRIPTION = "Iverts colors of image.";
 
-    public DerivativeConfigMemo() {
-        super(CONFIG_NAME, "FrameEditorDerivative");
+    public InvertColorsConfigMemo() {
+        super(CONFIG_NAME, "FrameEditorColorInversion");
     }
     
 }

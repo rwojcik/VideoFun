@@ -73,11 +73,16 @@ public class AbstractVNodeConfigMemo implements Serializable {
 
     public JPanel createJPanel() throws CannotCreateConfigPanelException {
         try {
-            Constructor constructor = panelClass.getConstructor(getClass());
-            return (JPanel) constructor.newInstance(this);
+            for(Constructor con : panelClass.getConstructors()) {
+                Class[] types = con.getParameterTypes();
+                if(types.length == 1 && types[0].isAssignableFrom(getClass())) {
+                    return (JPanel) con.newInstance(this);
+                }
+            }
         } catch (Exception e) {
             throw new CannotCreateConfigPanelException("Can't create config panel: " + configName, e);
         }
+        throw new CannotCreateConfigPanelException("Can't create config panel, no construnctor found: " + configName);
     }
 
     public Class getPanelClass() {

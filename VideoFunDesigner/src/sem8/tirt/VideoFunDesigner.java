@@ -20,7 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import sem8.tirt.configsPanels.*;
-import sem8.tirt.configsPanels.RevertColorsConfigMemo;
+import sem8.tirt.configsPanels.InvertColorsConfigMemo;
 
 /**
  *
@@ -30,14 +30,14 @@ public class VideoFunDesigner extends javax.swing.JFrame {
 
     public static final Class<? extends AbstractVNodeConfigMemo>[] VNODES_CONFIGS = new Class[]{
         CameraSrcConfigMemo.class,
-        RevertColorsConfigMemo.class,
+        InvertColorsConfigMemo.class,
         BlurConfigMemo.class,
-        //SimpleFilterConfigMemo.class,
-        new SimpleFilterConfigMemo("Circles", "FrameEditorCircles") {
-            public static final String CONFIG_NAME = "Circles";
-            public static final String CONFIG_DESCRIPTION = "Detects circles on image.";
-        }.getClass(),
+        CirclesConfigMemo.class,
         DerivativeConfigMemo.class,
+        GreyConfigMemo.class,
+        SepiaConfigMemo.class,
+        InvertColorsConfigMemo.class,
+        FramesCounterConfigMemo.class,
         ResizeConfigMemo.class,
         ShowInWindowConfigMemo.class
     };
@@ -62,7 +62,7 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         initComponents();
         linksDesktopPane.setParent(this);
         setDescText(CONFIG_DEFAUTL_DESC);
-        
+
         newDiagram();
     }
 
@@ -71,7 +71,7 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         vNodeFrames.clear();
         videoLinks.clear();
         addVNode(VNODES_CONFIGS[0]);
-        addVNode(VNODES_CONFIGS[VNODES_CONFIGS.length-1], 200, -30);
+        addVNode(VNODES_CONFIGS[VNODES_CONFIGS.length - 1], 200, -30);
         videoLinks.add(new VideoLink(0, 0, 1, 0));
         repaint();
     }
@@ -85,11 +85,11 @@ public class VideoFunDesigner extends javax.swing.JFrame {
     public ArrayList<VideoLink> getVideoLinks() {
         return videoLinks;
     }
-    
+
     public VNodeFrame getVNodeFrame(int n) {
         return vNodeFrames.get(n);
     }
-    
+
     protected void addVNode(Class<? extends AbstractVNodeConfigMemo> configMemoClass) {
         addVNode(configMemoClass, 0, 0);
     }
@@ -98,7 +98,7 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         try {
             AbstractVNodeConfigMemo configMemo = configMemoClass.newInstance();
             VNodeMemo vNodeMemo = new VNodeMemo(vNodeFrames.size(), configMemo);
-            int i = jDesktopPane1.getComponentCount()+1;
+            int i = jDesktopPane1.getComponentCount() + 1;
             vNodeMemo.setLocation(newPositionOfVNode(i, dx, dy));
             final VNodeFrame vNodeFrame = new VNodeFrame(vNodeMemo);
             vNodeFrame.setParent(this);
@@ -114,7 +114,7 @@ public class VideoFunDesigner extends javax.swing.JFrame {
     private static Point newPositionOfVNode(int i, int dx, int dy) {
         int ix = i;
         int iy = i;
-        while(iy > 8) {
+        while (iy > 8) {
             iy -= 8;
             ix++;
         }
@@ -125,20 +125,20 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         node.setVisible(true);
         jDesktopPane1.add(node);
     }
-    
+
     public void addVideoLink(VideoLink link) {
         videoLinks.add(link);
         repaint();
     }
-    
+
     public void deleteAllLinksWithInLink(String inLink) {
         ArrayList<VideoLink> toDelete = new ArrayList<VideoLink>();
-        for(VideoLink l : videoLinks) {
-            if(l.cotainsUrl(inLink)) {
+        for (VideoLink l : videoLinks) {
+            if (l.cotainsUrl(inLink)) {
                 toDelete.add(l);
             }
         }
-        for(VideoLink l : toDelete) {
+        for (VideoLink l : toDelete) {
             videoLinks.remove(l);
         }
         repaint();
@@ -290,16 +290,16 @@ public class VideoFunDesigner extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanelButtonsMouseExited
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-openSaveManager.gui_save(true, vNodeFrames, videoLinks);
+        openSaveManager.gui_save(true, vNodeFrames, videoLinks);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        
+
         ArrayList<VNodeMemo> memos = openSaveManager.gui_openInto_orNull(videoLinks);
-        if(memos != null) {
+        if (memos != null) {
             jDesktopPane1.removeAll();
             vNodeFrames.clear();
-            for(VNodeMemo memo : memos) {
+            for (VNodeMemo memo : memos) {
                 final VNodeFrame vNodeFrame = new VNodeFrame(memo);
                 vNodeFrames.add(vNodeFrame);
                 vNodeFrame.setParent(this);
@@ -314,7 +314,7 @@ openSaveManager.gui_save(true, vNodeFrames, videoLinks);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        if(JOptionPane.showConfirmDialog(this, "Create new diagram?", "New diagram", JOptionPane.YES_NO_CANCEL_OPTION) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Create new diagram?", "New diagram", JOptionPane.YES_NO_CANCEL_OPTION) == JOptionPane.YES_OPTION) {
             newDiagram();
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -382,7 +382,6 @@ openSaveManager.gui_save(true, vNodeFrames, videoLinks);
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-
     private class ConfigButton extends JButton {
 
         Class<? extends AbstractVNodeConfigMemo> configMemoClass;
@@ -415,7 +414,7 @@ openSaveManager.gui_save(true, vNodeFrames, videoLinks);
             final int id = e.getID();
             if (id == MouseEvent.MOUSE_EXITED) {
                 setDescText(CONFIG_DEFAUTL_DESC);
-            } else if(id == MouseEvent.MOUSE_ENTERED || id == MouseEvent.MOUSE_MOVED) {
+            } else if (id == MouseEvent.MOUSE_ENTERED || id == MouseEvent.MOUSE_MOVED) {
                 setDescText(desc);
             }
         }
