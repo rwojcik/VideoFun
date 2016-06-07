@@ -18,11 +18,16 @@ public class ShowInWindowConfigMemo extends AbstractVNodeConfigMemo  {
 
     public ShowInWindowConfigMemo() {
         super(ShowInWindowConfigPanel.class, CONFIG_NAME, 2, 0);
-        cmdBlockName = "ts_shower.py";
     }
 
     @Override
+    protected void writeFramesDestination(int[] outs, StringBuilder builder) {
+        // do nothing
+    }
+    
+    @Override
     protected String getRunCmdWithParams(StringBuilder builder) {
+        builder.append("  -editor FrameEditorEmpty ");
         return builder.toString();
     }
     

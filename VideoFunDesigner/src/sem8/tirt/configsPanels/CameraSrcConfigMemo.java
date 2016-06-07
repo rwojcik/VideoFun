@@ -18,11 +18,16 @@ public class CameraSrcConfigMemo extends AbstractVNodeConfigMemo  {
 
     public CameraSrcConfigMemo() {
         super(CameraSrcConfigPanel.class, CONFIG_NAME, 0, 1);
-        cmdBlockName = "ts_server.py";
     }
 
     @Override
+    protected void writeFramesSource(int[] ins, StringBuilder builder) {
+        builder.append(" -framesource CameraFrameGenerator ");
+    }
+    
+    @Override
     protected String getRunCmdWithParams(StringBuilder builder) {
+        builder.append("  -editor FrameEditorEmpty ");
         return builder.toString();
     }
     

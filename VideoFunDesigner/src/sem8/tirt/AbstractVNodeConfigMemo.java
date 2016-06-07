@@ -46,8 +46,8 @@ public class AbstractVNodeConfigMemo implements Serializable {
         StringBuilder builder = new StringBuilder();
         builder.append("start python ");
         builder.append(cmdBlockName);
-        listIntsOnCmd(" -from ", ins, builder);
-        listIntsOnCmd(" -to ", outs, builder);
+        writeFramesSource(ins, builder);
+        writeFramesDestination(outs, builder);
         if (getMergeType() != 0) {
             builder.append(" -merge ");
             builder.append(MergeConfigDialog.MERGERS_NAME[getMergeType()]);
@@ -58,6 +58,14 @@ public class AbstractVNodeConfigMemo implements Serializable {
             }
         }
         return getRunCmdWithParams(builder);
+    }
+
+    protected void writeFramesDestination(int[] outs, StringBuilder builder) {
+        listIntsOnCmd(" -framedestination TransmissionControlSinkServer  ", outs, builder);
+    }
+
+    protected void writeFramesSource(int[] ins, StringBuilder builder) {
+        listIntsOnCmd(" -framesource TransmissionControlFrameGenerator  ", ins, builder);
     }
 
     public String getParameters() {
@@ -136,6 +144,7 @@ public class AbstractVNodeConfigMemo implements Serializable {
             } else {
                 builder.append(",");
             }
+            builder.append("localhost:");
             builder.append(i);
             first = false;
         }
