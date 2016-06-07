@@ -5,17 +5,21 @@
  */
 package sem8.tirt.configsPanels;
 
+import sem8.tirt.AbstractVNodeConfigMemo;
+
 /**
  *
  * @author jskoczyl
  */
-public class CirclesConfigPanel extends javax.swing.JPanel {
+public class SimpleFilterConfigPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form RevertColorsConfigPanel
      */
-    public CirclesConfigPanel(CirclesConfigMemo memo) {
+    public SimpleFilterConfigPanel(SimpleFilterConfigMemo memo) {
         initComponents();
+        
+        jLabel1.setText(memo.getGuiName());
     }
 
     /**

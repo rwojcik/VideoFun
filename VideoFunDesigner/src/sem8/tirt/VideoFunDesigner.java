@@ -32,7 +32,11 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         CameraSrcConfigMemo.class,
         RevertColorsConfigMemo.class,
         BlurConfigMemo.class,
-        CirclesConfigMemo.class,
+        //SimpleFilterConfigMemo.class,
+        new SimpleFilterConfigMemo("Circles", "FrameEditorCircles") {
+            public static final String CONFIG_NAME = "Circles";
+            public static final String CONFIG_DESCRIPTION = "Detects circles on image.";
+        }.getClass(),
         DerivativeConfigMemo.class,
         ResizeConfigMemo.class,
         ShowInWindowConfigMemo.class
