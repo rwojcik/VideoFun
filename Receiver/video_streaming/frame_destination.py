@@ -5,8 +5,14 @@ import sys
 
 
 class DatagramSinkServer:
-
+    """
+    Sends frames over UDP connection.
+    """
     def __init__(self, dst_host):
+        """
+        Initializer for UDP sender.
+        :param dst_host: comma separated destination host and port pairs. Host can be also broadcast.
+        """
         self.socketInfos = list()
         for hostport in map(lambda x: (x.split(':')[0], int(x.split(':')[1])), dst_host.split(',')):
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -45,6 +51,12 @@ class DatagramSinkServer:
 
 
 def try_send_tcp(si, buf_str):
+    """
+
+    :param si:
+    :param buf_str:
+    :return:
+    """
     send = False
     while not send:
         try:
@@ -74,8 +86,14 @@ def try_send_tcp(si, buf_str):
 
 
 class TransmissionControlSinkServer:
-
+    """
+    Sends frames over TCP connection.
+    """
     def __init__(self, dst_host):
+        """
+        Initializes TCP connection.
+        :param dst_host: comma separated destination host and port pairs. Locks execution until all peers connect.
+        """
         self.socketInfos = list()
         for hostport in map(lambda x: (x.split(':')[0], int(x.split(':')[1])), dst_host.split(',')):
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -106,7 +124,9 @@ class TransmissionControlSinkServer:
 
 
 class FrameSinkShower:
-
+    """
+    Shows frame in cv2 window.
+    """
     def __init__(self, dst_host):
         pass
 

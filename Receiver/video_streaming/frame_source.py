@@ -8,6 +8,9 @@ import sys
 
 
 class CameraFrameGenerator:
+    """
+    Fetches image from camera.
+    """
     def __init__(self, src_host):
         self.camera = cv2.VideoCapture(0)
 
@@ -23,6 +26,12 @@ class CameraFrameGenerator:
         self.generator_finish()
 
 def recv_udp_data(si):
+    """
+    Receives UDP messages and converts them to frame.
+    In case of error retries until connection will be available.
+    :param si: SocketInfo, information about UDP connection.
+    :return: Frame send over UDP.
+    """
     img = []
     frame_str = ''
     read = False
@@ -57,7 +66,9 @@ def recv_udp_data(si):
 
 
 class DatagramFrameGenerator:
-
+    """
+    Generator which receives frames from UDP stream.
+    """
     def __init__(self, src_host):
         self.socketInfos = list()
         for hostport in map(lambda x: (x.split(':')[0], int(x.split(':')[1])), src_host.split(',')):
@@ -87,6 +98,12 @@ class DatagramFrameGenerator:
 
 
 def recv_tcp_data(si):
+    """
+    Receives TCP packets and converts them to frame.
+    In case of error retries until connection will be available.
+    :param si: SocketInfo, information about TCP connection.
+    :return: Frame send over TCP.
+    """
     frame_str = ''
     last = False
     while not last:
@@ -122,6 +139,12 @@ def recv_tcp_data(si):
 
 
 def connect_tcp(ip, port):
+    """
+    Tries TCP connection until successful. Can lock program execution.
+    :param ip: destination ip.
+    :param port: destination port.
+    :return: SocketInfo with TCP connection data.
+    """
     while 1:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -133,8 +156,14 @@ def connect_tcp(ip, port):
 
 
 class TransmissionControlFrameGenerator:
-
+    """
+    Generator which receives frames from TCP stream.
+    """
     def __init__(self, src_host):
+        """
+        Initializes TCP connection.
+        :param src_host: comma separated source host and port pairs. Locks execution until connets to all servers.
+        """
         self.socketInfos = list()
         for hostport in map(lambda x: (x.split(':')[0], int(x.split(':')[1])), src_host.split(',')):
             ip = hostport[0]

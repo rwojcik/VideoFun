@@ -15,8 +15,12 @@ framedstparams = 'localhost:5005'
 framesource = 'CameraFrameGenerator'
 framesdestination = 'FrameSinkShower'
 
-if __name__ == '__main__':
 
+def main_loop():
+    """
+    Starts main loop of program
+    :return: nothing.
+    """
     if '-framesource' in sys.argv:
         framesource = sys.argv[sys.argv.index('-framesource') + 1]
         if len(sys.argv) > sys.argv.index('-framesource') + 2 \
@@ -49,5 +53,12 @@ if __name__ == '__main__':
     framesDst = eval(framesdestination)(framedstparams)
 
     receive_and_sink_video(framesSrc=framesSrc, framesDst=framesDst, frameEditor=frameEditor, frameMerger=frameMerger)
+
+
+if __name__ == '__main__':
+    main_loop()
+
+
+
 
 
