@@ -51,7 +51,7 @@ def recv_udp_data(si):
             else:
                 print >> sys.stderr, 'length data do not match, expected: {}, got: {}, diff: {}'.format(data_len, len(frame), len(frame) - data_len)
         except Exception as e:
-            print >> sys.stderr, '{}error reading frames, retry'.format(str(e))
+            print >> sys.stderr, '{}error reading history, retry'.format(str(e))
     print 'read image, size: {}'.format(len(frame_str))
     return img
 
