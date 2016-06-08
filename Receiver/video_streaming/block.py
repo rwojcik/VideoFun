@@ -6,14 +6,6 @@ from frame_source import *
 from frame_destination import *
 
 # default values
-editor = 'FrameEditorEmpty'
-merge = 'FrameMergerFirst'
-editorparams = ''
-mergerparams = ''
-framesrcparams = 'localhost:5005'
-framedstparams = 'localhost:5005'
-framesource = 'CameraFrameGenerator'
-framesdestination = 'FrameSinkShower'
 
 
 def main_loop():
@@ -21,6 +13,16 @@ def main_loop():
     Starts main loop of program
     :return: nothing.
     """
+
+    editor = 'FrameEditorEmpty'
+    merge = 'FrameMergerFirst'
+    editorparams = ''
+    mergerparams = ''
+    framesrcparams = 'localhost:5005'
+    framedstparams = 'localhost:5005'
+    framesource = 'CameraFrameGenerator'
+    framesdestination = 'FrameSinkShower'
+
     if '-framesource' in sys.argv:
         framesource = sys.argv[sys.argv.index('-framesource') + 1]
         if len(sys.argv) > sys.argv.index('-framesource') + 2 \
