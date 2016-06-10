@@ -45,7 +45,7 @@ public class VideoFunDesigner extends javax.swing.JFrame {
     };
 
     public static final int INTERNAL_FRAME_OFFSET = 30;
-    public static final String CONFIG_DEFAUTL_DESC = "Move mose over button to see here more information.";
+    public static final String CONFIG_DEFAUTL_DESC = "Click buttons above to add video block to diagram. Move mose over button to see here more information about adding video block.";
 
     private int vnodesCounter;
     private LinksDesktopPane linksDesktopPane;
