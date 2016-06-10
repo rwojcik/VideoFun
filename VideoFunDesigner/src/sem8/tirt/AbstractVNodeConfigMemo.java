@@ -43,12 +43,12 @@ public class AbstractVNodeConfigMemo implements Serializable {
         this.outputsNum = outputsNum;
     }
 
-    public String getRunCmd(int[] ins, int[] outs) {
+    public String getRunCmd(int[] ins, int[] outs, boolean asTcp) {
         StringBuilder builder = new StringBuilder();
         builder.append("start python ");
         builder.append(cmdBlockName);
-        writeFramesSource(ins, builder);
-        writeFramesDestination(outs, builder);
+        writeFramesSource(ins, builder, asTcp);
+        writeFramesDestination(outs, builder, asTcp);
         if (getMergeType() != 0) {
             builder.append(" -merge ");
             builder.append(MergeConfigDialog.MERGERS_NAME[getMergeType()]);
@@ -61,12 +61,20 @@ public class AbstractVNodeConfigMemo implements Serializable {
         return getRunCmdWithParams(builder);
     }
 
-    protected void writeFramesDestination(int[] outs, StringBuilder builder) {
-        listIntsOnCmd(" -framedestination TransmissionControlSinkServer  ", outs, builder);
+    protected void writeFramesDestination(int[] outs, StringBuilder builder, boolean asTcp) {
+        if(asTcp) {
+            listIntsOnCmd(" -framedestination TransmissionControlSinkServer  ", outs, builder);
+        } else {
+            listIntsOnCmd(" -framedestination DatagramSinkServer  ", outs, builder);
+        }
     }
 
-    protected void writeFramesSource(int[] ins, StringBuilder builder) {
-        listIntsOnCmd(" -framesource TransmissionControlFrameGenerator  ", ins, builder);
+    protected void writeFramesSource(int[] ins, StringBuilder builder, boolean asTcp) {
+        if(asTcp) {
+            listIntsOnCmd(" -framesource TransmissionControlFrameGenerator  ", ins, builder);
+        } else {
+            listIntsOnCmd(" -framesource DatagramFrameGenerator  ", ins, builder);
+        }
     }
 
     public String getParameters() {

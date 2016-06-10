@@ -106,6 +106,13 @@ public class OpenSaveManager {
     }
 
     private File askFile(String aproveButtonText) {
+        return askFile(aproveButtonText, null);
+    }
+
+    private File askFile(String aproveButtonText, File dir_orNull) {
+        if (dir_orNull != null) {
+            chooser.setCurrentDirectory(dir_orNull);
+        }
         int answer = chooser.showDialog(parentComponent, aproveButtonText);
         if (answer == JFileChooser.APPROVE_OPTION) {
             return chooser.getSelectedFile();
@@ -134,9 +141,9 @@ public class OpenSaveManager {
         }
     }
 
-    File exportCmd(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks) {
-        File cmdFile = newCmdFile();
-        if(cmdFile == null) {
+    File exportCmd(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks, boolean asTcp) {
+        File cmdFile = newCmdFile(asTcp);
+        if (cmdFile == null) {
             return null;
         }
         findFreeTcpsPorts(videoLinks);
@@ -145,8 +152,9 @@ public class OpenSaveManager {
                 VNodeMemo memo = vnode.getMemo();
                 int[] ins = createIns(memo, videoLinks);
                 int[] outs = createOuts(memo, videoLinks);
-                out.println(memo.getConfigMemo().getRunCmd(ins, outs));
-                System.out.println(memo.getConfigMemo().getRunCmd(ins, outs));
+                String cmd = memo.getConfigMemo().getRunCmd(ins, outs, asTcp);
+                out.println(cmd);
+                System.out.println(cmd);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -155,13 +163,21 @@ public class OpenSaveManager {
         return cmdFile;
     }
 
-    private File newCmdFile() {
-        File dir = new File("../Receiver/video_streaming");
-        if(dir.exists()) {
-            File file = new File("../Receiver/video_streaming/gen_cmd.bat");
-            return file;
+    private File newCmdFile(boolean asTcp) {
+        File[] toTestFiles = new File[]{
+            new File("VideoFunPy"),
+            new File("../VideoFunPy")
+        };
+        File dir = null;
+        for (File f : toTestFiles) {
+            if (f.exists()) {
+                dir = f;
+                break;
+            }
         }
-        return askFile("Gen cmd");
+        String text = asTcp ? "Gen TCP cmd" : "Gen UDP cmd";
+        File file = askFile(text, dir);
+        return file;
     }
 
     private void findFreeTcpsPorts(ArrayList<VideoLink> videoLinks) {
@@ -205,7 +221,9 @@ public class OpenSaveManager {
 
     private int[] createIns(VNodeMemo memo, ArrayList<VideoLink> videoLinks) {
         int[] result = new int[memo.getInputsNum()];
-        for(int i=0; i<result.length; i++) result[i] = -1;
+        for (int i = 0; i < result.length; i++) {
+            result[i] = -1;
+        }
         int index = 0;
         for (VideoLink link : videoLinks) {
             if (link.getDstVNode() == memo.getVnodeNumber()) {
@@ -225,16 +243,16 @@ public class OpenSaveManager {
         }
         int[] r = new int[result.size()];
         int i = 0;
-        for(Integer v : result) {
+        for (Integer v : result) {
             r[i++] = v;
         }
         return r;
     }
 
-    void exportCmdAndRun(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks) {
-        File file = exportCmd(vNodeFrames, videoLinks);
-        if(file != null) {
-            try { 
+    void exportCmdAndRun(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks, boolean asTcp) {
+        File file = exportCmd(vNodeFrames, videoLinks, asTcp);
+        if (file != null) {
+            try {
                 Process exec = Runtime.getRuntime().exec("cmd");
                 PrintStream out = new PrintStream(exec.getOutputStream());
                 out.println("start \"\" \"" + file.getAbsolutePath() + "\"");

@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -56,6 +57,7 @@ public class VideoFunDesigner extends javax.swing.JFrame {
      * Creates new form ViedoFunDesigner
      */
     public VideoFunDesigner() {
+        System.out.println(new File("").getAbsolutePath());
         linksDesktopPane = new LinksDesktopPane();
         vNodeFrames = new ArrayList<VNodeFrame>();
         videoLinks = new ArrayList<VideoLink>();
@@ -177,11 +179,19 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem8 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -257,13 +267,14 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem4.setText("Save as diagram");
+        jMenuItem4.setText("Save diagram as");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem4);
+        jMenu1.add(jSeparator1);
 
         jMenuItem5.setText("Export diagram do xml");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -274,7 +285,7 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         jMenu1.add(jMenuItem5);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem6.setText("Export to cmd");
+        jMenuItem6.setText("Export to cmd in TCP mode");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -282,10 +293,25 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem6);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem7.setText("Export to cmd in UDP mode");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+        jMenu1.add(jSeparator2);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenuItem8.setText("Close application");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -297,8 +323,12 @@ public class VideoFunDesigner extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanelButtonsMouseExited
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        openSaveManager.gui_save(true, vNodeFrames, videoLinks);
+        saveAs();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void saveAs() {
+        openSaveManager.gui_save(true, vNodeFrames, videoLinks);
+    }
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
@@ -331,8 +361,20 @@ public class VideoFunDesigner extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        openSaveManager.exportCmd(vNodeFrames, videoLinks);
+        openSaveManager.exportCmd(vNodeFrames, videoLinks, true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        openSaveManager.exportCmd(vNodeFrames, videoLinks, false);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        closingApplication();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        closingApplication();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -376,7 +418,6 @@ public class VideoFunDesigner extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabelConfigDesc;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -384,10 +425,24 @@ public class VideoFunDesigner extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelButtons;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     // End of variables declaration//GEN-END:variables
+
+    private void closingApplication() {
+        int answer = JOptionPane.showConfirmDialog(this, "Do you want to save diagram before close?", "Close confirm", JOptionPane.YES_NO_CANCEL_OPTION);
+        if(answer == JOptionPane.YES_OPTION) {
+            saveAs();
+        }
+        if(answer == JOptionPane.YES_OPTION || answer == JOptionPane.NO_OPTION) {
+            System.exit(0);
+        }
+    }
 
     private class ConfigButton extends JButton {
 
