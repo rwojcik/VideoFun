@@ -15,8 +15,6 @@ sem8.tirt.configsPanels
    FramesCounterConfigMemo
    GreyConfigMemo
    InvertColorsConfigMemo
-   MergeConfigMemo
-   MergeConfigPanel
    ResizeConfigMemo
    ResizeConfigPanel
    SepiaConfigMemo

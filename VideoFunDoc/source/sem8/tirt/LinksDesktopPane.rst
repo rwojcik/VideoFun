@@ -24,7 +24,9 @@ LinksDesktopPane
 
 .. java:type:: public class LinksDesktopPane extends JDesktopPane
 
-   :author: jskoczyl
+   This class paints links between blocks on screen.
+
+   :author: Jacek Skoczylas
 
 Methods
 -------

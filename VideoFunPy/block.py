@@ -6,20 +6,9 @@ from source import *
 from destination import *
 
 
-
 def main_loop():
     """
     Starts main loop of program
-    :return: nothing.
-    """
-
-    # default values
-
-
-def main_loop():
-    """
-    Starts main loop of program
-    :return: nothing.
     """
 
     editor = 'FrameEditorEmpty'

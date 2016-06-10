@@ -12,7 +12,9 @@ AbstractVNodeConfigMemo
 
 .. java:type:: public class AbstractVNodeConfigMemo implements Serializable
 
-   :author: jskoczyl
+   Stores serializable data about type and parameters of video block.
+
+   :author: Jacek Skoczylas
 
 Fields
 ------
@@ -22,11 +24,15 @@ CONFIG_DESCRIPTION_FIELD_NAME
 .. java:field:: public static final String CONFIG_DESCRIPTION_FIELD_NAME
    :outertype: AbstractVNodeConfigMemo
 
+   Static filed name in children classes with video block description showing in gui.
+
 CONFIG_NAME_FIELD_NAME
 ^^^^^^^^^^^^^^^^^^^^^^
 
 .. java:field:: public static final String CONFIG_NAME_FIELD_NAME
    :outertype: AbstractVNodeConfigMemo
+
+   Static filed name in children classes with video block name showing in gui.
 
 cmdBlockName
 ^^^^^^^^^^^^
@@ -61,6 +67,11 @@ createJPanel
 
 .. java:method:: public JPanel createJPanel() throws CannotCreateConfigPanelException
    :outertype: AbstractVNodeConfigMemo
+
+   Creates JPanel to configure parameters of this viode block.
+
+   :throws CannotCreateConfigPanelException: if you create some class in wrong way
+   :return: JPanel to configure parameters of this viode block
 
 getConfigName
 ^^^^^^^^^^^^^
@@ -113,8 +124,15 @@ getParameters
 getRunCmd
 ^^^^^^^^^
 
-.. java:method:: public String getRunCmd(int[] ins, int[] outs)
+.. java:method:: public String getRunCmd(int[] ins, int[] outs, boolean asTcp)
    :outertype: AbstractVNodeConfigMemo
+
+   Create a cmd command which will run this video block.
+
+   :param ins: array of tcp/udp ports inputs
+   :param outs: array of tcp/udp ports outputs
+   :param asTcp: is TCP mode? (if \ ``false``\  then UDP mode)
+   :return: cmd line running this video block in console
 
 getRunCmdWithParams
 ^^^^^^^^^^^^^^^^^^^
@@ -173,12 +191,12 @@ setParameters
 writeFramesDestination
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. java:method:: protected void writeFramesDestination(int[] outs, StringBuilder builder)
+.. java:method:: protected void writeFramesDestination(int[] outs, StringBuilder builder, boolean asTcp)
    :outertype: AbstractVNodeConfigMemo
 
 writeFramesSource
 ^^^^^^^^^^^^^^^^^
 
-.. java:method:: protected void writeFramesSource(int[] ins, StringBuilder builder)
+.. java:method:: protected void writeFramesSource(int[] ins, StringBuilder builder, boolean asTcp)
    :outertype: AbstractVNodeConfigMemo
 

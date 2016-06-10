@@ -8,7 +8,7 @@ FramesCounterConfigMemo
 
 .. java:type:: public class FramesCounterConfigMemo extends SimpleFilterConfigMemo
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------

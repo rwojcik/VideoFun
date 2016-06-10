@@ -8,7 +8,7 @@ BlurConfigMemo
 
 .. java:type:: public class BlurConfigMemo extends AbstractVNodeConfigMemo
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------

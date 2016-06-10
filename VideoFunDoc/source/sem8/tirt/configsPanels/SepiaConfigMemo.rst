@@ -8,7 +8,7 @@ SepiaConfigMemo
 
 .. java:type:: public class SepiaConfigMemo extends SimpleFilterConfigMemo
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------

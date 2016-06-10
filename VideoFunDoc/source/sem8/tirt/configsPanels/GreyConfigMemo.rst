@@ -8,7 +8,7 @@ GreyConfigMemo
 
 .. java:type:: public class GreyConfigMemo extends SimpleFilterConfigMemo
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------

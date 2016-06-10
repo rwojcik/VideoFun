@@ -4,11 +4,21 @@ from editor import FrameEditorResize
 
 
 class FrameMergerFirst:
-    # params nie są używane
+    """
+    Merger which passes only the firs image from frames list.
+
+    :param params: ignored.
+    """
     def __init__(self, params):
         pass
 
     def frame_merge(self, frames):
+        """
+        Merges frame, by selecting only first frame from parameter.
+
+        :param frames: list of frames.
+        :return: first element from list of frames.
+        """
         if len(frames) == 0:
             img = np.zeros((512, 512, 3), np.uint8)
             font = cv2.FONT_HERSHEY_SIMPLEX
@@ -18,13 +28,24 @@ class FrameMergerFirst:
 
 
 class FrameMergerStack:
-    # params nie są używane
+    """
+    Stacks vertically two first images from table of frames images.
+    If they differ size, bigger is scaled down to match smaller frame.
+
+    :param params: ignored.
+    """
     def __init__(self, params):
         self.history = None
         self.resizer = FrameEditorResize('')
         self.merger_first = FrameMergerFirst(0)
 
     def frame_merge(self, frames):
+        """
+        Stacks first two images, one below another.
+
+        :param frames: list of frames.
+        :return: one frame, which is combined from two first frames from parameter.
+        """
         if len(frames) < 2:
             if self.history is not None:
                 # show history in case there is history shortage
@@ -45,7 +66,12 @@ class FrameMergerStack:
 
 
 class FrameMergerBlending:
-    # params[0] - waga złączenia (0 <= x <= 1)
+    """
+    Blends two frames by weighted average.
+
+    :param params: weight of first frame. Second one has weight 1 - parameter
+    :type params: str input type
+    """
     def __init__(self, params):
         paramsSplit = params.split(',')
         if len(paramsSplit) >= 1 and all(x.isdigit() for x in paramsSplit) and 0 <= paramsSplit[0] <= 1:
@@ -57,6 +83,12 @@ class FrameMergerBlending:
         self.merger_first = FrameMergerFirst(0)
 
     def frame_merge(self, frames):
+        """
+        Merges two frames by blending
+
+        :param frames: list of frames.
+        :return: one frame, which is combined from two first frames by averaging.
+        """
         if len(frames) < 2:
             if self.history is not None:
                 # show history in case there is history shortage

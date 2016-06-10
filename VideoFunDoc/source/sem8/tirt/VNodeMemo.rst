@@ -12,7 +12,9 @@ VNodeMemo
 
 .. java:type:: public class VNodeMemo implements Serializable
 
-   :author: jskoczyl
+   Stores serializable data using by \ ``VNodeFrame``\ .
+
+   :author: Jacek Skoczylas
 
 Constructors
 ------------

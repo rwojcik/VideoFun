@@ -8,7 +8,7 @@ CameraSrcConfigMemo
 
 .. java:type:: public class CameraSrcConfigMemo extends AbstractVNodeConfigMemo
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------
@@ -43,6 +43,6 @@ getRunCmdWithParams
 writeFramesSource
 ^^^^^^^^^^^^^^^^^
 
-.. java:method:: @Override protected void writeFramesSource(int[] ins, StringBuilder builder)
+.. java:method:: @Override protected void writeFramesSource(int[] ins, StringBuilder builder, boolean asTcp)
    :outertype: CameraSrcConfigMemo
 

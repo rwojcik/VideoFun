@@ -6,7 +6,7 @@ CameraSrcConfigPanel
 
 .. java:type:: public class CameraSrcConfigPanel extends javax.swing.JPanel
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Constructors
 ------------

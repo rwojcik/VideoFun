@@ -6,7 +6,7 @@ VideoFunDesigner
 
 .. java:type:: public class VideoFunDesigner
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Methods
 -------

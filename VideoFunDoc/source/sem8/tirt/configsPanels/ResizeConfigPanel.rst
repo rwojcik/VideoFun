@@ -6,7 +6,7 @@ ResizeConfigPanel
 
 .. java:type:: public class ResizeConfigPanel extends javax.swing.JPanel
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------

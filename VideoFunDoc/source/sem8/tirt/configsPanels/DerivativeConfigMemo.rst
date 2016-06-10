@@ -8,7 +8,7 @@ DerivativeConfigMemo
 
 .. java:type:: public class DerivativeConfigMemo extends SimpleFilterConfigMemo
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------

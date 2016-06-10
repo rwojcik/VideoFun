@@ -6,7 +6,7 @@ ShowInWindowConfigPanel
 
 .. java:type:: public class ShowInWindowConfigPanel extends javax.swing.JPanel
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Constructors
 ------------

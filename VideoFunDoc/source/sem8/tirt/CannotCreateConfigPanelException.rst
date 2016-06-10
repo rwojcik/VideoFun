@@ -6,7 +6,9 @@ CannotCreateConfigPanelException
 
 .. java:type:: public class CannotCreateConfigPanelException extends Exception
 
-   :author: jskoczyl
+   Exception throwing when config panel class is wrong assiociated with viode block.
+
+   :author: Jacek Skoczylas
 
 Constructors
 ------------

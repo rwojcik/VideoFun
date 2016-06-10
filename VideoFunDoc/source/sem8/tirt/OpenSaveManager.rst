@@ -34,6 +34,8 @@
 
 .. java:import:: javax.swing JOptionPane
 
+.. java:import:: javax.swing.filechooser FileNameExtensionFilter
+
 .. java:import:: javax.xml.bind JAXBContext
 
 .. java:import:: javax.xml.bind Marshaller
@@ -48,7 +50,9 @@ OpenSaveManager
 
 .. java:type:: public class OpenSaveManager
 
-   :author: jskoczyl
+   Class implementing open/save with gui dialogs about it.
+
+   :author: Jacek Skoczylas
 
 Constructors
 ------------
@@ -69,13 +73,13 @@ available
 exportCmd
 ^^^^^^^^^
 
-.. java:method::  File exportCmd(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks)
+.. java:method::  File exportCmd(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks, boolean asTcp)
    :outertype: OpenSaveManager
 
 exportCmdAndRun
 ^^^^^^^^^^^^^^^
 
-.. java:method::  void exportCmdAndRun(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks)
+.. java:method::  void exportCmdAndRun(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks, boolean asTcp)
    :outertype: OpenSaveManager
 
 exportXml

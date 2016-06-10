@@ -8,7 +8,7 @@ ShowInWindowConfigMemo
 
 .. java:type:: public class ShowInWindowConfigMemo extends AbstractVNodeConfigMemo
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------
@@ -43,6 +43,6 @@ getRunCmdWithParams
 writeFramesDestination
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. java:method:: @Override protected void writeFramesDestination(int[] outs, StringBuilder builder)
+.. java:method:: @Override protected void writeFramesDestination(int[] outs, StringBuilder builder, boolean asTcp)
    :outertype: ShowInWindowConfigMemo
 

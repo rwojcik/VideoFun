@@ -10,19 +10,16 @@ class FrameEditorEmpty:
     Just simple, empty editor, frames pass through.
     Frame is unchanged.
     Good starting point to implement your custom editor.
-    """
 
-    # params nie są używane
+    :param params: There can be passed anything, because parameters are ignored
+    """
     def __init__(self, params):
-        """
-        Editor initializer. Since editor is empty input parameters are ignored
-        :param params: There can be passed anything, because parameters are ignored
-        """
         pass
 
     def frame_edit(self, frame):
         """
         Pass through frame editor.
+
         :param frame: Frame to be returned
         :return: Returns input frame, unchanged
         """
@@ -32,13 +29,12 @@ class FrameEditorEmpty:
 class FrameEditorEllipse:
     """
     Editor which adds shape of the ellipse to the frame.
+
+    :param params: comma separated string which specifies relative ellipse center point.
+    For example: '0.5,0.5' will place ellipse in the center.
     """
 
     def __init__(self, params):
-        """
-        Editor initializer.
-        :param params: comma separated string which specifies relative ellipse center point. Example string : '0.5,0.5' will place ellipse in the center.
-        """
         paramsSplit = params.split(',')
         if len(paramsSplit) > 1 and all(isfloat(x) for x in paramsSplit):
             self.params = map(lambda x: int(x), paramsSplit)
@@ -49,8 +45,9 @@ class FrameEditorEllipse:
     def frame_edit(self, frame):
         """
         Add ellipse to frame.
-        :param frame: Frame:np.array to which ellipse will be added.
-        :return: Frame:np.array with added ellipse.
+
+        :param frame: frame to which ellipse will be added.
+        :return: frame with added ellipse.
         """
         height, width, _ = frame.shape
         cv2.ellipse(frame, (self.params[0] * width, self.params[1] * height), (100, 50), 0, 0, 180, 255, -1)
@@ -60,18 +57,17 @@ class FrameEditorEllipse:
 class FrameEditorGreyscale:
     """
     Editor which converts frame to greyscale image.
+
+    :param params: will be ignored.
     """
 
     def __init__(self, params):
-        """
-        Editor initializer.
-        :param params: will be ignored.
-        """
         pass
 
     def frame_edit(self, frame):
         """
         Convert frame to greyscale image.
+
         :param frame: image to be converted.
         :return: grayscaled image.
         """
@@ -82,6 +78,7 @@ class FrameEditorGreyscale:
 def isfloat(value):
     """
     Tests whether value is floating point type.
+
     :param value: variable to be tested.
     :return: True if value is float, false otherwise.
     """
@@ -95,14 +92,12 @@ def isfloat(value):
 class FrameEditorResize:
     """
     Editor which resizes image.
+
+    :param params: comma separated string which specifies scaling factor.
+    For example, '0.5,0.5' will shrink image to half size in both axes.
     """
 
     def __init__(self, params):
-        """
-        Editor initializer.
-        :param params: comma separated string which specifies scaling factor.
-        Example string : '0.5,0.5' will shrink image to half size in both axes.
-        """
         paramsSplit = params.split(',')
         if len(paramsSplit) > 1 and all(isfloat(x) for x in paramsSplit):
             self.params = map(lambda x: float(x), paramsSplit)
@@ -112,6 +107,7 @@ class FrameEditorResize:
     def frame_edit(self, frame):
         """
         Scale image.
+
         :param frame: Frame to be scaled.
         :return: Scaled image.
         """
@@ -122,16 +118,15 @@ class FrameEditorResize:
 class FrameEditorSmoothing:
     """
     Smoothes frame either by gaussian blur or bilateral filter.
+
+    :param params: comma separated string which specifies smoothing parameters.
+    First two values specifies smoothing range and last one specifies method
+    (0 - gaussian blur, 1 - bilateral filter).
+
+    Example string '11,11,0' will use gaussian blur with range of 5 pixels). Ranges are ceil'd to odd number.
     """
 
     def __init__(self, params):
-        """
-        Editor initializer.
-        :param params: comma separated string which specifies smoothing parameters.
-        First two values specifies smoothing range and last one specifies method
-        (0 - gaussian blur, 1 - bilateral filter). Example string '11,11,0' will use gaussian blur with range of 5
-        pixels). First to values ale ceil-ed to odd number.
-        """
         paramsSplit = params.split(',')
         if len(paramsSplit) >= 3 and all(x.isdigit() for x in paramsSplit):
             self.params = map(lambda x: int(x), paramsSplit)
@@ -143,7 +138,8 @@ class FrameEditorSmoothing:
 
     def frame_edit(self, frame):
         """
-        Performs smoothing,
+        Performs smoothing.
+
         :param frame: Frame to be smoothed
         :return: Smoothed frame by chosen parameters in initializer.
         """
@@ -158,17 +154,16 @@ class FrameEditorSmoothing:
 class FrameEditorDerivative:
     """
     Detects edges in frame by derivative
+
+    :param params: ignored.
     """
     def __init__(self, params):
-        """
-        Initializer which ignores input params.
-        :param params: ignored.
-        """
         pass
 
     def frame_edit(self, frame):
         """
         Detects edges on image.
+
         :param frame: Frame to be checked against edges.
         :return: Black and white image with edges marked.
         """
@@ -179,18 +174,16 @@ class FrameEditorDerivative:
 class FrameEditorCircles:
     """
     Detects circles on image.
+
+    :param params: comma separated string which specifies detection parameters. See source for explanation.
     """
     def __init__(self, params):
-        """
-        Initializes editor with circles detection parameters.
-        :param params: comma separated string which specifies smoothing parameters:
-        params[0] - dp
-        params[1] - minDist
-        params[2] - higher threshold
-        params[3] - accumulator threshold
-        params[4] - minRadius
-        params[5] - maxRadius
-        """
+        # params[0] - dp
+        # params[1] - minDist
+        # params[2] - higher threshold
+        # params[3] - accumulator threshold
+        # params[4] - minRadius
+        # params[5] - maxRadius
         paramsSplit = params.split(',')
         if len(paramsSplit) >= 6 and all(x.isdigit() for x in paramsSplit):
             self.params = map(lambda x: int(x), paramsSplit)
@@ -201,6 +194,7 @@ class FrameEditorCircles:
     def frame_edit(self, frame):
         """
         Detects and shows circles on frame.
+
         :param frame: frame in which frames will be detected.
         :return: frame with circles marked.
         """
@@ -219,14 +213,12 @@ class FrameEditorCircles:
 
 class FrameEditorFramesCounter:
     """
-    Simple fps counter.
+    Simple FPS counter.
+
+    :param params: ignored.
     """
     # params nie są używane
     def __init__(self, params):
-        """
-        Initializes counter, params are ignored.
-        :param params: ignored.
-        """
         self.lastFlush = calendar.timegm(time.gmtime())
         self.frames = 0
         self.framesTxt = ''
@@ -234,7 +226,8 @@ class FrameEditorFramesCounter:
 
     def frame_edit(self, frame):
         """
-        Writes frames per second count to the image. Averaged from previous second.
+        Writes frames per second count to the image. Evaluated each second.
+
         :param frame: image to be written on.
         :return: frame with written fps info.
         """
@@ -253,13 +246,11 @@ class FrameEditorFramesCounter:
 class FrameEditorMedianStack:
     """
     Median stacking algorithm. Taken from photoshop. Needs improvements.
-    Intented to extract background from series of frames. Basically, takes median from pictures.
+    Indented to extract background from series of frames. Basically, takes median from pictures.
+
+    :param params: specifies stack size. Example string '5' will create stack with size of 5 frames.
     """
     def __init__(self, params):
-        """
-        Initializes editor.
-        :param params: specifies stack size. Example string '5' will create stack with size of 5
-        """
         paramsSplit = params.split(',')
         if len(paramsSplit) >= 1 and all(x.isdigit() for x in paramsSplit):
             self.memory_size = int(paramsSplit[0])
@@ -271,8 +262,9 @@ class FrameEditorMedianStack:
     def frame_edit(self, frame):
         """
         Performs background extraction.
+
         :param frame: frame used to extract background
-        :return: stacking output frame. Median from last series of images.
+        :return: stacking output frame. Median from series of images.
         """
         if len(self.frames_memory) < self.memory_size:
             self.frames_memory.append(frame)
@@ -291,6 +283,7 @@ class FrameEditorMedianStack:
 def diff_img(t0, t1, t2):
     """
     Extract difference from images.
+
     :param t0: first image
     :param t1: second image
     :param t2: third image
@@ -304,6 +297,7 @@ def diff_img(t0, t1, t2):
 def num_to_rgb(value):
     """
     Converts values in base_10 to RGB color.
+
     :param value: color saved in base_10
     :return: (r, g, b) tuple
     """
@@ -314,6 +308,7 @@ def num_to_rgb(value):
 def num_to_bgr(value):
     """
     Converts values in base_10 to BGR color, which is used in cv2.
+
     :param value: color saved in base_10
     :return: (b, g, r) tuple
     """
@@ -326,17 +321,14 @@ def num_to_bgr(value):
 class FrameEditorMovementDetection:
     """
     Editor for movement detection.
+
+    :param params: color (in base_10) of movement marking mask. See source for example codes.
     """
     def __init__(self, params):
-        """
-        Initializes movement detector.
-        :param params: color (in base_10) of movement marking mask. Example codes:
-        red - 16711680
-        green - 65280
-        blue - 255
-        yellow - 16776960
-        """
-        # params[0] - kolor (0xRRGGBB) zaznaczenia
+        # red - 16711680
+        # green - 65280
+        # blue - 255
+        # yellow - 16776960
         self.frames_memory = []
         self.last_pos = 0
         if len(params.split(',')) >= 1 and all(x.isdigit() for x in params.split(',')):
@@ -348,6 +340,7 @@ class FrameEditorMovementDetection:
     def frame_edit(self, frame):
         """
         Detects movement based on last three frames.
+
         :param frame: frame which will have movement marked.
         :return: frame ith movemend marked.
         """
@@ -376,6 +369,7 @@ def num_to_hsv(value):
     """
     Converts values in base_10 to HSV color.
     cv2 uses ranges (0-180, 0-255, 0-255)
+
     :param value: color saved in base_10
     :return: (h, s, v) tuple
     """
@@ -385,6 +379,7 @@ def num_to_hsv(value):
 def upper_lower_bounds_hsv(value):
     """
     Converts values in base_10 to HSV color bounds.
+
     :param value: color saved in base_10
     :return: two colors, which are 96 degrees away from input value
     """
@@ -395,6 +390,7 @@ def upper_lower_bounds_hsv(value):
 def num_to_h(value):
     """
     Converts values in base_10 to HSV color and extract hue value.
+
     :param value: color saved in base_10
     :return: hue (color angle 0-180)
     """
@@ -404,6 +400,7 @@ def num_to_h(value):
 def nothing(x):
     """
     Empty function which does nothing, but it's needed by some cv2 functions or callbacks.
+
     :param x: Boring parameter
     :return: Doesn't return.
     """
@@ -411,15 +408,12 @@ def nothing(x):
 
 
 class FrameEditorColorReplacement:
+    """
+    Editor for color replacement
+
+    :param params: comma separated string which specifies color replacement parameters.
+    """
     def __init__(self, params):
-        """
-        Initializes color replacement
-        :param params: comma separated string which specifies color replacement parameters:
-        params[0] - color to be changed
-        params[1] - color which will be applied on changed color
-        """
-        # params[0] - kolor (0xRRGGBB) do znalezienia
-        # params[1] - kolor (0xRRGGBB) do zastąpienia
         if len(params.split(',')) >= 2 and all(x.isdigit() for x in params.split(',')):
             params = map(lambda x: int(x), params.split(','))
         else:
@@ -443,6 +437,7 @@ class FrameEditorColorReplacement:
         """
         Replaces color in image. Current implementation is rather slow.
         Recommended to rewrite using colormaps.
+
         :param frame: input image.
         :return: image with changed color.
         """
@@ -464,12 +459,14 @@ class FrameEditorColorReplacement:
 def reductor(diff):
     """
     Returns closure used by np.apply_along_axis.
+
     :param diff: difference in hue between two colors.
-    :return: closure (inner fucntion) which can be applied to np.apply_along_axis
+    :return: closure (inner function) which can be applied to np.apply_along_axis
     """
     def inner(x):
         """
         Replaces image based on mask. Doesn't use CPU jumps, pure bitwise operations.
+
         :param x: (h, s, v, mask) tuple
         :return: (h, s, v) tuple where hue has been adjusted, based on diff and mask.
         """
@@ -489,18 +486,16 @@ def reductor(diff):
 class FrameEditorColorInversion:
     """
     Color inversion editor.
+
+    :param params: input value is not used.
     """
     def __init__(self, params):
-        """
-        Initializes editor
-        :param params: input value is not used.
-        """
-        # params nie są używane
         pass
 
     def frame_edit(self, frame):
         """
-        Invers colors on image
+        Inverse colors on image.
+
         :param frame: input image
         :return: image with inverted colors
         """
@@ -510,12 +505,10 @@ class FrameEditorColorInversion:
 class FrameEditorSepia:
     """
     Editor to create sepia image.
+
+    :param params: not used.
     """
     def __init__(self, params):
-        """
-        Initializes editor
-        :param params: not used.
-        """
         self.kernel = np.asarray([[0.393, 0.769, 0.189],
                                   [0.349, 0.686, 0.168],
                                   [0.272, 0.534, 0.131]])
@@ -523,6 +516,7 @@ class FrameEditorSepia:
     def frame_edit(self, frame):
         """
         Applies sepia filter to the image.
+
         :param frame: image to be changed.
         :return: image with sepia filter.
         """

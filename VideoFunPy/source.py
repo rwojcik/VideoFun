@@ -10,15 +10,28 @@ import sys
 class CameraFrameGenerator:
     """
     Fetches image from camera.
+
+    :param src_host: ignored.
     """
     def __init__(self, src_host):
         self.camera = cv2.VideoCapture(0)
 
     def gen_frame(self):
+        """
+        Reads frame from camera and packs it in list (size - one).
+
+        Packing is necessary for merger.
+
+        :return: list with frame read from camera.
+        :rtype: list
+        """
         _, frame = self.camera.read()
         return [frame]
 
     def generator_finish(self):
+        """
+        Releases camera.
+        """
         self.camera.release()
         pass
 
@@ -68,6 +81,8 @@ def recv_udp_data(si):
 class DatagramFrameGenerator:
     """
     Generator which receives frames from UDP stream.
+
+    :param src_host: comma separated source host and port pairs.
     """
     def __init__(self, src_host):
         self.socketInfos = list()
@@ -80,6 +95,12 @@ class DatagramFrameGenerator:
             self.socketInfos.append(si)
 
     def gen_frame(self):
+        """
+        Receives frames from UDP connections.
+
+        :return: list with frames received from UDP connections.
+        :rtype: list
+        """
         frames = list()
         try:
             for si in self.socketInfos:
@@ -90,6 +111,9 @@ class DatagramFrameGenerator:
         return frames
 
     def generator_finish(self):
+        """
+        Closes socket's binds.
+        """
         for si in self.socketInfos:
             si.s.close()
 
@@ -141,6 +165,7 @@ def recv_tcp_data(si):
 def connect_tcp(ip, port):
     """
     Tries TCP connection until successful. Can lock program execution.
+
     :param ip: destination ip.
     :param port: destination port.
     :return: SocketInfo with TCP connection data.
@@ -158,12 +183,10 @@ def connect_tcp(ip, port):
 class TransmissionControlFrameGenerator:
     """
     Generator which receives frames from TCP stream.
+
+    :param src_host: comma separated source host and port pairs. Locks execution until connects to all servers.
     """
     def __init__(self, src_host):
-        """
-        Initializes TCP connection.
-        :param src_host: comma separated source host and port pairs. Locks execution until connets to all servers.
-        """
         self.socketInfos = list()
         for hostport in map(lambda x: (x.split(':')[0], int(x.split(':')[1])), src_host.split(',')):
             ip = hostport[0]
@@ -173,6 +196,12 @@ class TransmissionControlFrameGenerator:
             self.socketInfos.append(si)
 
     def gen_frame(self):
+        """
+        Generates list of frames send over TCP.
+
+        :return: list with frames from all source connections.
+        :rtype: list
+        """
         frames = list()
         for si in self.socketInfos:
             # si.s.send('o')
@@ -181,5 +210,8 @@ class TransmissionControlFrameGenerator:
         return frames
 
     def generator_finish(self):
+        """
+        Closes all sockets opened by this generator.
+        """
         for s in self.socketInfos:
             s.s.close()

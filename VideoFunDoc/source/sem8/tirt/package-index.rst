@@ -12,7 +12,6 @@ sem8.tirt
    LinksDesktopPane
    MergeConfigDialog
    OpenSaveManager
-   VNodeConfigPanel
    VNodeFrame
    VNodeMemo
    VideoFunDesigner

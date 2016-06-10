@@ -8,7 +8,9 @@ SimpleFilterConfigPanel
 
 .. java:type:: public class SimpleFilterConfigPanel extends javax.swing.JPanel
 
-   :author: jskoczyl
+   Config panel to video blocks based on \ ``SimpleFilterConfigMemo``\ .
+
+   :author: Jacek Skoczylas
 
 Constructors
 ------------

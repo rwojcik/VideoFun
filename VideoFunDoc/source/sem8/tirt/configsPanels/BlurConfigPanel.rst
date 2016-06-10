@@ -6,7 +6,7 @@ BlurConfigPanel
 
 .. java:type:: public class BlurConfigPanel extends javax.swing.JPanel
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------

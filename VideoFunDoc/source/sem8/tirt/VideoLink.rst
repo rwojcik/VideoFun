@@ -12,7 +12,7 @@ VideoLink
 
 .. java:type:: public class VideoLink implements Serializable
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------

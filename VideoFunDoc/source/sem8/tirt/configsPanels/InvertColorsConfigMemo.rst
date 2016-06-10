@@ -8,7 +8,7 @@ InvertColorsConfigMemo
 
 .. java:type:: public class InvertColorsConfigMemo extends SimpleFilterConfigMemo
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------

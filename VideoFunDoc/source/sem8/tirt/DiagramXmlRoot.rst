@@ -10,7 +10,9 @@ DiagramXmlRoot
 
 .. java:type:: @XmlRootElement  class DiagramXmlRoot
 
-   :author: jskoczyl
+   Root element to generoing xml files.
+
+   :author: Jacek Skoczylas
 
 Constructors
 ------------

@@ -8,7 +8,9 @@ SimpleFilterConfigMemo
 
 .. java:type:: public abstract class SimpleFilterConfigMemo extends AbstractVNodeConfigMemo
 
-   :author: jskoczyl
+   Base class for video blocks with no parameters.
+
+   :author: Jacek Skoczylas
 
 Constructors
 ------------

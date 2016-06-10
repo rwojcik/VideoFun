@@ -12,6 +12,8 @@
 
 .. java:import:: java.awt.event MouseEvent
 
+.. java:import:: java.io File
+
 .. java:import:: java.lang.reflect Field
 
 .. java:import:: java.util ArrayList
@@ -36,7 +38,9 @@ VideoFunDesigner
 
 .. java:type:: public class VideoFunDesigner extends javax.swing.JFrame
 
-   :author: jskoczyl
+   Main class to run. It's graphic user interface window.
+
+   :author: Jacek Skoczylas
 
 Fields
 ------

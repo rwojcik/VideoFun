@@ -10,7 +10,7 @@ ResizeConfigMemo
 
 .. java:type:: public class ResizeConfigMemo extends AbstractVNodeConfigMemo
 
-   :author: jskoczyl
+   :author: Jacek Skoczylas
 
 Fields
 ------

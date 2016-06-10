@@ -58,7 +58,9 @@ VNodeFrame
 
 .. java:type:: public class VNodeFrame extends javax.swing.JInternalFrame implements MouseListener
 
-   :author: jskoczyl
+   It's JInternalFrame representing single video block in gui.
+
+   :author: Jacek Skoczylas
 
 Constructors
 ------------
