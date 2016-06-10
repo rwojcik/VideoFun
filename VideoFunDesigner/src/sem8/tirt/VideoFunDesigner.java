@@ -185,8 +185,11 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Video Fun Designer");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -313,6 +316,18 @@ public class VideoFunDesigner extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setText("About");
+
+        jMenuItem9.setText("About");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem9);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -376,6 +391,10 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         closingApplication();
     }//GEN-LAST:event_formWindowClosing
 
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        aboutShow();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -418,6 +437,7 @@ public class VideoFunDesigner extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabelConfigDesc;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -427,6 +447,7 @@ public class VideoFunDesigner extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelButtons;
     private javax.swing.JScrollPane jScrollPane1;
@@ -442,6 +463,10 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         if(answer == JOptionPane.YES_OPTION || answer == JOptionPane.NO_OPTION) {
             System.exit(0);
         }
+    }
+
+    private void aboutShow() {
+        JOptionPane.showMessageDialog(this, "by Jacek Skoczylas & Rafał Wójcik", "Video Fun Desginer", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private class ConfigButton extends JButton {
