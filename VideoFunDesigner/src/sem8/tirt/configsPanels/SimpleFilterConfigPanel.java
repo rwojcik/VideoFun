@@ -8,7 +8,8 @@ package sem8.tirt.configsPanels;
 import sem8.tirt.AbstractVNodeConfigMemo;
 
 /**
- *
+ * Config panel to video blocks based on <code>SimpleFilterConfigMemo</code>.
+ * 
  * @author Jacek Skoczylas
  */
 public class SimpleFilterConfigPanel extends javax.swing.JPanel {

@@ -16,7 +16,13 @@ import javax.swing.JPanel;
  */
 public class AbstractVNodeConfigMemo implements Serializable {
 
+    /**
+     * Static filed name in children classes with video block name showing in gui.
+     */
     public static final String CONFIG_NAME_FIELD_NAME = "CONFIG_NAME";
+    /**
+     * Static filed name in children classes with video block description showing in gui.
+     */
     public static final String CONFIG_DESCRIPTION_FIELD_NAME = "CONFIG_DESCRIPTION";
 
     private Class panelClass;
@@ -43,6 +49,15 @@ public class AbstractVNodeConfigMemo implements Serializable {
         this.outputsNum = outputsNum;
     }
 
+    /**
+     * Create a cmd command which will run this video block.
+     * 
+     * @param ins array of tcp/udp ports inputs
+     * @param outs array of tcp/udp ports outputs
+     * @param asTcp is TCP mode? (if <code>false</code> then UDP mode)
+     * 
+     * @return cmd line running this video block in console
+     */
     public String getRunCmd(int[] ins, int[] outs, boolean asTcp) {
         StringBuilder builder = new StringBuilder();
         builder.append("start python ");
@@ -88,6 +103,12 @@ public class AbstractVNodeConfigMemo implements Serializable {
         return new AbstractVNodeConfigMemo(panelClass, configName);
     }
 
+    /**
+     * Creates JPanel to configure parameters of this viode block.
+     * 
+     * @return JPanel to configure parameters of this viode block
+     * @throws CannotCreateConfigPanelException if you create some class in wrong way
+     */
     public JPanel createJPanel() throws CannotCreateConfigPanelException {
         try {
             for(Constructor con : panelClass.getConstructors()) {

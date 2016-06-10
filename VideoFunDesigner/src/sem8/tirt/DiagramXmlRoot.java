@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Root element to generoing xml files.
+ * 
  * @author Jacek Skoczylas
  */
 @XmlRootElement

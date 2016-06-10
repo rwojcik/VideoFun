@@ -8,7 +8,8 @@ package sem8.tirt.configsPanels;
 import sem8.tirt.AbstractVNodeConfigMemo;
 
 /**
- *
+ * Base class for viode block with no parameters.
+ * 
  * @author Jacek Skoczylas
  */
 public abstract class SimpleFilterConfigMemo extends AbstractVNodeConfigMemo {

@@ -6,7 +6,8 @@
 package sem8.tirt;
 
 /**
- *
+ * Exception throwing when config panel class is wrong assiociated with viode block.
+ * 
  * @author Jacek Skoczylas
  */
 public class CannotCreateConfigPanelException extends Exception {
