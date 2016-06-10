@@ -30,7 +30,7 @@ def recv_udp_data(si):
     Receives UDP messages and converts them to frame.
     In case of error retries until connection will be available.
     :param si: SocketInfo, information about UDP connection.
-    :return: Frame send over UDP.
+    :return: Frame received from UDP.
     """
     img = []
     frame_str = ''

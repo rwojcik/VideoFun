@@ -5,7 +5,6 @@ from frame_editor import *
 from frame_source import *
 from frame_destination import *
 
-# default values
 
 
 def main_loop():
@@ -14,6 +13,7 @@ def main_loop():
     :return: nothing.
     """
 
+    # default values
     editor = 'FrameEditorEmpty'
     merge = 'FrameMergerFirst'
     editorparams = ''

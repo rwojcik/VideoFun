@@ -22,6 +22,7 @@ class FrameMergerStack:
     def __init__(self, params):
         self.history = None
         self.resizer = FrameEditorResize('')
+        self.merger_first = FrameMergerFirst(0)
 
     def frame_merge(self, frames):
         if len(frames) < 2:
@@ -29,7 +30,7 @@ class FrameMergerStack:
                 # show history in case there is history shortage
                 return self.history
             else:
-                return FrameMergerFirst.frame_merge(frames[0])
+                return self.merger_first.frame_merge(frames)
         if np.shape(frames[0])[1] != np.shape(frames[1])[1]:
             if np.shape(frames[0])[1] > np.shape(frames[1])[1]:
                 factor = np.shape(frames[1])[1] / float(np.shape(frames[0])[1])
@@ -53,6 +54,7 @@ class FrameMergerBlending:
             self.params = [0.5]
         self.history = None
         self.resizer = FrameEditorResize('')
+        self.merger_first = FrameMergerFirst(0)
 
     def frame_merge(self, frames):
         if len(frames) < 2:
@@ -60,7 +62,7 @@ class FrameMergerBlending:
                 # show history in case there is history shortage
                 return self.history
             else:
-                return FrameMergerFirst.frame_merge(frames[0])
+                return self.mereger_first.frame_merge(frames)
         if np.shape(frames[0])[1] != np.shape(frames[1])[1]:
             if np.shape(frames[0])[1] > np.shape(frames[1])[1]:
                 factor = np.shape(frames[1])[1] / float(np.shape(frames[0])[1])
