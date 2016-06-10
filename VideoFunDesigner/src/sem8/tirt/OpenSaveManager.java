@@ -23,12 +23,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Class implementing open/save with gui dialogs about it.
+ * 
  * @author jskoczyl
  */
 public class OpenSaveManager {
@@ -36,11 +38,24 @@ public class OpenSaveManager {
     private Component parentComponent;
     private JFileChooser chooser;
     private File lastSave_orNull;
+    private FileNameExtensionFilter batFileFilter;
+    private FileNameExtensionFilter diagramFileFilter;
+    private FileNameExtensionFilter xmlFileFilter;
 
     public OpenSaveManager(Component parentComponent, JFileChooser chooser) {
         this.parentComponent = parentComponent;
         this.chooser = chooser;
         lastSave_orNull = null;
+        createAndAddFileFilters(chooser);
+    }
+
+    private void createAndAddFileFilters(JFileChooser chooser1) {
+        batFileFilter = new FileNameExtensionFilter("Bat files", "bat");
+        diagramFileFilter = new FileNameExtensionFilter("Video Fun Diagrams", "vfd");
+        xmlFileFilter = new FileNameExtensionFilter("Xml files", "xml");
+        chooser1.addChoosableFileFilter(batFileFilter);
+        chooser1.addChoosableFileFilter(diagramFileFilter);
+        chooser1.addChoosableFileFilter(xmlFileFilter);
     }
 
     public void save(File file, ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks) throws IOException {
@@ -74,7 +89,9 @@ public class OpenSaveManager {
     public void gui_save(boolean saveAs, ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks) {
         File file = null;
         if (!saveAs) {
+            setDefaultFileFilterToDiagram();
             file = lastSave_orNull != null ? lastSave_orNull : askFile("Save diagram");
+            file = ensureFileExtension(file, ".vfd");
         } else {
             file = askFile("Save diagram");
         }
@@ -91,6 +108,7 @@ public class OpenSaveManager {
     }
 
     public ArrayList<VNodeMemo> gui_openInto_orNull(ArrayList<VideoLink> videoLinks) {
+        setDefaultFileFilterToDiagram();
         File file = askFile("Open diagram");
         if (file == null) {
             return null;
@@ -103,6 +121,18 @@ public class OpenSaveManager {
             JOptionPane.showMessageDialog(parentComponent, "Exception messege: " + e.getMessage(), "Not able to open", JOptionPane.ERROR_MESSAGE);
             return null;
         }
+    }
+    
+    private void setDefaultFileFilterToBat() {
+        chooser.setFileFilter(batFileFilter);
+    }
+    
+    private void setDefaultFileFilterToDiagram() {
+        chooser.setFileFilter(diagramFileFilter);
+    }
+    
+    private void setDefaultFileFilterToXml() {
+        chooser.setFileFilter(xmlFileFilter);
     }
 
     private File askFile(String aproveButtonText) {
@@ -121,7 +151,9 @@ public class OpenSaveManager {
     }
 
     void exportXml(ArrayList<VNodeFrame> vNodeFrames, ArrayList<VideoLink> videoLinks) {
+        setDefaultFileFilterToXml();
         File file = askFile("Export xml");
+        file = ensureFileExtension(file, ".xml");
         if (file == null) {
             return;
         }
@@ -176,7 +208,9 @@ public class OpenSaveManager {
             }
         }
         String text = asTcp ? "Gen TCP cmd" : "Gen UDP cmd";
+        setDefaultFileFilterToBat();
         File file = askFile(text, dir);
+        file = ensureFileExtension(file, ".bat");
         return file;
     }
 
@@ -261,5 +295,15 @@ public class OpenSaveManager {
                 ex.printStackTrace();
             }
         }
+    }
+
+    private File ensureFileExtension(File file, String extWithDot) {
+        if(file == null) {
+            return null;
+        }
+        if(!file.getName().endsWith(extWithDot)) {
+            return new File(file.getParent(), file.getName() + extWithDot);
+        }
+        return file;
     }
 }
