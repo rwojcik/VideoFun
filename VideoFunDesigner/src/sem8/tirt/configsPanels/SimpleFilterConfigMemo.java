@@ -8,7 +8,7 @@ package sem8.tirt.configsPanels;
 import sem8.tirt.AbstractVNodeConfigMemo;
 
 /**
- * Base class for viode block with no parameters.
+ * Base class for video blocks with no parameters.
  * 
  * @author Jacek Skoczylas
  */

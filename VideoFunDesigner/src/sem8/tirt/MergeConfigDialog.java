@@ -50,7 +50,7 @@ public class MergeConfigDialog extends javax.swing.JDialog {
         setTitle("Merge config");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("Typ łączenia: ");
+        jLabel1.setText("Merge type:");
         getContentPane().add(jLabel1, new java.awt.GridBagConstraints());
 
         jComboBox1.setModel(new DefaultComboBoxModel(MERGERS_NAME));
@@ -63,7 +63,7 @@ public class MergeConfigDialog extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         getContentPane().add(jComboBox1, gridBagConstraints);
 
-        jLabel2.setText("Parametry łączenia:");
+        jLabel2.setText("Merge parameters:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -78,7 +78,7 @@ public class MergeConfigDialog extends javax.swing.JDialog {
         gridBagConstraints.weightx = 1.0;
         getContentPane().add(jTextField1, gridBagConstraints);
 
-        jLabel3.setText("Papametry nie są wymagane do tego typu łączenia");
+        jLabel3.setText("Parameters are not required to this merge type.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;

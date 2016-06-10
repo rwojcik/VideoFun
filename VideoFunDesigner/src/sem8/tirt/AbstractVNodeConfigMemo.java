@@ -15,6 +15,8 @@ import javax.swing.JPanel;
  * @author Jacek Skoczylas
  */
 public class AbstractVNodeConfigMemo implements Serializable {
+    
+    private static final long serialVersionUID = -2792118170479153581L;
 
     /**
      * Static filed name in children classes with video block name showing in gui.

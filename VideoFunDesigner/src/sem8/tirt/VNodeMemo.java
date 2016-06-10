@@ -16,6 +16,8 @@ import java.io.Serializable;
  */
 public class VNodeMemo implements Serializable {
     
+    private static final long serialVersionUID = -662238991505571100L;
+    
     private int vnodeNumber;
     private AbstractVNodeConfigMemo configMemo;
     private Dimension size;

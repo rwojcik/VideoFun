@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
  */
 public class VideoLink implements Serializable {
     
+    private static final long serialVersionUID = 8968322790400529156L;
+    
     public static final Pattern VIDEO_LINK_PATTERN = Pattern.compile("[in|out]:\\/\\/([\\d]+):([\\d]+)");
     
     public static String toInputLink(int dstVNode, int dstInput) {
