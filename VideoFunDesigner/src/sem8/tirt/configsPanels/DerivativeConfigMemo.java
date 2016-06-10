@@ -15,6 +15,7 @@ public class DerivativeConfigMemo extends SimpleFilterConfigMemo {
     
     public static final String CONFIG_NAME = "Derivative";
     public static final String CONFIG_DESCRIPTION = "Make Derivative on image.";
+    private static final long serialVersionUID = 7006018125945131394L;
 
     public DerivativeConfigMemo() {
         super(CONFIG_NAME, "FrameEditorDerivative");

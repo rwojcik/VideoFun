@@ -15,6 +15,7 @@ public class ShowInWindowConfigMemo extends AbstractVNodeConfigMemo  {
     
     public static final String CONFIG_NAME = "Show";
     public static final String CONFIG_DESCRIPTION = "Creates windows where video from input are showing.";
+    private static final long serialVersionUID = 1916598800958085883L;
 
     public ShowInWindowConfigMemo() {
         super(ShowInWindowConfigPanel.class, CONFIG_NAME, 2, 0);

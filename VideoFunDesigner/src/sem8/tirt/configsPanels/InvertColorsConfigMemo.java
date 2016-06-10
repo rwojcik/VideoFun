@@ -15,6 +15,7 @@ public class InvertColorsConfigMemo extends SimpleFilterConfigMemo {
     
     public static final String CONFIG_NAME = "Invert Colors";
     public static final String CONFIG_DESCRIPTION = "Iverts colors of image.";
+    private static final long serialVersionUID = 3807724787881483143L;
 
     public InvertColorsConfigMemo() {
         super(CONFIG_NAME, "FrameEditorColorInversion");

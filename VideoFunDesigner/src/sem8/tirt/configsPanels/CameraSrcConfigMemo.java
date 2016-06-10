@@ -15,6 +15,7 @@ public class CameraSrcConfigMemo extends AbstractVNodeConfigMemo  {
     
     public static final String CONFIG_NAME = "Camera";
     public static final String CONFIG_DESCRIPTION = "Return output from camera.";
+    private static final long serialVersionUID = 4175797093624448671L;
 
     public CameraSrcConfigMemo() {
         super(CameraSrcConfigPanel.class, CONFIG_NAME, 0, 1);

@@ -15,6 +15,7 @@ public class SepiaConfigMemo extends SimpleFilterConfigMemo {
     
     public static final String CONFIG_NAME = "Sepia";
     public static final String CONFIG_DESCRIPTION = "Applies Sepia filter to image.";
+    private static final long serialVersionUID = 9034263313580253674L;
 
     public SepiaConfigMemo() {
         super(CONFIG_NAME, "FrameEditorSepia");

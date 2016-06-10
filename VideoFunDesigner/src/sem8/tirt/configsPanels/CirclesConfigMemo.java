@@ -13,6 +13,7 @@ public class CirclesConfigMemo extends SimpleFilterConfigMemo {
     
     public static final String CONFIG_NAME = "Circles";
     public static final String CONFIG_DESCRIPTION = "Detects circles on image.";
+    private static final long serialVersionUID = -8141402251057555222L;
 
     public CirclesConfigMemo() {
         super(CONFIG_NAME, "FrameEditorCircles");

@@ -13,6 +13,7 @@ import sem8.tirt.AbstractVNodeConfigMemo;
  * @author Jacek Skoczylas
  */
 public abstract class SimpleFilterConfigMemo extends AbstractVNodeConfigMemo {
+    private static final long serialVersionUID = -294000674075003496L;
     
     private String guiName;
     private String editorName;

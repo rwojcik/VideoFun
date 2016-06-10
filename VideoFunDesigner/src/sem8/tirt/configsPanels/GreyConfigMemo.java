@@ -15,6 +15,7 @@ public class GreyConfigMemo extends SimpleFilterConfigMemo {
     
     public static final String CONFIG_NAME = "Grey Colors";
     public static final String CONFIG_DESCRIPTION = "Changes colors of image to gray scale.";
+    private static final long serialVersionUID = 8734704261947259399L;
 
     public GreyConfigMemo() {
         super(CONFIG_NAME, "FrameEditorGreyscale");

@@ -16,6 +16,7 @@ public class ResizeConfigMemo extends AbstractVNodeConfigMemo  {
     
     public static final String CONFIG_NAME = "Resize";
     public static final String CONFIG_DESCRIPTION = "Resizes the image.";
+    private static final long serialVersionUID = -2455717020730678911L;
     
     private double sizeX;
     private double sizeY;

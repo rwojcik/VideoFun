@@ -13,6 +13,8 @@ import sem8.tirt.AbstractVNodeConfigMemo;
  */
 public class BlurConfigMemo extends AbstractVNodeConfigMemo  {
     
+    private static final long serialVersionUID = -1266022965698033987L;
+    
     public static final String CONFIG_NAME = "Blur";
     public static final String CONFIG_DESCRIPTION = "Blures the image.";
     
