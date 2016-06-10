@@ -1,0 +1,2 @@
+start python ../block.py -editor FrameEditorGreyscale -framesource CameraFrameGenerator -framedestination TransmissionControlSinkServer localhost:5005
+start python ../block.py -framesource TransmissionControlFrameGenerator localhost:5005 -editor FrameEditorFramesCounter

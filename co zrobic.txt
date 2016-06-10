@@ -1,9 +1,0 @@
- - negatyw
- - sepia
- - temowizja
- - zamiana kolorów (z  jakiego koloru na jaki)
- parę innych filtrów
- 
- dokumentacje użytkową i dokumentacje kodu (deweloperwską)
- 
- 
