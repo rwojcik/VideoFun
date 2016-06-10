@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>VideoFunPy.editor &mdash; VideoFun 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="VideoFun 1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> VideoFun
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">VideoFunPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages.html">Javadoc</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">VideoFun</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>VideoFunPy.editor</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for VideoFunPy.editor</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding=utf-8</span>
+<span class="kn">import</span> <span class="nn">calendar</span>
+<span class="kn">import</span> <span class="nn">colorsys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<div class="viewcode-block" id="FrameEditorEmpty"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorEmpty">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorEmpty</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Just simple, empty editor, frames pass through.</span>
+<span class="sd">    Frame is unchanged.</span>
+<span class="sd">    Good starting point to implement your custom editor.</span>
+
+<span class="sd">    :param params: There can be passed anything, because parameters are ignored</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="FrameEditorEmpty.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorEmpty.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pass through frame editor.</span>
+
+<span class="sd">        :param frame: Frame to be returned</span>
+<span class="sd">        :return: Returns input frame, unchanged</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="FrameEditorEllipse"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorEllipse">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorEllipse</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Editor which adds shape of the ellipse to the frame.</span>
+
+<span class="sd">    :param params: comma separated string which specifies relative ellipse center point.</span>
+<span class="sd">    For example: &#39;0.5,0.5&#39; will place ellipse in the center.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">paramsSplit</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paramsSplit</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">isfloat</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">paramsSplit</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">paramsSplit</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="FrameEditorEllipse.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorEllipse.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add ellipse to frame.</span>
+
+<span class="sd">        :param frame: frame to which ellipse will be added.</span>
+<span class="sd">        :return: frame with added ellipse.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">height</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="FrameEditorGreyscale"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorGreyscale">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorGreyscale</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Editor which converts frame to greyscale image.</span>
+
+<span class="sd">    :param params: will be ignored.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="FrameEditorGreyscale.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorGreyscale.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert frame to greyscale image.</span>
+
+<span class="sd">        :param frame: image to be converted.</span>
+<span class="sd">        :return: grayscaled image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="isfloat"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.isfloat">[docs]</a><span class="k">def</span> <span class="nf">isfloat</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tests whether value is floating point type.</span>
+
+<span class="sd">    :param value: variable to be tested.</span>
+<span class="sd">    :return: True if value is float, false otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span></div>
+
+
+<div class="viewcode-block" id="FrameEditorResize"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorResize">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorResize</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Editor which resizes image.</span>
+
+<span class="sd">    :param params: comma separated string which specifies scaling factor.</span>
+<span class="sd">    For example, &#39;0.5,0.5&#39; will shrink image to half size in both axes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">paramsSplit</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paramsSplit</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">isfloat</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">paramsSplit</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">paramsSplit</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]</span>
+
+<div class="viewcode-block" id="FrameEditorResize.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorResize.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scale image.</span>
+
+<span class="sd">        :param frame: Frame to be scaled.</span>
+<span class="sd">        :return: Scaled image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">fx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="FrameEditorSmoothing"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorSmoothing">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorSmoothing</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Smoothes frame either by gaussian blur or bilateral filter.</span>
+
+<span class="sd">    :param params: comma separated string which specifies smoothing parameters.</span>
+<span class="sd">    First two values specifies smoothing range and last one specifies method</span>
+<span class="sd">    (0 - gaussian blur, 1 - bilateral filter).</span>
+
+<span class="sd">    Example string &#39;11,11,0&#39; will use gaussian blur with range of 5 pixels). Ranges are ceil&#39;d to odd number.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">paramsSplit</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paramsSplit</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">paramsSplit</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">paramsSplit</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1</span>  <span class="c1"># x | 1 ensures odd number</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="FrameEditorSmoothing.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorSmoothing.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs smoothing.</span>
+
+<span class="sd">        :param frame: Frame to be smoothed</span>
+<span class="sd">        :return: Smoothed frame by chosen parameters in initializer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bilateralFilter</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="FrameEditorDerivative"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorDerivative">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorDerivative</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Detects edges in frame by derivative</span>
+
+<span class="sd">    :param params: ignored.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="FrameEditorDerivative.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorDerivative.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Detects edges on image.</span>
+
+<span class="sd">        :param frame: Frame to be checked against edges.</span>
+<span class="sd">        :return: Black and white image with edges marked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Laplacian</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="FrameEditorCircles"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorCircles">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorCircles</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Detects circles on image.</span>
+
+<span class="sd">    :param params: comma separated string which specifies detection parameters. See source for explanation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="c1"># params[0] - dp</span>
+        <span class="c1"># params[1] - minDist</span>
+        <span class="c1"># params[2] - higher threshold</span>
+        <span class="c1"># params[3] - accumulator threshold</span>
+        <span class="c1"># params[4] - minRadius</span>
+        <span class="c1"># params[5] - maxRadius</span>
+        <span class="n">paramsSplit</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paramsSplit</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">6</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">paramsSplit</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">paramsSplit</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="FrameEditorCircles.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorCircles.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Detects and shows circles on frame.</span>
+
+<span class="sd">        :param frame: frame in which frames will be detected.</span>
+<span class="sd">        :return: frame with circles marked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gsFrame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+        <span class="n">circles</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">HoughCircles</span><span class="p">(</span><span class="n">gsFrame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">HOUGH_GRADIENT</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">minDist</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                   <span class="n">param1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">param2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">minRadius</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+                                   <span class="n">maxRadius</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">circles</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">frame</span>
+        <span class="n">circles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">circles</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">circles</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]:</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">img</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">radius</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">img</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="FrameEditorFramesCounter"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorFramesCounter">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorFramesCounter</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple FPS counter.</span>
+
+<span class="sd">    :param params: ignored.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># params nie są używane</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastFlush</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">timegm</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frames</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">framesTxt</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_DUPLEX</span>
+
+<div class="viewcode-block" id="FrameEditorFramesCounter.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorFramesCounter.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes frames per second count to the image. Evaluated each second.</span>
+
+<span class="sd">        :param frame: image to be written on.</span>
+<span class="sd">        :return: frame with written fps info.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frames</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">timeDiff</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">timegm</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">())</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastFlush</span>
+        <span class="c1"># TODO: use circular queue, do not average last second.</span>
+        <span class="k">if</span> <span class="n">timeDiff</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">framesTxt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frames</span> <span class="o">/</span> <span class="n">timeDiff</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lastFlush</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">timegm</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frames</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">img</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">framesTxt</span><span class="p">,</span> <span class="n">org</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">fontFace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">fontScale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+                    <span class="n">thickness</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="FrameEditorMedianStack"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorMedianStack">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorMedianStack</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Median stacking algorithm. Taken from photoshop. Needs improvements.</span>
+<span class="sd">    Indented to extract background from series of frames. Basically, takes median from pictures.</span>
+
+<span class="sd">    :param params: specifies stack size. Example string &#39;5&#39; will create stack with size of 5 frames.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">paramsSplit</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paramsSplit</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">paramsSplit</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">memory_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">paramsSplit</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">memory_size</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="FrameEditorMedianStack.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorMedianStack.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs background extraction.</span>
+
+<span class="sd">        :param frame: frame used to extract background</span>
+<span class="sd">        :return: stacking output frame. Median from series of images.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory_size</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+            <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">img</span><span class="o">=</span><span class="n">img</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Initializing median stack...&#39;</span><span class="p">,</span> <span class="n">org</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">height</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="n">fontFace</span><span class="o">=</span><span class="n">font</span><span class="p">,</span> <span class="n">fontScale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">img</span>
+        <span class="n">background</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory_size</span>
+        <span class="k">return</span> <span class="n">background</span></div></div>
+
+
+<div class="viewcode-block" id="diff_img"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.diff_img">[docs]</a><span class="k">def</span> <span class="nf">diff_img</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract difference from images.</span>
+
+<span class="sd">    :param t0: first image</span>
+<span class="sd">    :param t1: second image</span>
+<span class="sd">    :param t2: third image</span>
+<span class="sd">    :return: difference (mask) from images.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">absdiff</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
+    <span class="n">d2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">absdiff</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_and</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="num_to_rgb"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.num_to_rgb">[docs]</a><span class="k">def</span> <span class="nf">num_to_rgb</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts values in base_10 to RGB color.</span>
+
+<span class="sd">    :param value: color saved in base_10</span>
+<span class="sd">    :return: (r, g, b) tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">num_to_bgr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span></div>
+
+
+<div class="viewcode-block" id="num_to_bgr"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.num_to_bgr">[docs]</a><span class="k">def</span> <span class="nf">num_to_bgr</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts values in base_10 to BGR color, which is used in cv2.</span>
+
+<span class="sd">    :param value: color saved in base_10</span>
+<span class="sd">    :return: (b, g, r) tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+    <span class="k">return</span> <span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span></div>
+
+
+<div class="viewcode-block" id="FrameEditorMovementDetection"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorMovementDetection">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorMovementDetection</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Editor for movement detection.</span>
+
+<span class="sd">    :param params: color (in base_10) of movement marking mask. See source for example codes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="c1"># red - 16711680</span>
+        <span class="c1"># green - 65280</span>
+        <span class="c1"># blue - 255</span>
+        <span class="c1"># yellow - 16776960</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)):</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">num_to_bgr</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">num_to_bgr</span><span class="p">(</span><span class="mi">16777215</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FrameEditorMovementDetection.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorMovementDetection.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Detects movement based on last three frames.</span>
+
+<span class="sd">        :param frame: frame which will have movement marked.</span>
+<span class="sd">        :return: frame ith movemend marked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">img</span><span class="o">=</span><span class="n">img</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Initializing background image...&#39;</span><span class="p">,</span> <span class="n">org</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">height</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="n">fontFace</span><span class="o">=</span><span class="n">font</span><span class="p">,</span>
+                        <span class="n">fontScale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">img</span>
+        <span class="n">t_minus</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span><span class="p">],</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span><span class="p">],</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>
+        <span class="n">t_plus</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span><span class="p">],</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frames_memory</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span>
+        <span class="n">movement_mask</span> <span class="o">=</span> <span class="n">diff_img</span><span class="p">(</span><span class="n">t_minus</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t_plus</span><span class="p">)</span>
+        <span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">movement_mask</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">thresh</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">contours</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span><span class="n">thresh</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_TREE</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CHAIN_APPROX_NONE</span><span class="p">)</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">drawContours</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="n">contours</span><span class="p">,</span> <span class="n">contourIdx</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="num_to_hsv"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.num_to_hsv">[docs]</a><span class="k">def</span> <span class="nf">num_to_hsv</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts values in base_10 to HSV color.</span>
+<span class="sd">    cv2 uses ranges (0-180, 0-255, 0-255)</span>
+
+<span class="sd">    :param value: color saved in base_10</span>
+<span class="sd">    :return: (h, s, v) tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">([[</span><span class="n">num_to_bgr</span><span class="p">(</span><span class="n">value</span><span class="p">)]]),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="upper_lower_bounds_hsv"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.upper_lower_bounds_hsv">[docs]</a><span class="k">def</span> <span class="nf">upper_lower_bounds_hsv</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts values in base_10 to HSV color bounds.</span>
+
+<span class="sd">    :param value: color saved in base_10</span>
+<span class="sd">    :return: two colors, which are 96 degrees away from input value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">num_to_h</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">([[[</span><span class="n">h</span> <span class="o">-</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">]]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">([[[</span><span class="n">h</span> <span class="o">+</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">]]])</span></div>
+
+
+<div class="viewcode-block" id="num_to_h"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.num_to_h">[docs]</a><span class="k">def</span> <span class="nf">num_to_h</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts values in base_10 to HSV color and extract hue value.</span>
+
+<span class="sd">    :param value: color saved in base_10</span>
+<span class="sd">    :return: hue (color angle 0-180)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">num_to_hsv</span><span class="p">(</span><span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="nothing"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.nothing">[docs]</a><span class="k">def</span> <span class="nf">nothing</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Empty function which does nothing, but it&#39;s needed by some cv2 functions or callbacks.</span>
+
+<span class="sd">    :param x: Boring parameter</span>
+<span class="sd">    :return: Doesn&#39;t return.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="FrameEditorColorReplacement"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorColorReplacement">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorColorReplacement</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Editor for color replacement</span>
+
+<span class="sd">    :param params: comma separated string which specifies color replacement parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)):</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">(</span><span class="mi">65280</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+            <span class="c1"># color     rgb         h</span>
+            <span class="c1"># red       16711680    0</span>
+            <span class="c1"># green     65280       120</span>
+            <span class="c1"># blue      255         240</span>
+            <span class="c1"># yellow    16776960    42</span>
+            <span class="c1"># hue (in hsv) is scaled from 360 to 255</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lower_color</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper_color</span> <span class="o">=</span> <span class="n">upper_lower_bounds_hsv</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_color</span> <span class="o">=</span> <span class="n">num_to_hsv</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># difference in hue between passed colors</span>
+        <span class="c1"># can&#39;t use abs in unsigned, difference operation on unsigned</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h_diff</span> <span class="o">=</span> <span class="n">num_to_h</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="n">num_to_h</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="n">num_to_h</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">num_to_h</span><span class="p">(</span>
+            <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">else</span> <span class="n">num_to_h</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">num_to_h</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># closure which is necessary for np.apply_along_axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reductor</span> <span class="o">=</span> <span class="n">reductor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h_diff</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FrameEditorColorReplacement.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorColorReplacement.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replaces color in image. Current implementation is rather slow.</span>
+<span class="sd">        Recommended to rewrite using colormaps.</span>
+
+<span class="sd">        :param frame: input image.</span>
+<span class="sd">        :return: image with changed color.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">shape</span>
+        <span class="c1"># cv2.imshow(&#39;oryg&#39;, frame)</span>
+        <span class="n">hsv</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">hsv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_color</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper_color</span><span class="p">)</span>
+        <span class="c1"># cv2.imshow(&#39;mask&#39;, mask)</span>
+        <span class="n">flat_hsv</span> <span class="o">=</span> <span class="n">hsv</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">height</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
+        <span class="n">flat_mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">height</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># limit mask to True / False array</span>
+        <span class="n">flat_mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">flat_mask</span> <span class="o">&gt;</span> <span class="mi">128</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">stacked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">flat_hsv</span><span class="p">,</span> <span class="n">flat_mask</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">stacked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reductor</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">stacked</span><span class="p">)</span>  <span class="c1"># incredibly slow</span>
+        <span class="n">stacked</span> <span class="o">=</span> <span class="n">stacked</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">stacked</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_HSV2BGR</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="reductor"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.reductor">[docs]</a><span class="k">def</span> <span class="nf">reductor</span><span class="p">(</span><span class="n">diff</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns closure used by np.apply_along_axis.</span>
+
+<span class="sd">    :param diff: difference in hue between two colors.</span>
+<span class="sd">    :return: closure (inner function) which can be applied to np.apply_along_axis</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replaces image based on mask. Doesn&#39;t use CPU jumps, pure bitwise operations.</span>
+
+<span class="sd">        :param x: (h, s, v, mask) tuple</span>
+<span class="sd">        :return: (h, s, v) tuple where hue has been adjusted, based on diff and mask.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># code below is equivalent to:</span>
+        <span class="c1"># if x[3]:</span>
+        <span class="c1">#     x[0]</span>
+        <span class="c1"># elif diff &lt; x[0]:</span>
+        <span class="c1">#     max(x[0], diff) - min(x[0], diff) # difference operation on unsigned</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     diff - x[0], x[1], x[2]</span>
+        <span class="c1"># ...without jumping</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">diff</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">diff</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">inner</span></div>
+
+
+<div class="viewcode-block" id="FrameEditorColorInversion"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorColorInversion">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorColorInversion</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Color inversion editor.</span>
+
+<span class="sd">    :param params: input value is not used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="FrameEditorColorInversion.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorColorInversion.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inverse colors on image.</span>
+
+<span class="sd">        :param frame: input image</span>
+<span class="sd">        :return: image with inverted colors</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">255</span> <span class="o">-</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="FrameEditorSepia"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorSepia">[docs]</a><span class="k">class</span> <span class="nc">FrameEditorSepia</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Editor to create sepia image.</span>
+
+<span class="sd">    :param params: not used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mf">0.393</span><span class="p">,</span> <span class="mf">0.769</span><span class="p">,</span> <span class="mf">0.189</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="mf">0.349</span><span class="p">,</span> <span class="mf">0.686</span><span class="p">,</span> <span class="mf">0.168</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="mf">0.272</span><span class="p">,</span> <span class="mf">0.534</span><span class="p">,</span> <span class="mf">0.131</span><span class="p">]])</span>
+
+<div class="viewcode-block" id="FrameEditorSepia.frame_edit"><a class="viewcode-back" href="../../VideoFunPy.editor.html#VideoFunPy.editor.FrameEditorSepia.frame_edit">[docs]</a>    <span class="k">def</span> <span class="nf">frame_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies sepia filter to the image.</span>
+
+<span class="sd">        :param frame: image to be changed.</span>
+<span class="sd">        :return: image with sepia filter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sepia</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">sepia</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2BGR</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Jacek Skoczylas, Rafał Wójcik.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>VNodeMemo &mdash; VideoFun 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="VideoFun 1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="sem8.tirt" href="package-index.html"/>
+        <link rel="next" title="VideoFunDesigner" href="VideoFunDesigner.html"/>
+        <link rel="prev" title="VNodeFrame" href="VNodeFrame.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> VideoFun
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">VideoFunPy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../packages.html">Javadoc</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="package-index.html">sem8.tirt</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="AbstractVNodeConfigMemo.html">AbstractVNodeConfigMemo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CannotCreateConfigPanelException.html">CannotCreateConfigPanelException</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DiagramXmlRoot.html">DiagramXmlRoot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LinksDesktopPane.html">LinksDesktopPane</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MergeConfigDialog.html">MergeConfigDialog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="OpenSaveManager.html">OpenSaveManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="VNodeFrame.html">VNodeFrame</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">VNodeMemo</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#constructors">Constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="VideoFunDesigner.html">VideoFunDesigner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="VideoLink.html">VideoLink</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configsPanels/package-index.html">sem8.tirt.configsPanels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../videofundesigner/package-index.html">videofundesigner</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">VideoFun</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../packages.html">Javadoc</a> &raquo;</li>
+      
+          <li><a href="package-index.html">sem8.tirt</a> &raquo;</li>
+      
+    <li>VNodeMemo</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/sem8/tirt/VNodeMemo.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="vnodememo">
+<h1>VNodeMemo<a class="headerlink" href="#vnodememo" title="Permalink to this headline">¶</a></h1>
+<dl class="type">
+<dt id="sem8.tirt.VNodeMemo">
+public class <code class="descname">VNodeMemo</code> implements <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/io/Serializable.html" title="java.io.Serializable">Serializable</a><a class="headerlink" href="#sem8.tirt.VNodeMemo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores serializable data using by <code class="docutils literal"><span class="pre">VNodeFrame</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Jacek Skoczylas</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="constructors">
+<h2>Constructors<a class="headerlink" href="#constructors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>VNodeMemo<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="constructor">
+<dt id="sem8.tirt.VNodeMemo.VNodeMemo()">
+public <code class="descname">VNodeMemo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.VNodeMemo()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h3>VNodeMemo<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="constructor">
+<dt id="sem8.tirt.VNodeMemo.VNodeMemo(int, AbstractVNodeConfigMemo)">
+public <code class="descname">VNodeMemo</code><span class="sig-paren">(</span>int<em> vnodeNumber</em>, <a class="reference internal" href="AbstractVNodeConfigMemo.html#sem8.tirt.AbstractVNodeConfigMemo" title="sem8.tirt.AbstractVNodeConfigMemo">AbstractVNodeConfigMemo</a><em> configMemo</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.VNodeMemo(int, AbstractVNodeConfigMemo)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="copy">
+<h3>copy<a class="headerlink" href="#copy" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.copy()">
+public <a class="reference internal" href="#sem8.tirt.VNodeMemo" title="sem8.tirt.VNodeMemo">VNodeMemo</a> <code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.copy()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getconfigmemo">
+<h3>getConfigMemo<a class="headerlink" href="#getconfigmemo" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.getConfigMemo()">
+public <a class="reference internal" href="AbstractVNodeConfigMemo.html#sem8.tirt.AbstractVNodeConfigMemo" title="sem8.tirt.AbstractVNodeConfigMemo">AbstractVNodeConfigMemo</a> <code class="descname">getConfigMemo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.getConfigMemo()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getinputsnum">
+<h3>getInputsNum<a class="headerlink" href="#getinputsnum" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.getInputsNum()">
+public int <code class="descname">getInputsNum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.getInputsNum()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getlocation-ornull">
+<h3>getLocation_orNull<a class="headerlink" href="#getlocation-ornull" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.getLocation_orNull()">
+public <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html" title="java.awt.Point">Point</a> <code class="descname">getLocation_orNull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.getLocation_orNull()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getoutputsnum">
+<h3>getOutputsNum<a class="headerlink" href="#getoutputsnum" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.getOutputsNum()">
+public int <code class="descname">getOutputsNum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.getOutputsNum()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getsize-ornull">
+<h3>getSize_orNull<a class="headerlink" href="#getsize-ornull" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.getSize_orNull()">
+public <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html" title="java.awt.Dimension">Dimension</a> <code class="descname">getSize_orNull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.getSize_orNull()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getvnodenumber">
+<h3>getVnodeNumber<a class="headerlink" href="#getvnodenumber" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.getVnodeNumber()">
+public int <code class="descname">getVnodeNumber</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.getVnodeNumber()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setconfigmemo">
+<h3>setConfigMemo<a class="headerlink" href="#setconfigmemo" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.setConfigMemo(AbstractVNodeConfigMemo)">
+public void <code class="descname">setConfigMemo</code><span class="sig-paren">(</span><a class="reference internal" href="AbstractVNodeConfigMemo.html#sem8.tirt.AbstractVNodeConfigMemo" title="sem8.tirt.AbstractVNodeConfigMemo">AbstractVNodeConfigMemo</a><em> configMemo</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.setConfigMemo(AbstractVNodeConfigMemo)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setinputsnum">
+<h3>setInputsNum<a class="headerlink" href="#setinputsnum" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.setInputsNum(int)">
+public void <code class="descname">setInputsNum</code><span class="sig-paren">(</span>int<em> inputsNum</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.setInputsNum(int)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setlocation">
+<h3>setLocation<a class="headerlink" href="#setlocation" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.setLocation(Point)">
+ void <code class="descname">setLocation</code><span class="sig-paren">(</span><a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html" title="java.awt.Point">Point</a><em> location</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.setLocation(Point)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setoutputsnum">
+<h3>setOutputsNum<a class="headerlink" href="#setoutputsnum" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.setOutputsNum(int)">
+public void <code class="descname">setOutputsNum</code><span class="sig-paren">(</span>int<em> outputsNum</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.setOutputsNum(int)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setsize">
+<h3>setSize<a class="headerlink" href="#setsize" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.setSize(Dimension)">
+ void <code class="descname">setSize</code><span class="sig-paren">(</span><a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html" title="java.awt.Dimension">Dimension</a><em> size</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.setSize(Dimension)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setvnodenumber">
+<h3>setVnodeNumber<a class="headerlink" href="#setvnodenumber" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.VNodeMemo.setVnodeNumber(int)">
+public void <code class="descname">setVnodeNumber</code><span class="sig-paren">(</span>int<em> vnodeNumber</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.VNodeMemo.setVnodeNumber(int)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="VideoFunDesigner.html" class="btn btn-neutral float-right" title="VideoFunDesigner" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="VNodeFrame.html" class="btn btn-neutral" title="VNodeFrame" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Jacek Skoczylas, Rafał Wójcik.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

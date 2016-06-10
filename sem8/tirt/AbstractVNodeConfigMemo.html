@@ -1,0 +1,503 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AbstractVNodeConfigMemo &mdash; VideoFun 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="VideoFun 1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="sem8.tirt" href="package-index.html"/>
+        <link rel="next" title="CannotCreateConfigPanelException" href="CannotCreateConfigPanelException.html"/>
+        <link rel="prev" title="sem8.tirt" href="package-index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> VideoFun
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">VideoFunPy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../packages.html">Javadoc</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="package-index.html">sem8.tirt</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">AbstractVNodeConfigMemo</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fields">Fields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#constructors">Constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="CannotCreateConfigPanelException.html">CannotCreateConfigPanelException</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DiagramXmlRoot.html">DiagramXmlRoot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LinksDesktopPane.html">LinksDesktopPane</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MergeConfigDialog.html">MergeConfigDialog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="OpenSaveManager.html">OpenSaveManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="VNodeFrame.html">VNodeFrame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="VNodeMemo.html">VNodeMemo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="VideoFunDesigner.html">VideoFunDesigner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="VideoLink.html">VideoLink</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configsPanels/package-index.html">sem8.tirt.configsPanels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../videofundesigner/package-index.html">videofundesigner</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">VideoFun</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../packages.html">Javadoc</a> &raquo;</li>
+      
+          <li><a href="package-index.html">sem8.tirt</a> &raquo;</li>
+      
+    <li>AbstractVNodeConfigMemo</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/sem8/tirt/AbstractVNodeConfigMemo.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="abstractvnodeconfigmemo">
+<h1>AbstractVNodeConfigMemo<a class="headerlink" href="#abstractvnodeconfigmemo" title="Permalink to this headline">¶</a></h1>
+<dl class="type">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo">
+public class <code class="descname">AbstractVNodeConfigMemo</code> implements <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/io/Serializable.html" title="java.io.Serializable">Serializable</a><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores serializable data about type and parameters of video block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Jacek Skoczylas</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="fields">
+<h2>Fields<a class="headerlink" href="#fields" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="config-description-field-name">
+<h3>CONFIG_DESCRIPTION_FIELD_NAME<a class="headerlink" href="#config-description-field-name" title="Permalink to this headline">¶</a></h3>
+<dl class="field">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.CONFIG_DESCRIPTION_FIELD_NAME">
+public static final <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a> <code class="descname">CONFIG_DESCRIPTION_FIELD_NAME</code><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.CONFIG_DESCRIPTION_FIELD_NAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Static filed name in children classes with video block description showing in gui.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="config-name-field-name">
+<h3>CONFIG_NAME_FIELD_NAME<a class="headerlink" href="#config-name-field-name" title="Permalink to this headline">¶</a></h3>
+<dl class="field">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.CONFIG_NAME_FIELD_NAME">
+public static final <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a> <code class="descname">CONFIG_NAME_FIELD_NAME</code><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.CONFIG_NAME_FIELD_NAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Static filed name in children classes with video block name showing in gui.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cmdblockname">
+<h3>cmdBlockName<a class="headerlink" href="#cmdblockname" title="Permalink to this headline">¶</a></h3>
+<dl class="field">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.cmdBlockName">
+protected <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a> <code class="descname">cmdBlockName</code><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.cmdBlockName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+<div class="section" id="constructors">
+<h2>Constructors<a class="headerlink" href="#constructors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>AbstractVNodeConfigMemo<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="constructor">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.AbstractVNodeConfigMemo(Class, String)">
+public <code class="descname">AbstractVNodeConfigMemo</code><span class="sig-paren">(</span><a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html" title="java.lang.Class">Class</a><em> panelClass</em>, <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a><em> configName</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.AbstractVNodeConfigMemo(Class, String)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h3>AbstractVNodeConfigMemo<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="constructor">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.AbstractVNodeConfigMemo(Class, String, int, int)">
+public <code class="descname">AbstractVNodeConfigMemo</code><span class="sig-paren">(</span><a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html" title="java.lang.Class">Class</a><em> panelClass</em>, <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a><em> configName</em>, int<em> inputsNum</em>, int<em> outputsNum</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.AbstractVNodeConfigMemo(Class, String, int, int)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="copy">
+<h3>copy<a class="headerlink" href="#copy" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.copy()">
+public <a class="reference internal" href="#sem8.tirt.AbstractVNodeConfigMemo" title="sem8.tirt.AbstractVNodeConfigMemo">AbstractVNodeConfigMemo</a> <code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.copy()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="createjpanel">
+<h3>createJPanel<a class="headerlink" href="#createjpanel" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.createJPanel()">
+public <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html" title="javax.swing.JPanel">JPanel</a> <code class="descname">createJPanel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.createJPanel()" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates JPanel to configure parameters of this viode block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><ul class="first simple">
+<li><a class="reference internal" href="CannotCreateConfigPanelException.html#sem8.tirt.CannotCreateConfigPanelException" title="sem8.tirt.CannotCreateConfigPanelException"><strong>CannotCreateConfigPanelException</strong></a> &#8211; if you create some class in wrong way</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JPanel to configure parameters of this viode block</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="getconfigname">
+<h3>getConfigName<a class="headerlink" href="#getconfigname" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.getConfigName()">
+public <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a> <code class="descname">getConfigName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.getConfigName()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getinputsnum">
+<h3>getInputsNum<a class="headerlink" href="#getinputsnum" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.getInputsNum()">
+public int <code class="descname">getInputsNum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.getInputsNum()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getmergeparams">
+<h3>getMergeParams<a class="headerlink" href="#getmergeparams" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.getMergeParams()">
+public <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a> <code class="descname">getMergeParams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.getMergeParams()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getmergetype">
+<h3>getMergeType<a class="headerlink" href="#getmergetype" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.getMergeType()">
+public int <code class="descname">getMergeType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.getMergeType()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getnodetype">
+<h3>getNodeType<a class="headerlink" href="#getnodetype" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.getNodeType()">
+public <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a> <code class="descname">getNodeType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.getNodeType()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getoutputsnum">
+<h3>getOutputsNum<a class="headerlink" href="#getoutputsnum" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.getOutputsNum()">
+public int <code class="descname">getOutputsNum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.getOutputsNum()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getpanelclass">
+<h3>getPanelClass<a class="headerlink" href="#getpanelclass" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.getPanelClass()">
+public <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html" title="java.lang.Class">Class</a> <code class="descname">getPanelClass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.getPanelClass()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getparameters">
+<h3>getParameters<a class="headerlink" href="#getparameters" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.getParameters()">
+public <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a> <code class="descname">getParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.getParameters()" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getruncmd">
+<h3>getRunCmd<a class="headerlink" href="#getruncmd" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.getRunCmd(int[], int[], boolean)">
+public <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a> <code class="descname">getRunCmd</code><span class="sig-paren">(</span>int[]<em> ins</em>, int[]<em> outs</em>, boolean<em> asTcp</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.getRunCmd(int[], int[], boolean)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a cmd command which will run this video block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ins</strong> &#8211; array of tcp/udp ports inputs</li>
+<li><strong>outs</strong> &#8211; array of tcp/udp ports outputs</li>
+<li><strong>asTcp</strong> &#8211; is TCP mode? (if <code class="docutils literal"><span class="pre">false</span></code> then UDP mode)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">cmd line running this video block in console</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="getruncmdwithparams">
+<h3>getRunCmdWithParams<a class="headerlink" href="#getruncmdwithparams" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.getRunCmdWithParams(StringBuilder)">
+protected <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a> <code class="descname">getRunCmdWithParams</code><span class="sig-paren">(</span><a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/StringBuilder.html" title="java.lang.StringBuilder">StringBuilder</a><em> builder</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.getRunCmdWithParams(StringBuilder)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setconfigname">
+<h3>setConfigName<a class="headerlink" href="#setconfigname" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.setConfigName(String)">
+public void <code class="descname">setConfigName</code><span class="sig-paren">(</span><a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a><em> configName</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.setConfigName(String)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setinputsnum">
+<h3>setInputsNum<a class="headerlink" href="#setinputsnum" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.setInputsNum(int)">
+public void <code class="descname">setInputsNum</code><span class="sig-paren">(</span>int<em> inputsNum</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.setInputsNum(int)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setmergeparams">
+<h3>setMergeParams<a class="headerlink" href="#setmergeparams" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.setMergeParams(String)">
+public void <code class="descname">setMergeParams</code><span class="sig-paren">(</span><a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a><em> mergeParams</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.setMergeParams(String)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setmergetype">
+<h3>setMergeType<a class="headerlink" href="#setmergetype" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.setMergeType(int)">
+public void <code class="descname">setMergeType</code><span class="sig-paren">(</span>int<em> mergeType</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.setMergeType(int)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setnodetype">
+<h3>setNodeType<a class="headerlink" href="#setnodetype" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.setNodeType(String)">
+public void <code class="descname">setNodeType</code><span class="sig-paren">(</span><a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a><em> nodeType</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.setNodeType(String)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setoutputsnum">
+<h3>setOutputsNum<a class="headerlink" href="#setoutputsnum" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.setOutputsNum(int)">
+public void <code class="descname">setOutputsNum</code><span class="sig-paren">(</span>int<em> outputsNum</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.setOutputsNum(int)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setpanelclass">
+<h3>setPanelClass<a class="headerlink" href="#setpanelclass" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.setPanelClass(Class)">
+public void <code class="descname">setPanelClass</code><span class="sig-paren">(</span><a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html" title="java.lang.Class">Class</a><em> panelClass</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.setPanelClass(Class)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="setparameters">
+<h3>setParameters<a class="headerlink" href="#setparameters" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.setParameters(String)">
+public void <code class="descname">setParameters</code><span class="sig-paren">(</span><a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/String.html" title="java.lang.String">String</a><em> s</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.setParameters(String)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="writeframesdestination">
+<h3>writeFramesDestination<a class="headerlink" href="#writeframesdestination" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.writeFramesDestination(int[], StringBuilder, boolean)">
+protected void <code class="descname">writeFramesDestination</code><span class="sig-paren">(</span>int[]<em> outs</em>, <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/StringBuilder.html" title="java.lang.StringBuilder">StringBuilder</a><em> builder</em>, boolean<em> asTcp</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.writeFramesDestination(int[], StringBuilder, boolean)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="writeframessource">
+<h3>writeFramesSource<a class="headerlink" href="#writeframessource" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="sem8.tirt.AbstractVNodeConfigMemo.writeFramesSource(int[], StringBuilder, boolean)">
+protected void <code class="descname">writeFramesSource</code><span class="sig-paren">(</span>int[]<em> ins</em>, <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/lang/StringBuilder.html" title="java.lang.StringBuilder">StringBuilder</a><em> builder</em>, boolean<em> asTcp</em><span class="sig-paren">)</span><a class="headerlink" href="#sem8.tirt.AbstractVNodeConfigMemo.writeFramesSource(int[], StringBuilder, boolean)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="CannotCreateConfigPanelException.html" class="btn btn-neutral float-right" title="CannotCreateConfigPanelException" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="package-index.html" class="btn btn-neutral" title="sem8.tirt" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Jacek Skoczylas, Rafał Wójcik.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

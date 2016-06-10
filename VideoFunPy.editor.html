@@ -1,0 +1,773 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>VideoFunPy.editor module &mdash; VideoFun 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="VideoFun 1.0 documentation" href="index.html"/>
+        <link rel="up" title="VideoFunPy package" href="VideoFunPy.html"/>
+        <link rel="next" title="VideoFunPy.merge module" href="VideoFunPy.merge.html"/>
+        <link rel="prev" title="VideoFunPy.destination module" href="VideoFunPy.destination.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> VideoFun
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">VideoFunPy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="VideoFunPy.html">VideoFunPy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="VideoFunPy.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="VideoFunPy.block.html">VideoFunPy.block module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="VideoFunPy.core.html">VideoFunPy.core module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="VideoFunPy.destination.html">VideoFunPy.destination module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">VideoFunPy.editor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="VideoFunPy.merge.html">VideoFunPy.merge module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="VideoFunPy.source.html">VideoFunPy.source module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="VideoFunPy.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="packages.html">Javadoc</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">VideoFun</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="modules.html">VideoFunPy</a> &raquo;</li>
+      
+          <li><a href="VideoFunPy.html">VideoFunPy package</a> &raquo;</li>
+      
+    <li>VideoFunPy.editor module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/VideoFunPy.editor.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-VideoFunPy.editor">
+<span id="videofunpy-editor-module"></span><h1>VideoFunPy.editor module<a class="headerlink" href="#module-VideoFunPy.editor" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorCircles">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorCircles</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorCircles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorCircles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detects circles on image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; comma separated string which specifies detection parameters. See source for explanation.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorCircles.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorCircles.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorCircles.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detects and shows circles on frame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; frame in which frames will be detected.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">frame with circles marked.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorColorInversion">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorColorInversion</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorColorInversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorColorInversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Color inversion editor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; input value is not used.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorColorInversion.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorColorInversion.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorColorInversion.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse colors on image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; input image</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">image with inverted colors</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorColorReplacement">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorColorReplacement</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorColorReplacement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorColorReplacement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Editor for color replacement</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; comma separated string which specifies color replacement parameters.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorColorReplacement.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorColorReplacement.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorColorReplacement.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces color in image. Current implementation is rather slow.
+Recommended to rewrite using colormaps.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; input image.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">image with changed color.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorDerivative">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorDerivative</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorDerivative"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorDerivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detects edges in frame by derivative</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; ignored.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorDerivative.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorDerivative.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorDerivative.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detects edges on image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; Frame to be checked against edges.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Black and white image with edges marked.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorEllipse">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorEllipse</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorEllipse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorEllipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Editor which adds shape of the ellipse to the frame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; comma separated string which specifies relative ellipse center point.</td>
+</tr>
+</tbody>
+</table>
+<p>For example: &#8216;0.5,0.5&#8217; will place ellipse in the center.</p>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorEllipse.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorEllipse.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorEllipse.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add ellipse to frame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; frame to which ellipse will be added.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">frame with added ellipse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorEmpty">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorEmpty</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorEmpty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorEmpty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just simple, empty editor, frames pass through.
+Frame is unchanged.
+Good starting point to implement your custom editor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; There can be passed anything, because parameters are ignored</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorEmpty.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorEmpty.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorEmpty.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pass through frame editor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; Frame to be returned</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns input frame, unchanged</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorFramesCounter">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorFramesCounter</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorFramesCounter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorFramesCounter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple FPS counter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; ignored.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorFramesCounter.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorFramesCounter.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorFramesCounter.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes frames per second count to the image. Evaluated each second.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; image to be written on.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">frame with written fps info.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorGreyscale">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorGreyscale</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorGreyscale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorGreyscale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Editor which converts frame to greyscale image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; will be ignored.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorGreyscale.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorGreyscale.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorGreyscale.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert frame to greyscale image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; image to be converted.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">grayscaled image.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorMedianStack">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorMedianStack</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorMedianStack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorMedianStack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Median stacking algorithm. Taken from photoshop. Needs improvements.
+Indented to extract background from series of frames. Basically, takes median from pictures.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; specifies stack size. Example string &#8216;5&#8217; will create stack with size of 5 frames.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorMedianStack.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorMedianStack.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorMedianStack.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs background extraction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; frame used to extract background</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">stacking output frame. Median from series of images.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorMovementDetection">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorMovementDetection</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorMovementDetection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorMovementDetection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Editor for movement detection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; color (in base_10) of movement marking mask. See source for example codes.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorMovementDetection.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorMovementDetection.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorMovementDetection.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detects movement based on last three frames.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; frame which will have movement marked.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">frame ith movemend marked.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorResize">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorResize</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorResize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorResize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Editor which resizes image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; comma separated string which specifies scaling factor.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, &#8216;0.5,0.5&#8217; will shrink image to half size in both axes.</p>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorResize.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorResize.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorResize.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; Frame to be scaled.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Scaled image.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorSepia">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorSepia</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorSepia"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorSepia" title="Permalink to this definition">¶</a></dt>
+<dd><p>Editor to create sepia image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; not used.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorSepia.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorSepia.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorSepia.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies sepia filter to the image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; image to be changed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">image with sepia filter.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="VideoFunPy.editor.FrameEditorSmoothing">
+<em class="property">class </em><code class="descclassname">VideoFunPy.editor.</code><code class="descname">FrameEditorSmoothing</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorSmoothing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorSmoothing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smoothes frame either by gaussian blur or bilateral filter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> &#8211; comma separated string which specifies smoothing parameters.</td>
+</tr>
+</tbody>
+</table>
+<p>First two values specifies smoothing range and last one specifies method
+(0 - gaussian blur, 1 - bilateral filter).</p>
+<p>Example string &#8216;11,11,0&#8217; will use gaussian blur with range of 5 pixels). Ranges are ceil&#8217;d to odd number.</p>
+<dl class="method">
+<dt id="VideoFunPy.editor.FrameEditorSmoothing.frame_edit">
+<code class="descname">frame_edit</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#FrameEditorSmoothing.frame_edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.FrameEditorSmoothing.frame_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs smoothing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> &#8211; Frame to be smoothed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Smoothed frame by chosen parameters in initializer.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="VideoFunPy.editor.diff_img">
+<code class="descclassname">VideoFunPy.editor.</code><code class="descname">diff_img</code><span class="sig-paren">(</span><em>t0</em>, <em>t1</em>, <em>t2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#diff_img"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.diff_img" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract difference from images.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>t0</strong> &#8211; first image</li>
+<li><strong>t1</strong> &#8211; second image</li>
+<li><strong>t2</strong> &#8211; third image</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">difference (mask) from images.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="VideoFunPy.editor.isfloat">
+<code class="descclassname">VideoFunPy.editor.</code><code class="descname">isfloat</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#isfloat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.isfloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests whether value is floating point type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; variable to be tested.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if value is float, false otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="VideoFunPy.editor.nothing">
+<code class="descclassname">VideoFunPy.editor.</code><code class="descname">nothing</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#nothing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.nothing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Empty function which does nothing, but it&#8217;s needed by some cv2 functions or callbacks.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> &#8211; Boring parameter</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Doesn&#8217;t return.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="VideoFunPy.editor.num_to_bgr">
+<code class="descclassname">VideoFunPy.editor.</code><code class="descname">num_to_bgr</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#num_to_bgr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.num_to_bgr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts values in base_10 to BGR color, which is used in cv2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; color saved in base_10</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(b, g, r) tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="VideoFunPy.editor.num_to_h">
+<code class="descclassname">VideoFunPy.editor.</code><code class="descname">num_to_h</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#num_to_h"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.num_to_h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts values in base_10 to HSV color and extract hue value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; color saved in base_10</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">hue (color angle 0-180)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="VideoFunPy.editor.num_to_hsv">
+<code class="descclassname">VideoFunPy.editor.</code><code class="descname">num_to_hsv</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#num_to_hsv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.num_to_hsv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts values in base_10 to HSV color.
+cv2 uses ranges (0-180, 0-255, 0-255)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; color saved in base_10</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(h, s, v) tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="VideoFunPy.editor.num_to_rgb">
+<code class="descclassname">VideoFunPy.editor.</code><code class="descname">num_to_rgb</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#num_to_rgb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.num_to_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts values in base_10 to RGB color.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; color saved in base_10</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(r, g, b) tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="VideoFunPy.editor.reductor">
+<code class="descclassname">VideoFunPy.editor.</code><code class="descname">reductor</code><span class="sig-paren">(</span><em>diff</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#reductor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.reductor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns closure used by np.apply_along_axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>diff</strong> &#8211; difference in hue between two colors.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">closure (inner function) which can be applied to np.apply_along_axis</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="VideoFunPy.editor.upper_lower_bounds_hsv">
+<code class="descclassname">VideoFunPy.editor.</code><code class="descname">upper_lower_bounds_hsv</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoFunPy/editor.html#upper_lower_bounds_hsv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#VideoFunPy.editor.upper_lower_bounds_hsv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts values in base_10 to HSV color bounds.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; color saved in base_10</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">two colors, which are 96 degrees away from input value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="VideoFunPy.merge.html" class="btn btn-neutral float-right" title="VideoFunPy.merge module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="VideoFunPy.destination.html" class="btn btn-neutral" title="VideoFunPy.destination module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Jacek Skoczylas, Rafał Wójcik.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
