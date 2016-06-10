@@ -10,7 +10,8 @@ import java.lang.reflect.Constructor;
 import javax.swing.JPanel;
 
 /**
- *
+ * Stores serializable data about type and parameters of video block.
+ * 
  * @author jskoczyl
  */
 public class AbstractVNodeConfigMemo implements Serializable {

@@ -16,7 +16,8 @@ import java.awt.RenderingHints;
 import javax.swing.JDesktopPane;
 
 /**
- *
+ * This class paints links between blocks on screen.
+ * 
  * @author jskoczyl
  */
 public class LinksDesktopPane extends JDesktopPane {
@@ -50,6 +51,15 @@ public class LinksDesktopPane extends JDesktopPane {
         }
     }
 
+    /**
+     * Paints a single video link betwwen two given blocks: <code>src</code> and <code>dst</code>
+     * 
+     * @param g graphics contex to paint on
+     * @param src source video block
+     * @param dst destination video block
+     * @param srcNum number of source output
+     * @param dstNum number od destination input
+     */
     private void paintLink(Graphics g, VNodeFrame src, VNodeFrame dst, int srcNum, int dstNum) {
         Point p1 = src.getOutputLocationOnScreen_orNull(srcNum);
         Point p2 = dst.getInputLocationOnScreen_orNull(dstNum);

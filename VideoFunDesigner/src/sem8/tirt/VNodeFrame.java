@@ -33,7 +33,8 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 /**
- *
+ * It's JInternalFrame representing single video block in gui.
+ * 
  * @author jskoczyl
  */
 public class VNodeFrame extends javax.swing.JInternalFrame implements MouseListener {

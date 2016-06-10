@@ -23,7 +23,8 @@ import sem8.tirt.configsPanels.*;
 import sem8.tirt.configsPanels.InvertColorsConfigMemo;
 
 /**
- *
+ * Main class to run. It's graphic user interface window.
+ * 
  * @author jskoczyl
  */
 public class VideoFunDesigner extends javax.swing.JFrame {
@@ -66,6 +67,9 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         newDiagram();
     }
 
+    /**
+     * Removes current diagram and creates new diagram.
+     */
     private void newDiagram() {
         jDesktopPane1.removeAll();
         vNodeFrames.clear();
@@ -76,6 +80,9 @@ public class VideoFunDesigner extends javax.swing.JFrame {
         repaint();
     }
 
+    /**
+     * Add buttons to <code>jPanelButtons</code>.
+     */
     private void addButtons() {
         for (Class<? extends AbstractVNodeConfigMemo> c : VNODES_CONFIGS) {
             jPanelButtons.add(new ConfigButton(c));

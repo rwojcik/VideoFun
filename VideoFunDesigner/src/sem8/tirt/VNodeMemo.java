@@ -10,7 +10,8 @@ import java.awt.Point;
 import java.io.Serializable;
 
 /**
- *
+ * Stores serializable data using by <code>VNodeFrame</code>.
+ * 
  * @author jskoczyl
  */
 public class VNodeMemo implements Serializable {
