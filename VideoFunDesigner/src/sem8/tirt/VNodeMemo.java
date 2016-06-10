@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * Stores serializable data using by <code>VNodeFrame</code>.
  * 
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public class VNodeMemo implements Serializable {
     

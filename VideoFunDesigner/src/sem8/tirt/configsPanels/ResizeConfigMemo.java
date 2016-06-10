@@ -10,7 +10,7 @@ import sem8.tirt.AbstractVNodeConfigMemo;
 
 /**
  *
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public class ResizeConfigMemo extends AbstractVNodeConfigMemo  {
     

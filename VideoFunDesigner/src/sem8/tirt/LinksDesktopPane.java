@@ -18,7 +18,7 @@ import javax.swing.JDesktopPane;
 /**
  * This class paints links between blocks on screen.
  * 
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public class LinksDesktopPane extends JDesktopPane {
     

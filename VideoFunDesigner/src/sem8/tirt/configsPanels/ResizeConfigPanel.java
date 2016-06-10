@@ -7,7 +7,7 @@ package sem8.tirt.configsPanels;
 
 /**
  *
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public class ResizeConfigPanel extends javax.swing.JPanel {
 

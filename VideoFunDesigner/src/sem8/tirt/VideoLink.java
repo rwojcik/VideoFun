@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public class VideoLink implements Serializable {
     

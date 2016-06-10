@@ -7,7 +7,7 @@ package videofundesigner;
 
 /**
  *
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public class VideoFunDesigner {
 

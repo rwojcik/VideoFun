@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 @XmlRootElement
     class DiagramXmlRoot {

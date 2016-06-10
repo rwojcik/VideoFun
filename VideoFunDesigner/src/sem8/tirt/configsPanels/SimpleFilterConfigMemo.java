@@ -9,7 +9,7 @@ import sem8.tirt.AbstractVNodeConfigMemo;
 
 /**
  *
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public abstract class SimpleFilterConfigMemo extends AbstractVNodeConfigMemo {
     

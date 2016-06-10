@@ -26,7 +26,7 @@ import sem8.tirt.configsPanels.InvertColorsConfigMemo;
 /**
  * Main class to run. It's graphic user interface window.
  * 
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public class VideoFunDesigner extends javax.swing.JFrame {
 

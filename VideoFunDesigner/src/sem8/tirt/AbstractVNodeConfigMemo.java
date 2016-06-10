@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 /**
  * Stores serializable data about type and parameters of video block.
  * 
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public class AbstractVNodeConfigMemo implements Serializable {
 

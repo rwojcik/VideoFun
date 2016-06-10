@@ -7,7 +7,7 @@ package sem8.tirt;
 
 /**
  *
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public class CannotCreateConfigPanelException extends Exception {
 

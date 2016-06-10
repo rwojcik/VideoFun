@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Class implementing open/save with gui dialogs about it.
  * 
- * @author jskoczyl
+ * @author Jacek Skoczylas
  */
 public class OpenSaveManager {
 
