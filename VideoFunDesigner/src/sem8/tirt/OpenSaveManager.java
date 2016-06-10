@@ -143,6 +143,7 @@ public class OpenSaveManager {
         if (dir_orNull != null) {
             chooser.setCurrentDirectory(dir_orNull);
         }
+        chooser.setSelectedFile(new File(""));
         int answer = chooser.showDialog(parentComponent, aproveButtonText);
         if (answer == JFileChooser.APPROVE_OPTION) {
             return chooser.getSelectedFile();
