@@ -3,7 +3,7 @@ from itertools import takewhile
 
 import struct
 
-from video_streaming_core import *
+from core import *
 import sys
 
 

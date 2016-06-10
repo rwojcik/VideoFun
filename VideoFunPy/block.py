@@ -1,9 +1,9 @@
 import sys
-from video_streaming_core import *
-from frame_merge import *
-from frame_editor import *
-from frame_source import *
-from frame_destination import *
+from core import *
+from merge import *
+from editor import *
+from source import *
+from destination import *
 
 
 

@@ -1,6 +1,6 @@
 # coding=utf-8
 import numpy as np, cv2
-from frame_editor import FrameEditorResize
+from editor import FrameEditorResize
 
 
 class FrameMergerFirst:

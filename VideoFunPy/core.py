@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
 import socket
-from frame_editor import *
-from frame_merge import *
+from editor import *
+from merge import *
 import sys
 
 DATAGRAM_MAX_SIZE = 65507
 
 key = ''
+
 
 class SocketInfo:
 

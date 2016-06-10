@@ -7,7 +7,9 @@ import time
 
 class FrameEditorEmpty:
     """
-    Just simple, empty editor, frames pass through. Frame is unchanged. Good starting point to implement your custom editor.
+    Just simple, empty editor, frames pass through.
+    Frame is unchanged.
+    Good starting point to implement your custom editor.
     """
 
     # params nie są używane
@@ -97,8 +99,9 @@ class FrameEditorResize:
 
     def __init__(self, params):
         """
-        Place to specify relative image scaling.
-        :param params: comma separated string which specifies scaling factor. Example string : '0.5,0.5' will shrink image to half size in both axes.
+        Editor initializer.
+        :param params: comma separated string which specifies scaling factor.
+        Example string : '0.5,0.5' will shrink image to half size in both axes.
         """
         paramsSplit = params.split(',')
         if len(paramsSplit) > 1 and all(isfloat(x) for x in paramsSplit):
@@ -117,14 +120,13 @@ class FrameEditorResize:
 
 
 class FrameEditorSmoothing:
-    # params[0] i params [1] - zasięg rozmycia gaussowskiego
     """
     Smoothes frame either by gaussian blur or bilateral filter.
     """
 
     def __init__(self, params):
         """
-        Place to specify smoothing values.
+        Editor initializer.
         :param params: comma separated string which specifies smoothing parameters.
         First two values specifies smoothing range and last one specifies method
         (0 - gaussian blur, 1 - bilateral filter). Example string '11,11,0' will use gaussian blur with range of 5
@@ -154,7 +156,6 @@ class FrameEditorSmoothing:
 
 
 class FrameEditorDerivative:
-    # params nie są używane
     """
     Detects edges in frame by derivative
     """
@@ -176,12 +177,6 @@ class FrameEditorDerivative:
 
 
 class FrameEditorCircles:
-    # params[0] - dp
-    # params[1] - minDist
-    # params[2] - higher threshold
-    # params[3] - accumulator threshold
-    # params[4] - minRadius
-    # params[5] - maxRadius
     """
     Detects circles on image.
     """
