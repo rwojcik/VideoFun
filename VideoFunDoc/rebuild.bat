@@ -1,4 +1,4 @@
 sphinx-apidoc.exe -f -o source\ ..\VideoFunPy\
 javasphinx-apidoc -f -o source\ ..\VideoFunDesigner\
-make clean
+REM make.bat clean
 make.bat html
