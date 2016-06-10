@@ -21,7 +21,7 @@ public class CameraSrcConfigMemo extends AbstractVNodeConfigMemo  {
     }
 
     @Override
-    protected void writeFramesSource(int[] ins, StringBuilder builder) {
+    protected void writeFramesSource(int[] ins, StringBuilder builder, boolean asTcp) {
         builder.append(" -framesource CameraFrameGenerator ");
     }
     

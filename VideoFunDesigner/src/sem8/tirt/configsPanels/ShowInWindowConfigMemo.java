@@ -21,7 +21,7 @@ public class ShowInWindowConfigMemo extends AbstractVNodeConfigMemo  {
     }
 
     @Override
-    protected void writeFramesDestination(int[] outs, StringBuilder builder) {
+    protected void writeFramesDestination(int[] outs, StringBuilder builder, boolean asTcp) {
         // do nothing
     }
     
