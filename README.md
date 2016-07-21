@@ -27,4 +27,4 @@ It's good to keep folder **_VideoFunPy_** in same location as designer _jar_ fil
 You may also export diagram to _XML_ file if you want.
 
 ## Documentation
-<https://rwojcik.github.io/videoFun/>
+<https://rwojcik.github.io/VideoFun/>
